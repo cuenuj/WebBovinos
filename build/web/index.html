@@ -1,0 +1,102 @@
+<!DOCTYPE html5>
+<html lang="en">
+  <head>
+    <title>Gestion de Bovinos</title>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="css/bootstrap.min.css" rel="stylesheet">
+        <link href="css/stylos1.css" rel="stylesheet">
+        
+    </head>
+        <body>
+        <div class="container" style="padding-top: 1em;">
+              <nav class="navbar navbar-default" role="navigation">
+                <!-- El logotipo y el icono que despliega el menú se agrupan
+                     para mostrarlos mejor en los dispositivos móviles -->
+                <div class="navbar-header">
+                  <button type="button" class="navbar-toggle" data-toggle="collapse"
+                    data-target=".navbar-ex1-collapse">
+                        <span class="sr-only">Desplegar navegación</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                  </button>
+                  <a class="navbar-brand" >SIAGC</a>
+                  
+                </div>
+
+                <!-- Agrupar los enlaces de navegación, los formularios y cualquier
+                     otro elemento que se pueda ocultar al minimizar la barra -->
+                <div class="collapse navbar-collapse navbar-ex1-collapse">
+                  <ul class="nav navbar-nav">
+                    <li><a href="index.html">Inicio</a></li>
+                    <li><a href="descarga.jsp">Descargas</a></li>
+                    <li><a href="informacion.jsp">Información</a></li>
+                    
+                  </ul>
+
+                  <ul class="nav navbar-nav navbar-right">
+                    <li class="dropdown">
+                      <a href="login.jsp" >Iniciar sesión </a>
+                    </li>
+                    <li class="dropdown">
+                      <a href="#" class="dropdown-toggle" data-toggle="dropdown">Registro usuario <b class="caret"></b></a>
+                      <ul class="dropdown-menu">
+                          <li><a href="registroFuncionario.jsp">Funcionario secretaria fomento y desarrollo</a></li>
+                        <li class="divider"></li>
+                        <li><a href="registroUsuarios.jsp">Propietario Finca, Hato</a></li>
+                      </ul>
+                    </li>
+                  </ul>
+                </div>
+              </nav>
+            </div>
+            <div class=" text-center control-label">
+                <h1><a  class=" h1 ">SIAGC</a></h1>                
+                <h3><a class="text-center h4" >Sistema de información para la administración Ganeadera de Cómbita </a></h3>
+                
+                <h2><a class="text-primary">  Bienvenidos!!</a></h2>
+            </div>
+            <a class="divider"></a>
+            <a class="divider"></a>
+            <form class=" container form-signin-heading">
+                <div class="navbar-left">
+                  <pre class="bg-warning text-left h4 ">
+                    Este es un sistema para la gestión y administración Bovina dispuesto para 
+                    el municipio de Cómbita en Boyacá, el sistema permite el registro a funcionarios 
+                    del sistema los cuales pueden tener acceso a la mayor parte de la información 
+                    permitiendo la gestión y acción de actividades en pro de la producción Bovina en 
+                    la región, tambien permite el acceso a usuarios que tengan bovinos o dueños de 
+                    fincas y hatos con dichos animales los cuales ingresarán los datos de los 
+                    semovientes, teniendo asi valances de información disponibles para la toma de 
+                    desiciones en sus terrenos.
+                  </pre>
+                  <pre class="bg-warning text-left h4 ">
+                    A continuacion encontrará un panel con tres botones en donde:
+
+                        1.  iniciar sesión: le permite acceder las opciones principales bajo una 
+                                            cuenta de usuario que usted ha creado.
+                        2.  registrarme:  le permite crear una cuenta de usuario, si aun no la tiene.
+                                          dicha cuenta puede ser como funcionario del sistema o como 
+                                          dueño de finca o hato.
+                        3.  Descargar APK Movíl:  le permite descargar la aplicacion movíl la cual 
+                                                  le permite registrar las cabezas de ganado con las 
+                                                  que cuenta y asi mismo ingresar los datos de 
+                                                  actividades relacionadas a estos semovientes.
+
+                    si desea conocer mas acerca del manejo de este sistema  puede dirigirse al link <a class="text-center" href="informacion.jsp">Información</a>
+                  </pre>
+                    
+                </div>
+                <div class="form-signin-heading navbar-right">
+                    <a class="btn btn-lg btn-primary btn-block" href="login.jsp">Iniciar sesión</a>
+                    <a class="btn btn-lg btn-primary btn-block" href="registroUsuarios.jsp">Registrar Ganadero</a>
+                    <a class="btn btn-lg btn-primary btn-block" href="descarga.jsp">descargar APK movil</a>
+                </div>
+            </form>
+        <script src="js/jquery.min.js"></script>
+        <script src="js/bootstrap.min.js"></script>
+    </body>     
+    
+</html>
