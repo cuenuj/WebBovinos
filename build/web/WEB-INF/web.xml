@@ -28,6 +28,14 @@
         <servlet-name>ProduccionLeche</servlet-name>
         <servlet-class>servlet.ProduccionLeche</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>RegistroInseminacion</servlet-name>
+        <servlet-class>servlet.RegistroInseminacion</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>RegistroHistoria</servlet-name>
+        <servlet-class>servlet.RegistroHistoria</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>inicioSesion</servlet-name>
         <url-pattern>/iniciar</url-pattern>
@@ -55,6 +63,14 @@
     <servlet-mapping>
         <servlet-name>ProduccionLeche</servlet-name>
         <url-pattern>/ReporteLeche</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>RegistroInseminacion</servlet-name>
+        <url-pattern>/creaInseminacion</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>RegistroHistoria</servlet-name>
+        <url-pattern>/creaHistoria</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

@@ -8,6 +8,7 @@ package servlet;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -44,8 +45,10 @@ public class RegistroVeterinario extends HttpServlet {
         
         Consultas co= new Consultas();
         if (co.RegistroVeterinario(contrasena_funci, cedula_veterinario, nombre_veterinario, apellidos_veterinario, titulo_profesional, correo_veterinario, telefono)) {
-            response.sendRedirect("panelFuncionario.jsp");
-            System.out.println("servlet registro veterinario Exitoso.");
+            response.addCookie(new Cookie("mensaje", co.getRespuesta()));
+                    out.println("<center><br/><br/><br/><h2 >"+co.getRespuesta()+"</h2><br/><br/>"
+                            + "<button onclick=\"self.location.href = 'panelUsuario.jsp'\">Regrezar a Mi Finca</button></center>");
+                    
         }else{
             System.err.println("error en el servlet");
         }

@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -54,19 +55,25 @@ public class registrarAnimal extends HttpServlet {
                     animal.setRaza_animal(request.getParameter("raza_animal"));
                     animal.setGenero_animal(request.getParameter("genero_animal"));
                     animal.setMetodo_concepcion(request.getParameter("metodo_concepcion"));
+                    animal.setEtapa_vida(request.getParameter("etapa_animal"));
+                    animal.setNombrePadre(request.getParameter("nombre_padre"));
+                    animal.setNombreMadre(request.getParameter("nombre_madre"));
                     animal.setFoto_animal(request.getParameter("files[]"));
                     animal.setObservaciones(request.getParameter("observaciones"));
                     animal.setId_finca(request.getParameter("id_finca"));
                     
                     respuesta=dao.insertarAnimal(animal);
                     request.setAttribute("respuesta", respuesta);
+                    response.addCookie(new Cookie("mensaje", respuesta));
+                        out.println("<center><br/><br/><br/><h2 >"+respuesta+"</h2><br/><br/>"
+                            + "<button onclick=\"self.location.href = 'panelUsuario.jsp'\">Regrezar a Mi Finca</button></center>");
+                    
                     
                 }else if(request.getParameter("btn_buscarAnimal")!= null){
                     criterio = request.getParameter("codigo_finca");
                     datosA = (List<Animal>) co.filtrarAnimal(criterio);
                     request.setAttribute("filtroA", datosA);
                 }
-                rd = request.getRequestDispatcher("panelFuncionario.jsp");
             }catch (Exception e){
                 e.printStackTrace();
             }

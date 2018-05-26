@@ -3,10 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/cuenu/Documents/NetBeansProjects/WebBovinos/src/java/servlet/registrarAnimal.java</file>
             <file>file:/C:/Users/cuenu/Documents/NetBeansProjects/WebBovinos/src/java/servlet/ProduccionLeche.java</file>
-            <file>file:/C:/Users/cuenu/Documents/NetBeansProjects/WebBovinos/src/java/persistencia/Consultas.java</file>
-            <file>file:/C:/Users/cuenu/Documents/NetBeansProjects/WebBovinos/src/java/servlet/ReporteFinca.java</file>
+            <file>file:/C:/Users/cuenu/Documents/NetBeansProjects/WebBovinos/src/java/servlet/RegistroInseminacion.java</file>
+            <file>file:/C:/Users/cuenu/Documents/NetBeansProjects/WebBovinos/src/java/persistencia/Operaciones.java</file>
+            <file>file:/C:/Users/cuenu/Documents/NetBeansProjects/WebBovinos/web/panelUsuario.jsp</file>
             <file>file:/C:/Users/cuenu/Documents/NetBeansProjects/WebBovinos/src/java/persistencia/ConsultasDAO.java</file>
         </group>
     </open-files>

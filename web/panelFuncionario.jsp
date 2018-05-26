@@ -86,18 +86,18 @@
             <li><a href="#tab-animal" data-toggle="tab"> Semovientes <i class="fa"></i></a></li>
             <li><a href="#tab-leche" data-toggle="tab">Produccion de Leche <i class="fa"></i></a></li>
             <li><a href="#tab-insemina" data-toggle="tab"> Inseminaciones <i class="fa"></i></a></li>
-            <li><a href="#tab-enfermedad" data-toggle="tab">Reporte Enfermedades<i class="fa"></i></a></li>
+            <li><a href="#tab-enfermedades" data-toggle="tab">Reporte Enfermedades<i class="fa"></i></a></li>
             <li><a href="#tab-ubica" data-toggle="tab">Ubicación<i class="fa"></i></a></li>
         </ul>
 
         
         <div></div>
         <div class="form-horizontal">
-            <div class="tab-content col-xs-5 col-xs-offset-3">
+            <div class="tab-content col-xs-5 col-xs-offset-3"><br/><br/>
                 <div class="tab-pane active " id="tab-finca">
                     <form action="ConsultaFinca" method="get" >
                     <div class="card">
-                            <div class="card-header alert-success text-center ">REGISTRAR NUEVA FINCA</div>
+                            <div class="card-header alert-success text-center ">REGISTRAR NUEVA FINCA</div><br/>
                             <div class="card-body">
                                 <div class="form-group">
                                     <label class="control-label col-sm-5" for="id_finca">Código único de Finca:</label>
@@ -148,7 +148,7 @@
                     </form>
                     <br/>
                     <div class="card">
-                        <div class="card-header alert-success text-center ">FINCAS DE COMBITA </div>
+                        <div class="card-header alert-success text-center ">FINCAS DE COMBITA </div><br/>
                             <table class="table table-striped" border="2">
                                 <tr>
                                     <td>Código de Finca</td>
@@ -186,7 +186,7 @@
                  <div class="tab-pane" id="tab-veterinario">
                     <form role="form" method="post" action="regVeterinario">
                         <div class="card">
-                            <div class="card-header alert-success text-center ">DATOS DEL MEDICO VETERINARIO</div>
+                            <div class="card-header alert-success text-center ">DATOS DEL MEDICO VETERINARIO</div><br/>
                             <div class="card-body">
                                 
                                     <div class="form-group">
@@ -233,7 +233,7 @@
                                             </div>
                                         </div>
                                         <div class="card">
-                                            <div class="card-header alert-success text-center ">DATOS DEL FUNCIONARIO</div>
+                                            <div class="card-header alert-success text-center ">DATOS DEL FUNCIONARIO</div><br/>
                                                 <div class="card-body">
                                                     <div class="form-group">
                                                             <label class="control-label col-sm-5" for="telefono">Contraseña del Funcionario:</label>
@@ -257,110 +257,8 @@
                 </div>   
                 
                 <div class="tab-pane" id="tab-animal">
-                    <form role="form" method="post" action="creaAnimal">
-                        <div class="card">
-                            <div class="card-header alert-success text-center ">DATOS DEL SEMOVIENTE</div>
-                            <div class="card-body">
-                                
-                                    <div class="form-group">
-                                        <label class="control-label col-sm-5" for="id_animal">código del animal:</label>
-                                        <div class="col-sm-7">
-                                            <input type="text" class="form-control" id="id_animal" placeholder="Código del animal" name="id_animal">
-                                        </div>
-                                      </div>
-                                      <div class="form-group">
-                                        <label class="control-label col-sm-5" for="nombre_animal">Nombre del animal:</label>
-                                        <div class="col-sm-7"> 
-                                            <input type="text" class="form-control" id="nombre_animal" placeholder="nombre del Animal" name="nombre_animal">
-                                        </div>
-                                      </div>
-                                      <div class="form-group">
-                                        <label class="control-label col-sm-5" for="fecha_nacimiento">Fecha De Nacimiento:</label>
-                                        <div class="col-sm-7"> 
-                                            <input type="text" class="form-control" id="fecha_nacimiento" placeholder="Fecha de nacimiento" name="fecha_nacimiento">
-                                        </div>
-                                      </div>
-                                        <div class="form-group">
-                                            <label class="control-label col-sm-5" for="raza_animal">Raza del Animal:</label>
-                                            <div class="col-sm-7">
-                                                <select class="form-control col-sm-7" id="sel1" name="raza_animal">
-                                              <option selected value="0"> Elija una opción </option>
-                                              <option>Normando</option>
-                                                        <option>Pasiega</option>
-                                                        <option>Simmental</option>
-                                                        <option>Jersey</option>
-                                                        <option>Tudanca</option>
-                                                        <option>Holstein</option>
-                                                        <option>Búfala</option>
-                                                        <option>Cebú</option>
-                                                        <option>Bon</option>
-                                                        <option>Lucerna</option>
-                                                        <option>Harton</option>
-                                              </select>
-                                            </div>
-                                            
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="control-label col-sm-5" for="genero_animal">Genero del Animal:</label>
-                                            <div class="col-sm-7">
-                                                <select class="form-control col-sm-7" id="sel1" name="genero_animal">
-                                              <option selected value="0"> Elija una opción </option>
-                                              <option>Normando</option>
-                                                        <option>Macho</option>
-                                                        <option>Hembra</option>
-                                                        
-                                              </select>
-                                            </div>
-                                            
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="control-label col-sm-5" for="metodo_concepcion">Metodo de concepción:</label>
-                                            <div class="col-sm-7">
-                                                <select class="form-control col-sm-7" id="sel1" name="metodo_concepcion">
-                                              <option selected value="0"> Elija una opción </option>
-                                              <option>Normando</option>
-                                                        <option>Natural</option>
-                                                        <option>Inseminación</option>
-                                                        
-                                              </select>
-                                            </div>
-                                            
-                                        </div>
-                                        <div class="form-group">
-                                        <label class="control-label col-sm-5" for="foto_animal">Foto del Animal:</label>
-                                        <div class="col-sm-7"> 
-                                            <input type="file" id="files" name="files[]" />
-                                        </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="control-label col-sm-5" for="observaciones">Observaciones:</label>
-                                            <div class="col-sm-7">
-                                                <input type="text" class="form-control" id="observaciones" placeholder="Observaciones" name="observaciones">
-                                            </div>
-                                        </div>
-                                        <div class="card">
-                                            <div class="card-header alert-success text-center ">DATOS DE LA FINCA DONDE HABITA</div>
-                                                <div class="card-body">
-                                                    <div class="form-group">
-                                                            <label class="control-label col-sm-5" for="id_finca">codigo de la finca donde habita el animal:</label>
-                                                            <div class="col-sm-7">
-                                                                <input type="text" id="id_finca" class="form-control" placeholder="Codigo de la finca" required name="id_finca">
-                                                            </div>
-                                                        </div>
-                                                </div>
-
-                                        </div>
-                                      <div class="form-group"> 
-                                        <div class="col-sm-offset-4 col-sm-10">
-                                          <button type="submit" class="btn btn-default btn-primary" name="btn_registroAnimal">Registrar Animal</button>
-                                        </div>
-                                      </div>
-                                        
-                            </div>
-                        </div>
-                            
-                    </form>
-                    <div class="card-header alert-success text-center ">BUSQUEDA DE ANIMALES POR FINCA</div>
+                    
+                    <div class="card-header alert-success text-center ">BUSQUEDA DE ANIMALES POR FINCA</div><br/>
                     <div class="card-body">
                         <form action="ConsultaFinca" method="get" >
                             <span class=" input-group-addon">Código Finca
@@ -401,6 +299,14 @@
                         <input type="text" class="form-control" placeholder="Nombre finca">
                         
                     </div>
+                </div>
+                <div class="tab-pane" id="tab-enfermedades">
+                    <div class="input-group">
+                        <span class="input-group-addon">*Enfermedad:</span>
+                        <input type="text" class="form-control" placeholder="Enfermedad">
+                    </div>
+
+                    
                 </div>
                 <div class="tab-pane" id="tab-ubica">
                     <div class="input-group">

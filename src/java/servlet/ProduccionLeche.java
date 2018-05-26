@@ -7,10 +7,17 @@ package servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import persistencia.Consultas;
+import persistencia.ConsultasDAO;
+import persistencia.Leche;
 
 
 /**
@@ -32,16 +39,29 @@ public class ProduccionLeche extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet ProduccionLeche</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet ProduccionLeche at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+           ConsultasDAO dao = new ConsultasDAO();
+            Consultas co=new Consultas();
+            Leche leche = new Leche();
+            List<Leche> listLeche = new ArrayList<>();
+            String respuesta ="";
+            RequestDispatcher rd=null;
+            
+            try {
+                if (request.getParameter("btn_regLeche")!= null) {
+                    leche.setFecha_leche(request.getParameter("fecha_leche"));
+                    leche.setLitros_leche(request.getParameter("litros_leche"));
+                    leche.setId_animal(request.getParameter("id_animal"));
+                    
+                    respuesta = dao.insertarLeche(leche);
+                    request.setAttribute("respuesta", respuesta);
+                    
+                    response.sendRedirect("panelUsuario.jsp");
+                }
+            }catch(Exception e){
+                e.printStackTrace();
+            }
+        }catch(Exception e){
+            e.printStackTrace();
         }
     }
 

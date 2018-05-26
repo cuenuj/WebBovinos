@@ -150,9 +150,9 @@ public class ConsultasDAO implements Operaciones{
         Animal a= (Animal)obj;
         Connection conn;
         PreparedStatement pst;
-        String sql="INSERT INTO animal VALUES(?,?,?,?,?,?,?,?,?)";
+        String sql="INSERT INTO animal VALUES(?,?,?,?,?,?,?,?,?,?,?,?)";
         String respuesta="";
-        System.out.println("persistencia.ConsultasDAO.insertarAnimal()");
+        System.out.println("persistencia......ConsultasDAO.......insertarAnimal()");
         try {
             Class.forName(db.getDriver());
             conn = DriverManager.getConnection(
@@ -167,14 +167,18 @@ public class ConsultasDAO implements Operaciones{
             pst.setString(4, a.getRaza_animal());
             pst.setString(5, a.getGenero_animal());
             pst.setString(6, a.getMetodo_concepcion());
-            pst.setString(7, a.getFoto_animal());
-            pst.setString(8, a.getObservaciones());
-            pst.setString(9, a.getId_finca());
+            pst.setString(7, a.getEtapa_vida());
+            pst.setString(8, a.getNombrePadre());
+            pst.setString(9, a.getNombreMadre());
+            pst.setString(10, a.getFoto_animal());
+            pst.setString(11, a.getObservaciones());
+            pst.setString(12, a.getId_finca());
             int filas = pst.executeUpdate();
-            respuesta= "se registro "+filas+" nuevos elementos";
+            respuesta= "se registro "+filas+" nuevo  Animal.";
             conn.close();
         } catch (Exception e) {
             System.out.println("error al insertar Animal..");
+            respuesta= "Error!!  No se realizo registro. Verifique los datos e intente nuevamente.";
         }
         
         return respuesta;
@@ -199,5 +203,107 @@ public class ConsultasDAO implements Operaciones{
     public List<?> filtrarAnimal(String campo) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
+    @Override
+    public String insertarInseminacion(Object obj) {
+        Inseminacion in = (Inseminacion)obj;
+        Connection conn;
+        PreparedStatement pst;
+        String sql="INSERT INTO inseminacion VALUES(?,?,?,?,?,?,?)";
+        String respuesta="";
+        System.out.println("persistencia......ConsultasDAO.......insertarInseminacion()");
+        try {
+            Class.forName(db.getDriver());
+            conn = DriverManager.getConnection(
+                    db.getUrl(),
+                    db.getUs(),
+                    db.getPass());
+            pst = conn.prepareStatement(sql);
+            
+            pst.setString(1, in.getId_inseminacion());
+            pst.setString(2, in.getFecha_inseminacion());
+            pst.setString(3, in.getRaza_pajilla());
+            pst.setString(4, in.getSexada());
+            pst.setString(5, in.getId_veterinario());
+            pst.setString(6, in.getId_animal());
+            pst.setString(7, in.getInseminacion_exitosa());
+            int filas = pst.executeUpdate();
+            respuesta = "se registro "+filas+" nuevo elemento de Inseminacion";
+            System.out.println("registro exitoso ... respuesta:"+ respuesta);
+            conn.close();
+        } catch (Exception e) {
+            System.out.println("error al insertar Inseminacion..");
+            respuesta = "error en el registro!! verifique los datos e intente nuevamente";
+        }
+        
+        return respuesta;
+    
+    }
+    
+
+    @Override
+    public String modificarInseminacion(Object obj) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public String eliminarInseminacion(Object obj) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public List<?> ConsultarInseminacion() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public List<?> filtrarInseminacion(String campo) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public String insertarLeche(Object obj) {
+    
+        Leche leche = (Leche)obj;
+        Connection conn;
+        PreparedStatement pst;
+        String sql="INSERT INTO leche VALUES(?,?,?)";
+        String respuesta="";
+        System.out.println("persistencia......ConsultasDAO.......insertarLeche()");
+        try {
+            Class.forName(db.getDriver());
+            conn = DriverManager.getConnection(
+                    db.getUrl(),
+                    db.getUs(),
+                    db.getPass());
+            pst = conn.prepareStatement(sql);
+            
+            pst.setString(1, leche.getFecha_leche());
+            pst.setString(2, leche.getLitros_leche());
+            pst.setString(3, leche.getId_animal());
+           
+            int filas = pst.executeUpdate();
+            respuesta = "se registro "+filas+" nuevo día de Producción de Leche";
+            System.out.println("registro exitoso ... respuesta:"+ respuesta);
+            conn.close();
+        } catch (Exception e) {
+            System.out.println("error al insertar Produccion Leche..");
+        }
+        
+        return respuesta;    
+    
+    }
+
+    @Override
+    public String modificarLeche(Object obj) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public List<?> ConsultarLeche() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    
     
 }

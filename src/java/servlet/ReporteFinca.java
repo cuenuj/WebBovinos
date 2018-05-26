@@ -12,6 +12,7 @@ import java.util.*;
 import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -57,6 +58,10 @@ public class ReporteFinca extends HttpServlet {
                     
                     respuesta=dao.insertar(finca);
                     request.setAttribute("respuesta", respuesta);
+                    response.addCookie(new Cookie("mensaje", respuesta));
+                        out.println("<center><br/><br/><br/><h2 >"+respuesta+"</h2><br/><br/>"
+                            + "<button onclick=\"self.location.href = 'panelUsuario.jsp'\">Regrezar a Mi Finca</button></center>");
+                    
                 }else if(request.getParameter("btn_modificar")!= null){
                     finca.setId_finca(request.getParameter("id_finca"));
                     finca.setNombre_finca(request.getParameter("nombre_finca"));
@@ -66,10 +71,18 @@ public class ReporteFinca extends HttpServlet {
                     
                     respuesta=dao.modificar(finca);
                     request.setAttribute("respuesta", respuesta);
+                    response.addCookie(new Cookie("mensaje", respuesta));
+                        out.println("<center><br/><br/><br/><h2 >"+respuesta+"</h2><br/><br/>"
+                            + "<button onclick=\"self.location.href = 'panelUsuario.jsp'\">Regrezar a Mi Finca</button></center>");
+                    
                 }else if(request.getParameter("btn_eliminar")!= null){
                     finca.setId_finca(request.getParameter("codigo_finca"));
-                    
                     dao.eliminar(finca);
+                    request.setAttribute("respuesta", respuesta);
+                    response.addCookie(new Cookie("mensaje", respuesta));
+                        out.println("<center><br/><br/><br/><h2 >"+respuesta+"</h2><br/><br/>"
+                            + "<button onclick=\"self.location.href = 'panelUsuario.jsp'\">Regrezar a Mi Finca</button></center>");
+                    
                     
                 }else if(request.getParameter("btn_buscar")!= null){
                     criterio = request.getParameter("codigo_finca");

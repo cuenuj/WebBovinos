@@ -23,4 +23,14 @@ public interface Operaciones {
     public String eliminarAnimal(Object obj);
     public List<?> ConsultarAnimal();
     public List<?> filtrarAnimal(String campo);
+    
+    public String insertarInseminacion(Object obj);
+    public String modificarInseminacion(Object obj);
+    public String eliminarInseminacion(Object obj);
+    public List<?> ConsultarInseminacion();
+    public List<?> filtrarInseminacion(String campo);
+    
+    public String insertarLeche(Object obj);
+    public String modificarLeche(Object obj);
+    public List<?> ConsultarLeche();
 }
