@@ -36,6 +36,18 @@
         <servlet-name>RegistroHistoria</servlet-name>
         <servlet-class>servlet.RegistroHistoria</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ReportePdfUsuario</servlet-name>
+        <servlet-class>servlet.ReportePdfUsuario</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>InformeLeche</servlet-name>
+        <servlet-class>servlet.InformeLeche</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>InformeInseminacion</servlet-name>
+        <servlet-class>servlet.InformeInseminacion</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>inicioSesion</servlet-name>
         <url-pattern>/iniciar</url-pattern>
@@ -71,6 +83,18 @@
     <servlet-mapping>
         <servlet-name>RegistroHistoria</servlet-name>
         <url-pattern>/creaHistoria</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ReportePdfUsuario</servlet-name>
+        <url-pattern>/PdfUsuario</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>InformeLeche</servlet-name>
+        <url-pattern>/infoLeche</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>InformeInseminacion</servlet-name>
+        <url-pattern>/infoInseminacion</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

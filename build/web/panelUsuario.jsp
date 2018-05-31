@@ -4,6 +4,12 @@
     Author     : cuenu
 --%>
 
+<%@page import="persistencia.DetalleHistorial"%>
+<%@page import="persistencia.Animal"%>
+<%@page import="persistencia.Finca"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="java.util.List"%>
+<%@page import="persistencia.Consultas"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
     HttpSession objSesion = request.getSession(false);
@@ -30,6 +36,13 @@
         
         <title>Usuario</title>
     </head>
+    <% 
+        Consultas co= new Consultas();
+        List<Finca> datos = new ArrayList();
+        List<Animal> animal = new ArrayList();
+        List<DetalleHistorial> historia = new ArrayList();
+        
+    %>
     <body>
         <div class="nav nav-tabs col-xs-10 col-xs-offset-1">
             <a class="h1 col-lg-offset-1">Bienvenido!! </a>
@@ -45,20 +58,147 @@
             
         </ul>
             <div class="form-horizontal">
-                <div class="tab-content col-xs-5 col-xs-offset-3"><br/><br/>
+                <div class="tab-content col-xs-8 col-xs-offset-2"><br/><br/>
                     <div class="tab-pane active" id="tab-miFinca">
-                        <div class="form-group">
-                            <label class="control-label col-sm-5" for="id_finca">Código único de Finca:</label><br/>
-                            <div class="col-sm-7">
-                                <input type="text" class="form-control" id="id_finca" placeholder="número identificación Finca" name="id_finca">
-                            </div>
-                        </div>
-                        
-                        <div >
-                        <input type="hidden" name="date" id="f_date_d" />
-                        </div>
+                            <div class="card">
+                                <div class="card-header alert-success text-center "> DATOS DE MI FINCA </div><br/>
+                                <div class="card-body">
+                                    <%
+                                            if(request.getAttribute("filtro")!= null){
+                                                datos = (List<Finca>) request.getAttribute("filtro");
+                                            }else{
+                                               datos = co.ListarFincaUsuario(usuario);
+                                            }
 
+                                            for(Finca f :datos){
+                                        %>
+                                    <div class="form-group">
+                                        <label class="control-label col-sm-6 h4" for="id_finca">Propietario:</label>
+                                        <div class="col-sm-5">
+                                            <label class="control-label col-sm-5 text-uppercase h3" ><%= f.getExtencion_finca()%></label>
+                                            <label class="control-label col-sm-4 text-uppercase h3" ><%= f.getId_dueno()%></label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-sm-6 h4" for="id_finca">Código único de Mi Finca:</label>
+                                        <div class="col-sm-5">
+                                            <label class="control-label col-sm-5 h2 text-primary" ><%= f.getId_finca()%></label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-sm-6 h4" for="id_finca">Nombre de Mi Finca:</label>
+                                        <div class="col-sm-5">
+                                            <label class="control-label col-sm-5 text-uppercase h3" ><%= f.getNombre_finca()%></label>
+                                            
+                                        </div>
+                                    </div>
+                                    
+                                    <%
+
+                                        }
+                                        String cuentaAnimal = co.cantidadAnimalporFinca(usuario);
+                                    %>
+                                    <div class="form-group">
+                                        <label class="control-label col-sm-6 h4" for="id_finca">Cantidad de Bovinos activos:</label>
+                                        <div class="col-sm-5">
+                                            <label class="control-label col-sm-5 h3" ><%=cuentaAnimal%></label>
+                                            
+                                        </div>
+                                    </div>
+                             <!--               -------
+                                    <div class="form-group">
+                                        <label class="control-label col-sm-6 h4" for="id_finca">Cantidad de Inseminaciones:</label>
+                                        <div class="col-sm-5">
+                                            <label class="control-label col-sm-5 h3" >.....</label>
+                                            
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-sm-6 h4" for="id_finca">Cantidad de Bovinos activos:</label>
+                                        <div class="col-sm-5">
+                                            <%
+                                            //String cantidadAnimal = co.cantidadAnimalporFinca(usuario);
+                                            
+                                            %>
+                                            <label class="control-label col-sm-5 h3" ><%//=cantidadAnimal%> Cabezas.</label>
+                                            
+                                        </div>
+                                    </div>
+                                            -->
+                                    <div>
+                                        <form role="form" method="post" action="PdfUsuario"> 
+                                            <div class="col-sm-offset-8 col-sm-10">
+                                              <button type="submit" class="btn btn-default btn-primary" name="btn_genera_pdf">Imprimir reporte de Mi Finca PDF</button>
+                                            </div>
+                                        </form>
+                                    </div><br/> <br/>  
+                                </div>
+                                <div class="card-header alert-success text-center "> LISTA DE ANIMALES DE MI FINCA</div><br/>
+                                <div class="card-body">
+                                    <table class="table table-striped" border="2">
+                                    <tr>
+                                        <td>Código de la Finca</td>
+                                        <td>Código del animal</td>
+                                        <td>Nombre del animal</td>
+                                        <td>Fecha de Nacimiento</td>
+                                        <td>Raza</td>
+                                        <td>Genero</td>
+                                        <td>Metodo de concepcion</td>
+                                        <td>Etapa del animal</td>
+                                        <td>Observaciones</td>
+                                    </tr>
+                                    <%
+                                            animal = co.filtrarAnimal(usuario);
+                                            for(Animal a :animal){
+                                        %>
+                                        <tr>
+                                            <td> <%= a.getId_finca() %> </td>
+                                            <td> <%= a.getId_animal()%> </td>
+                                            <td> <%= a.getNombre_animal()%> </td>
+                                            <td> <%= a.getFecha_nacimiento()%> </td>
+                                            <td> <%= a.getRaza_animal()%> </td>
+                                            <td> <%= a.getGenero_animal()%> </td>
+                                            <td> <%= a.getMetodo_concepcion()%> </td>
+                                            <td> <%= a.getEtapa_vida()%> </td>
+                                            <td> <%= a.getObservaciones()%> </td>
+                                        </tr>
+                                     <%
+                                        }
+                                     %>
+                                    </table>
+                                </div>
+                                  <div class="card-header alert-success text-center "> ENFERMEDADES PADECIDAS EN MI FINCA</div><br/>
+                                  <div class="card-body">
+                                      <table class="table table-striped" border="2">
+                                    <tr>
+                                        
+                                        <td>Fecha aparición enfermedad</td>
+                                        <td>Enfermedad </td>
+                                        <td>Diagnostico del veterinario</td>
+                                        <td>Tratamiento establecido</td>
+                                        <td>veterinario</td>
+                                    </tr>
+                                    <%
+                                            historia = co.listaHisto(usuario);
+                                            for(DetalleHistorial d :historia){
+                                        %>
+                                        <tr>
+                                            <td> <%= d.getFecha_historia()%> </td>
+                                            <td> <%= d.getEnfermedad()%> </td>
+                                            <td> <%= d.getDiagnostico()%> </td>
+                                            <td> <%= d.getTratamiento()%> </td>
+                                            <td> <%= d.getCedula_veterinario()%> </td>
+                                            
+                                        </tr>
+                                     <%
+                                        }
+                                     %>
+                                    </table>
+                                  </div>
+                                    
+                            </div>
                         
+                                                              
                     </div>
                 
                 <div class="tab-pane" id="tab-animal">
@@ -92,16 +232,11 @@
                                                 <select class="form-control col-sm-7" id="sel1" name="raza_animal">
                                               <option selected value="0"> Elija una opción </option>
                                                         <option>Normando</option>
-                                                        <option>Pasiega</option>
                                                         <option>Simmental</option>
                                                         <option>Jersey</option>
-                                                        <option>Tudanca</option>
                                                         <option>Holstein</option>
-                                                        <option>Búfala</option>
-                                                        <option>Cebú</option>
-                                                        <option>Bon</option>
-                                                        <option>Lucerna</option>
-                                                        <option>Harton</option>
+                                                        <option>Ayrshire</option>
+                                                        <option>Criolla</option>
                                               </select>
                                             </div>
                                             
@@ -131,12 +266,13 @@
                                             
                                         </div>
                                         <div class="form-group">
-                                            <label class="control-label col-sm-5" for="metodo_concepcion">Etapa de Vida:</label>
+                                            <label class="control-label col-sm-5" for="etapa_animal">Etapa de Vida:</label>
                                             <div class="col-sm-7">
                                                 <select class="form-control col-sm-7" id="sel1" name="etapa_animal">
                                               <option selected value="0"> Elija una opción </option>
-                                                        <option>Ternera</option>
-                                                        <option>Novilla</option>
+                                                        <option>Ternero(a)/option>
+                                                        <option>Novill0(a)</option>
+                                                        <option>Toro</option>
                                                         <option>Preñana</option>
                                                         <option>Produciendo Leche</option>
                                                         <option>Descanso</option>
@@ -218,8 +354,9 @@
                                             <div class="col-sm-7">
                                                 <select class="form-control col-sm-7" id="sel1" name="metodo_concepcion">
                                               <option selected value="0"> Elija una opción </option>
-                                                        <option>Ternera</option>
-                                                        <option>Novilla</option>
+                                                        <option>Ternero(a)</option>
+                                                        <option>Novillo(a)</option>
+                                                        <option>toro</option>
                                                         <option>Preñana</option>
                                                         <option>Produciendo Leche</option>
                                                         <option>Descanso</option>
@@ -276,16 +413,11 @@
                                         <select class="form-control col-sm-7" id="sel1" name="raza_pajilla">
                                             <option selected value="0"> Elija una opción </option>
                                                 <option>Normando</option>
-                                                <option>Pasiega</option>
-                                                <option>Simmental</option>
-                                                <option>Jersey</option>
-                                                <option>Tudanca</option>
-                                                <option>Holstein</option>
-                                                <option>Búfala</option>
-                                                <option>Cebú</option>
-                                                <option>Bon</option>
-                                                <option>Lucerna</option>
-                                                <option>Harton</option>
+                                                        <option>Simmental</option>
+                                                        <option>Jersey</option>
+                                                        <option>Holstein</option>
+                                                        <option>Ayrshire</option>
+                                                        <option>Criolla</option>
                                         </select>
                                     </div>
                                 </div>

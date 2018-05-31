@@ -26,11 +26,15 @@
         <link href="css/bootstrap.min.css" rel="stylesheet">
         <link href="css/stylos1.css" rel="stylesheet">
         <link href="css/Panel.css" rel="stylesheet">
+        <link href="jquery-ui.min.css" rel="stylesheet">
         <script src="js/alertas.js"></script>
+        <link rel="stylesheet" type="text/css" media="all" href="css/calendar-win2k-cold-1.css" title="win2k-cold-1" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/css/bootstrap-datepicker.css">
+        
         <title>Funcionario</title>
     </head>
     <% 
-        Consultas dao= new Consultas();
+        Consultas co= new Consultas();
         List<Finca> datos = new ArrayList();
         List<Animal> datosA = new ArrayList();
 
@@ -64,14 +68,8 @@
                     <li class="dropdown">
                       <a href="login.jsp" >Iniciar sesión </a>
                     </li>
-                    <li class="dropdown">
-                      <a href="#" class="dropdown-toggle" data-toggle="dropdown">Registro usuario <b class="caret"></b></a>
-                      <ul class="dropdown-menu">
-                          <li><a href="registroFuncionario.jsp">Funcionario secretaria fomento y desarrollo</a></li>
-                        <li class="divider"></li>
-                        <li><a href="registroUsuarios.jsp">Propietario Finca, Hato</a></li>
-                      </ul>
-                    </li>
+                    <li><a href="registroFuncionario.jsp">Registro usuario</a></li>
+                    
                   </ul>
                 </div>
               </nav>
@@ -80,21 +78,68 @@
             <a class="h1 col-lg-offset-1">Bienvenido!! </a>
             <a class="h3 col-lg-offset-1">   <% out.println(usuario);%></a>
         </div>
-        <ul class="nav nav-tabs col-xs-10 col-xs-offset-1 text-uppercase bg-info h5 ">
-            <li><a href="#tab-finca" data-toggle="tab"> Fincas </a></li>
-            <li><a href="#tab-veterinario" data-toggle="tab">Nuevo Veterinario </a></li>
-            <li><a href="#tab-animal" data-toggle="tab"> Semovientes <i class="fa"></i></a></li>
-            <li><a href="#tab-leche" data-toggle="tab">Produccion de Leche <i class="fa"></i></a></li>
-            <li><a href="#tab-insemina" data-toggle="tab"> Inseminaciones <i class="fa"></i></a></li>
-            <li><a href="#tab-enfermedades" data-toggle="tab">Reporte Enfermedades<i class="fa"></i></a></li>
+        <ul class="nav nav-tabs col-xs-10 col-xs-offset-1  text-uppercase bg-info h5 ">
+            <li><a href="#tab-fincasTotales" data-toggle="tab"> Fincas de Cómbita</a></li>
+            <li><a href="#tab-finca" data-toggle="tab">Nueva Finca</a></li>
+            <li><a href="#tab-veterinario" data-toggle="tab">Nuevo Veterinario</a></li>
+            <li><a href="#tab-leche" data-toggle="tab">Producción de Leche<i class="fa"></i></a></li>
+            <li><a href="#tab-insemina" data-toggle="tab">Inseminaciones<i class="fa"></i></a></li>
+            <li><a href="#tab-enfermedades" data-toggle="tab">Enfermedades<i class="fa"></i></a></li>
             <li><a href="#tab-ubica" data-toggle="tab">Ubicación<i class="fa"></i></a></li>
         </ul>
 
         
         <div></div>
         <div class="form-horizontal">
-            <div class="tab-content col-xs-5 col-xs-offset-3"><br/><br/>
-                <div class="tab-pane active " id="tab-finca">
+            <div class="tab-content col-xs-8 col-xs-offset-2"><br/><br/>
+                <div class="tab-pane active " id="tab-fincasTotales">
+                    <form action="ConsultaFinca" method="get" >
+                        <span class=" input-group-addon">Código Finca
+                        <input type="text" class="form-control" placeholder="Buscador" name="codigo_finca">
+                        <button class="btn btn-default" name="btn_buscar" type="submit" >Buscar</button>
+                        <button class="btn btn-default" name="btn_eliminar" type="submit" >Eliminar</button>
+                        <button class="btn btn-default" name="btn_informePDF" type="submit" >Generar Informe PDF</button>
+                        <button class="btn btn-default" name="btn_lista" type="submit" >Ver Lista Completa</button>
+                        </span>
+                    </form>
+                    <br/>
+                    <div class="card">
+                        <div class="card-header alert-success text-center ">LISTADO TOTAL DE LAS FINCAS DE CÓMBITA </div><br/>
+                            <table class="table table-striped" border="2">
+                                <tr>
+                                    <td>Código de Finca</td>
+                                    <td>Nombre de Finca</td>
+                                    <td>Extencion de Finca</td>
+                                    <td>Cedula del Dueño</td>
+                                    <td>Ubicación</td>
+                                </tr>
+                                <%
+                                    if(request.getAttribute("filtro")!= null){
+                                        datos = (List<Finca>) request.getAttribute("filtro");
+                                    }else{
+                                       datos = co.Consultar(); 
+                                    }
+                                    
+                                    for(Finca f :datos){
+                                 %>
+                                 <tr>
+                                     <td> <%= f.getId_finca() %> </td>
+                                     <td> <%= f.getNombre_finca()%> </td>
+                                     <td> <%= f.getExtencion_finca()%> </td>
+                                     <td> <%= f.getId_dueno()%> </td>
+                                     <td> <%= f.getId_lugar()%> </td>
+                                 </tr>
+
+                                 <%
+
+                                    }
+                                %>
+                            </table>
+                    
+                    </div>
+                                
+                </div>
+                <div class="tab-pane" id="tab-finca">
                     <form action="ConsultaFinca" method="get" >
                     <div class="card">
                             <div class="card-header alert-success text-center ">REGISTRAR NUEVA FINCA</div><br/>
@@ -138,49 +183,7 @@
                     </div>
                     </form>
                     
-                    <form action="ConsultaFinca" method="get" >
-                        <span class=" input-group-addon">Código Finca
-                        <input type="text" class="form-control" placeholder="Buscador" name="codigo_finca">
-                        <button class="btn btn-default" name="btn_buscar" type="submit" >Buscar</button>
-                        <button class="btn btn-default" name="btn_eliminar" type="submit" >Eliminar</button>
-                        <button class="btn btn-default" name="btn_lista" type="submit" >Ver Lista Completa</button>
-                        </span>
-                    </form>
-                    <br/>
-                    <div class="card">
-                        <div class="card-header alert-success text-center ">FINCAS DE COMBITA </div><br/>
-                            <table class="table table-striped" border="2">
-                                <tr>
-                                    <td>Código de Finca</td>
-                                    <td>Nombre de Finca</td>
-                                    <td>Extencion de Finca</td>
-                                    <td>Cedula del Dueño</td>
-                                    <td>Ubicación</td>
-                                </tr>
-                                <%
-                                    if(request.getAttribute("filtro")!= null){
-                                        datos = (List<Finca>) request.getAttribute("filtro");
-                                    }else{
-                                       datos = dao.Consultar(); 
-                                    }
-                                    
-                                    for(Finca f :datos){
-                                 %>
-                                 <tr>
-                                     <td> <%= f.getId_finca() %> </td>
-                                     <td> <%= f.getNombre_finca()%> </td>
-                                     <td> <%= f.getExtencion_finca()%> </td>
-                                     <td> <%= f.getId_dueno()%> </td>
-                                     <td> <%= f.getId_lugar()%> </td>
-                                 </tr>
-
-                                 <%
-
-                                    }
-                                %>
-                            </table>
                     
-                    </div>
                 </div>
                 
                  <div class="tab-pane" id="tab-veterinario">
@@ -207,25 +210,7 @@
                                             <input type="text" class="form-control" id="apellidos_veterinario" placeholder="Apellidos del veterinario" name="apellidos_veterinario">
                                         </div>
                                       </div>
-                                        <div class="form-group">
-                                            <label class="control-label col-sm-5" for="titulo_profesional">Titulo profesional:</label>
-                                            <div class="col-sm-7">
-                                                <select class="form-control col-sm-7" id="sel1" name="titulo_profesional">
-                                              <option selected value="0"> Elige una opción </option>
-                                              <option>medico Veterinario</option>
-                                              <option>tecnico veterinario</option>
-                                              <option>Practicante veterinaria</option>
-                                              <option>Tecnico agropecuario</option>
-                                              </select>
-                                            </div>
-                                            
-                                        </div>
-                                        <div class="form-group">
-                                        <label class="control-label col-sm-5" for="correo_veterinario">Correo del Veterinario:</label>
-                                        <div class="col-sm-7"> 
-                                            <input type="email" class="form-control" id="correo_veterinario" placeholder="correo del veterinario" name="correo_veterinario">
-                                        </div>
-                                        </div>
+                                        
                                         <div class="form-group">
                                             <label class="control-label col-sm-5" for="telefono">Telefono de contacto:</label>
                                             <div class="col-sm-7">
@@ -256,55 +241,65 @@
                     </form>
                 </div>   
                 
-                <div class="tab-pane" id="tab-animal">
-                    
-                    <div class="card-header alert-success text-center ">BUSQUEDA DE ANIMALES POR FINCA</div><br/>
+                
+                <div class="tab-pane" id="tab-leche">
+                    <div class="card-header alert-success text-center ">PRODUCCIÓN DE LECHE DE LAS FINCAS ENTRE FECHAS  </div><br/>
                     <div class="card-body">
-                        <form action="ConsultaFinca" method="get" >
-                            <span class=" input-group-addon">Código Finca
-                                <input type="text" class="form-control" placeholder="Buscador" name="codigo_finca">
-                                <button class="btn btn-default" name="btn_buscarAnimal" type="submit" >Buscar</button>
-                                <button class="btn btn-default" name="btn_eliminarAnimal" type="submit" >Eliminar</button>
+                        <form role="form" method="post" action="infoLeche">
+                            <div class="form-group">
+                                <label class="control-label col-sm-5" for="fecha_inicial">Fecha inicial</label>
+                                <div class="col-sm-7"> 
+                                    <input type="text" id="datepickerj" name="fecha_inicial" placeholder="Fecha inicial">
+                                </div>
+                            </div>
+
+                            <div class="card-body">
+                                <div class="form-group">
+                                    <label class="control-label col-sm-5" for="fecha_final">Fecha Final</label>
+                                    <div class="col-sm-7"> 
+                                        <input type="text" id="datepickerK" name="fecha_final" placeholder="Fecha final">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-5" for="id_finca">Código único de Finca:</label>
+                                <div class="col-sm-7">
+                                    <input type="text" class="form-control" id="id_finca" placeholder="número identificación Finca" name="id_finca">
+                                </div>
+                            </div>
+                            <div class="form-group"> 
+                                <div class="col-sm-offset-4 col-sm-10">
+                                   <button type="submit" class="btn btn-default btn-primary" name="btn_informeLeche">ver informe</button>
+                                </div>
+                            </div>
+                        </form>
+                </div>
+                    </div>
+                <div class="tab-pane" id="tab-insemina">
+                    <div class="card-header alert-success text-center ">INSEMINACIONES POR FINCAS  </div><br/>
+                    <div class="card-body">
+                        <form role="form" method="post" action="infoInseminacion">
+                            <span class=" input-group-addon">Busqueda de inseminaciones por Código Finca
+                                <input type="text" class="form-control" placeholder="Código de la Finca" name="codigo_finca">
+                                <button class="btn btn-default" name="btn_inseminaciones_finca" type="submit" >Buscar Finca</button>
+                            </span>
+                        </form>
+                        <form role="form" method="post" action="infoInseminacion">
+                            <span class=" input-group-addon">Busqueda de inseminaciones hechas por veterinarios
+                                <input type="text" class="form-control" placeholder="Cedula del Inseminador" name="cedula_veterinario">
+                                <button class="btn btn-default" name="btn_inseminaciones_veterinario" type="submit" >Buscar Veterinario</button>
                             </span>
                         </form>
                     </div>
-                
-                    <br/>
-                    
-                </div>
-                
-                    
-                
-
-                <div class="tab-pane" id="tab-leche">
-                    <div class="input-group">
-                        <span class="input-group-addon">*</span>
-                        <input type="text" class="form-control" placeholder="Nombre Finca">
-                    </div>
-
-                    <div class="input-group">
-                        <span class="input-group-addon">*</span>
-                        <input type="text" class="form-control" placeholder="Dueño Finca">
-                        
-                    </div>
-                </div>
-                <div class="tab-pane" id="tab-insemina">
-                    <div class="input-group">
-                        <span class="input-group-addon">*</span>
-                        <input type="text" class="form-control" placeholder="Nombre Bovino">
-                    </div>
-
-                    <div class="input-group">
-                        <span class="input-group-addon">*</span>
-                        <input type="text" class="form-control" placeholder="Nombre finca">
-                        
-                    </div>
                 </div>
                 <div class="tab-pane" id="tab-enfermedades">
-                    <div class="input-group">
-                        <span class="input-group-addon">*Enfermedad:</span>
-                        <input type="text" class="form-control" placeholder="Enfermedad">
-                    </div>
+                    <form role="form" method="post" action="infoInseminacion">
+                        <span class=" input-group-addon">Busqueda de Enfermedades De Bovinos En Cómbita
+                            <input type="text" class="form-control" placeholder="código de la Finca" name="codigo_finca">
+                            <button class="btn btn-default" name="btn_enfermedad_finca" type="submit" >Buscar Finca Especifica</button>
+                            <button class="btn btn-default" name="btn_enfermedad_general" type="submit" >Mostrar Lista General</button>
+                        </span>
+                    </form>
 
                     
                 </div>
@@ -323,9 +318,24 @@
                     </div>
                 </div>
             </div>
-        </div>>
+        </div>
+        
         <script src="js/jquery.min.js"></script>
+        <script src="jquery-ui.min.js"></script>
         <script src="js/bootstrap.min.js"></script>
         <script src="js/panelFun.js"></script>
+        <script>
+            $( function() {
+              $( "#datepickerj" ).datepicker();
+            } );
+        </script>
+        <script>
+            $( function() {
+              $( "#datepickerK" ).datepicker();
+            } );
+        </script>
+         <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/js/bootstrap-datepicker.js"></script>
+       
     </body>
 </html>

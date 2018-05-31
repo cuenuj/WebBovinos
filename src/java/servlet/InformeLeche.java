@@ -7,24 +7,19 @@ package servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import persistencia.Consultas;
-import persistencia.ConsultasDAO;
-import persistencia.DetalleHistorial;
-import persistencia.HistoriaClinica;
+import persistencia.Leche;
 
 /**
  *
  * @author cuenu
  */
-public class RegistroHistoria extends HttpServlet {
+public class InformeLeche extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -39,41 +34,24 @@ public class RegistroHistoria extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            ConsultasDAO dao= new ConsultasDAO();
+            /* TODO output your page here. You may use following sample code. */
             Consultas co= new Consultas();
-            HistoriaClinica historia= new HistoriaClinica();
-            DetalleHistorial detalle = new DetalleHistorial();
-            List<HistoriaClinica> listHistoria = new ArrayList<>();
+            Leche leche = new Leche();
             RequestDispatcher rd=null;
-            String respuesta="";
-            
             try {
-                if (request.getParameter("btn_regHistoria")!= null) {
-                    historia.setId_historia(request.getParameter("id_historia"));
-                    historia.setId_animal(request.getParameter("id_animal"));
-                    detalle.setFecha_historia(request.getParameter("fecha_historia"));
-                    detalle.setObservaciones(request.getParameter("observaciones"));
-                    detalle.setEnfermedad(request.getParameter("enfermedad"));
-                    detalle.setDiagnostico(request.getParameter("diagnostico"));
-                    detalle.setTratamiento(request.getParameter("tratamiento"));
-                    detalle.setId_historial(request.getParameter("id_historia"));
-                    detalle.setCedula_veterinario(request.getParameter("cedula_veterinario"));
+                if(request.getParameter("btn_informeLeche")!=null){
+                    String fecha_ini = request.getParameter("fecha_inicial");
+                    String fecha_fin = request.getParameter("fecha_final");
+                    String id_usuario = request.getParameter("id_finca");
                     
-                    if( co.registrarHistoriaClinica(historia)){
-                        respuesta=dao.insertarDetalleHistoria(detalle);
-                        request.setAttribute("respuesta", respuesta);
-                        response.addCookie(new Cookie("mensaje", respuesta));
-                        out.println("<center><br/><br/><br/><h2 >"+respuesta+"</h2><br/><br/>"
-                            + "<button onclick=\"self.location.href = 'panelUsuario.jsp'\">Regrezar a Mi Finca</button></center>");
-                    
-                    }else{
-                        System.out.println("Error... dao.insertarHistoria es False");
-                    }
-                    
-                   rd =request.getRequestDispatcher("PanelUsuario.jsp");
+                    int resultado = co.CantidadLitrosLeche(id_usuario, fecha_ini, fecha_fin);
+                    out.println("<script>");
+                    out.println("alert('la finca en ese lapso de tiempo ha producido "+resultado+" Litros de Leche" 
+                            + "Producción de Leche!');");
+                    out.println("location.href='http://localhost:8080/WebBovinos/panelFuncionario.jsp';");
+                    out.println("</script>");
                 }
-            }catch(Exception e){
-                e.printStackTrace();
+            } catch (Exception e) {
             }
         }
     }

@@ -37,14 +37,12 @@ public class RegistroVeterinario extends HttpServlet {
         String cedula_veterinario = request.getParameter("cedula_veterinario");
         String nombre_veterinario = request.getParameter("nombre_veterinario");
         String apellidos_veterinario = request.getParameter("apellidos_veterinario");
-        String titulo_profesional = request.getParameter("titulo_profesional");
-        String correo_veterinario = request.getParameter("correo_veterinario");
         String telefono = request.getParameter("telefono");
         String contrasena_funci = request.getParameter("contrasena_funcionario");
         
         
         Consultas co= new Consultas();
-        if (co.RegistroVeterinario(contrasena_funci, cedula_veterinario, nombre_veterinario, apellidos_veterinario, titulo_profesional, correo_veterinario, telefono)) {
+        if (co.RegistroVeterinario(contrasena_funci, cedula_veterinario, nombre_veterinario, apellidos_veterinario, telefono)) {
             response.addCookie(new Cookie("mensaje", co.getRespuesta()));
                     out.println("<center><br/><br/><br/><h2 >"+co.getRespuesta()+"</h2><br/><br/>"
                             + "<button onclick=\"self.location.href = 'panelUsuario.jsp'\">Regrezar a Mi Finca</button></center>");

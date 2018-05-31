@@ -17,7 +17,7 @@ public class ConexionDB {
         
         public ConexionDB(){
             this.Driver= "com.mysql.jdbc.Driver";
-            this.url=  "jdbc:mysql://192.168.1.10:3306/bovinos";
+            this.url=  "jdbc:mysql://192.168.0.24:3306/bovinos";
             this.us= "jp";
             this.pass= "jp";
         }

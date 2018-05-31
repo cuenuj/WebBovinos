@@ -93,6 +93,9 @@ public class ReporteFinca extends HttpServlet {
                     datos = (List<Finca>) co.Consultar();
                     request.setAttribute("filtro", datos);
                 }
+                else if(request.getParameter("btn_informePDF")!=null){
+                    ReportePdfUsuario pdfFun= new ReportePdfUsuario();
+                }
                 rd = request.getRequestDispatcher("panelFuncionario.jsp");
             } catch (Exception e) {
                 e.printStackTrace();

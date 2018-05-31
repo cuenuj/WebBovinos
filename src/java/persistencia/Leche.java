@@ -11,13 +11,13 @@ package persistencia;
  */
 public class Leche {
     String fecha_leche;
-    String litros_leche;
+    int litros_leche;
     String id_animal;
 
     public Leche() {
     }
 
-    public Leche(String fecha_leche, String litros_leche, String id_animal) {
+    public Leche(String fecha_leche, int litros_leche, String id_animal) {
         this.fecha_leche = fecha_leche;
         this.litros_leche = litros_leche;
         this.id_animal = id_animal;
@@ -33,11 +33,11 @@ public class Leche {
         this.fecha_leche = fecha_leche;
     }
 
-    public String getLitros_leche() {
+    public int getLitros_leche() {
         return litros_leche;
     }
 
-    public void setLitros_leche(String litros_leche) {
+    public void setLitros_leche(int litros_leche) {
         this.litros_leche = litros_leche;
     }
 

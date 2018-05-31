@@ -33,4 +33,8 @@ public interface Operaciones {
     public String insertarLeche(Object obj);
     public String modificarLeche(Object obj);
     public List<?> ConsultarLeche();
+    
+    public boolean insertarHistoria(Object obj);
+    public List<?> ConsultarHistoria();
+    public String insertarDetalleHistoria(Object obj);
 }

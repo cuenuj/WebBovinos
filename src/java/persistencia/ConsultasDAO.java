@@ -23,11 +23,11 @@ public class ConsultasDAO implements Operaciones{
     @Override
     public String insertar(Object obj) {
     
+        String respuesta="";
         Finca f= (Finca)obj;
         Connection conn = null;
         PreparedStatement pst;
         String sql="INSERT INTO finca VALUES(?,?,?,?,?)";
-        String respuesta="";
         try {
             Class.forName(db.getDriver());
             conn = DriverManager.getConnection(
@@ -109,33 +109,7 @@ public class ConsultasDAO implements Operaciones{
     public List<Finca> Consultar() {
     
         List<Finca> datos = new ArrayList<>();
-        Connection conn;
-        PreparedStatement pst;
-        ResultSet rs;
-        String sql="SELECT * FROM finca";
-        System.out.println("Consultar ...");
-        try {
-            Class.forName(db.getDriver());
-            conn = DriverManager.getConnection(
-                    db.getUrl(),
-                    db.getUs(),
-                    db.getPass());
-            pst = conn.prepareStatement(sql);
-            rs = (ResultSet) pst.executeQuery();
-            System.out.println("Consultar ...resulset..." +rs);
-            while (rs.next()) {                
-                datos.add(new Finca(rs.getString("id_finca"),
-                        rs.getString("nombre_finca"),
-                        rs.getString("extencion_finca"),
-                        rs.getString("cedula"),
-                        rs.getString("i_lugar")));
-                
-            }
-            System.out.println("lee la BD..");
-            conn.close();
-        } catch (Exception e) {
-            System.out.println("NO lee la consulta de BD..");
-        }
+        
         return datos;
     }
 
@@ -279,7 +253,7 @@ public class ConsultasDAO implements Operaciones{
             pst = conn.prepareStatement(sql);
             
             pst.setString(1, leche.getFecha_leche());
-            pst.setString(2, leche.getLitros_leche());
+            pst.setInt(2, leche.getLitros_leche());
             pst.setString(3, leche.getId_animal());
            
             int filas = pst.executeUpdate();
@@ -288,6 +262,7 @@ public class ConsultasDAO implements Operaciones{
             conn.close();
         } catch (Exception e) {
             System.out.println("error al insertar Produccion Leche..");
+            respuesta= "error al insertar Produccion Leche";
         }
         
         return respuesta;    
@@ -304,6 +279,76 @@ public class ConsultasDAO implements Operaciones{
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    @Override
+    public boolean insertarHistoria(Object obj) {
+        
+                HistoriaClinica historia = (HistoriaClinica)obj;
+                Connection conn1;
+                PreparedStatement pst1;
+                String sql1="INSERT INTO historia_clinica VALUES(?,?)";
+                try {
+                    Class.forName(db.getDriver());
+                    conn1 = DriverManager.getConnection(
+                            db.getUrl(),
+                            db.getUs(),
+                            db.getPass());
+                    pst1 = conn1.prepareStatement(sql1);
+
+                    pst1.setString(1, historia.getId_historia());
+                    pst1.setString(2, historia.getId_animal());
+                    
+                    if( pst1.executeUpdate()==1){
+                        return true;
+                    }
+                    conn1.close();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                return false;
+            }
+           
+
     
+    @Override
+    public List<?> ConsultarHistoria() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public String insertarDetalleHistoria(Object obj) {
     
+                DetalleHistorial detalle = (DetalleHistorial)obj;
+                Connection conn1;
+                PreparedStatement pst1;
+                String respuesta="";
+                String sql1="INSERT INTO detalle_historia_clinica VALUES(?,?,?,?,?,?,?)";
+                try {
+                    Class.forName(db.getDriver());
+                    conn1 = DriverManager.getConnection(
+                            db.getUrl(),
+                            db.getUs(),
+                            db.getPass());
+                    pst1 = conn1.prepareStatement(sql1);
+
+                    pst1.setString(1, detalle.getFecha_historia());
+                    pst1.setString(2, detalle.getObservaciones());
+                    pst1.setString(3, detalle.getEnfermedad());
+                    pst1.setString(4, detalle.getDiagnostico());
+                    pst1.setString(5, detalle.getTratamiento());
+                    pst1.setString(6, detalle.getId_historial());
+                    pst1.setString(7, detalle.getCedula_veterinario());
+
+                    int filas = pst1.executeUpdate();
+                    respuesta = "se registro "+filas+" nuevo Detalle de Historia Clinica";
+                    System.out.println("registro exitoso ... respuesta:"+ respuesta);
+                    conn1.close();
+                } catch (Exception e) {
+                    System.out.println("error al insertar detalle de Historial..");
+                    respuesta="error al insertar detalle de Historial";
+                }
+                return respuesta;
+    }
+
+    
+   
 }

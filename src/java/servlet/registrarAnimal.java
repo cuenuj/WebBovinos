@@ -73,11 +73,23 @@ public class registrarAnimal extends HttpServlet {
                     criterio = request.getParameter("codigo_finca");
                     datosA = (List<Animal>) co.filtrarAnimal(criterio);
                     request.setAttribute("filtroA", datosA);
+                    response.sendRedirect("ListaAnimales.jsp");
+                    
+                }else if(request.getParameter("btn_cambiaEtapa")!= null){
+                    String id_animal = request.getParameter("id_animal");
+                    String etapa = request.getParameter("etapa_animal");
+                    if( co.cambiaEtapaAnimal(id_animal, etapa)){
+                        out.println("<script>");
+                        out.println("alert(' Cambio de etapa con Exito!!');");
+                        out.println("location.href='http://localhost:8080/WebBovinos/panelUsuario.jsp';");
+                        out.println("</script>");
+                    }
+                    
                 }
+                
             }catch (Exception e){
                 e.printStackTrace();
             }
-            rd.forward(request, response);
         }catch(Exception e){
             e.printStackTrace();
         }

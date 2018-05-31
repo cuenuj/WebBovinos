@@ -49,13 +49,16 @@ public class ProduccionLeche extends HttpServlet {
             try {
                 if (request.getParameter("btn_regLeche")!= null) {
                     leche.setFecha_leche(request.getParameter("fecha_leche"));
-                    leche.setLitros_leche(request.getParameter("litros_leche"));
+                    leche.setLitros_leche(Integer.parseInt(request.getParameter("litros_leche")));
                     leche.setId_animal(request.getParameter("id_animal"));
                     
                     respuesta = dao.insertarLeche(leche);
                     request.setAttribute("respuesta", respuesta);
                     
-                    response.sendRedirect("panelUsuario.jsp");
+                    out.println("<script>");
+                    out.println("alert('Se registro Producción de Leche!');");
+                    out.println("location.href='http://localhost:8080/WebBovinos/panelUsuario.jsp';");
+                    out.println("</script>");
                 }
             }catch(Exception e){
                 e.printStackTrace();

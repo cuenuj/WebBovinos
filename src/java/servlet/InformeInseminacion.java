@@ -16,15 +16,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import persistencia.Consultas;
-import persistencia.ConsultasDAO;
-import persistencia.DetalleHistorial;
-import persistencia.HistoriaClinica;
+import persistencia.Inseminacion;
 
 /**
  *
  * @author cuenu
  */
-public class RegistroHistoria extends HttpServlet {
+public class InformeInseminacion extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -39,42 +37,48 @@ public class RegistroHistoria extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            ConsultasDAO dao= new ConsultasDAO();
             Consultas co= new Consultas();
-            HistoriaClinica historia= new HistoriaClinica();
-            DetalleHistorial detalle = new DetalleHistorial();
-            List<HistoriaClinica> listHistoria = new ArrayList<>();
+            Inseminacion inseminacion = new Inseminacion();
+            List<Inseminacion> datos = new ArrayList();
+            String respuesta ="";
             RequestDispatcher rd=null;
-            String respuesta="";
+            String criterio;
             
-            try {
-                if (request.getParameter("btn_regHistoria")!= null) {
-                    historia.setId_historia(request.getParameter("id_historia"));
-                    historia.setId_animal(request.getParameter("id_animal"));
-                    detalle.setFecha_historia(request.getParameter("fecha_historia"));
-                    detalle.setObservaciones(request.getParameter("observaciones"));
-                    detalle.setEnfermedad(request.getParameter("enfermedad"));
-                    detalle.setDiagnostico(request.getParameter("diagnostico"));
-                    detalle.setTratamiento(request.getParameter("tratamiento"));
-                    detalle.setId_historial(request.getParameter("id_historia"));
-                    detalle.setCedula_veterinario(request.getParameter("cedula_veterinario"));
+            if (request.getParameter("btn_inseminacionesFinca")!=null) {
+                criterio = request.getParameter("codigo_finca");
+                response.addCookie(new Cookie("mensaje", respuesta));
+                datos = co.ListarInseminacionFinca(criterio);
+                out.println("<table border=\"2\">"
+                        + "<tr>\n" +
+                            "<td>Código de Inseminacion</td>\n" +
+                            "<td>Fecha de Inseminación</td>\n" +
+                            "<td>Raza Pajilla</td>\n" +
+                            "<td>Sexada</td>\n" +
+                            "<td>Inseminador</td>\n" +
+                            "<td>Código de la Res</td>\n" +
+                            "<td>resultado Inseminación</td>\n" +
+                            "</tr>");
+                
+                for(Inseminacion i :datos){
+                    out.println("<tr>\n" +
+                            "<td>"+i.getId_inseminacion()+"</td>\n" +
+                            "<td>"+i.getFecha_inseminacion()+"</td>\n" +
+                            "<td>"+i.getRaza_pajilla()+"</td>\n" +
+                            "<td>"+i.getSexada()+"</td>\n" +
+                            "<td>"+i.getId_veterinario()+"</td>\n" +
+                            "<td>"+i.getId_animal()+"</td>\n" +
+                            "<td>"+i.getInseminacion_exitosa()+"</td>\n" +
+                            "</tr>");
                     
-                    if( co.registrarHistoriaClinica(historia)){
-                        respuesta=dao.insertarDetalleHistoria(detalle);
-                        request.setAttribute("respuesta", respuesta);
-                        response.addCookie(new Cookie("mensaje", respuesta));
-                        out.println("<center><br/><br/><br/><h2 >"+respuesta+"</h2><br/><br/>"
-                            + "<button onclick=\"self.location.href = 'panelUsuario.jsp'\">Regrezar a Mi Finca</button></center>");
-                    
-                    }else{
-                        System.out.println("Error... dao.insertarHistoria es False");
-                    }
-                    
-                   rd =request.getRequestDispatcher("PanelUsuario.jsp");
+                 
                 }
-            }catch(Exception e){
-                e.printStackTrace();
+                request.setAttribute("filtro", datos);
+                
+                        out.println("<center><br/><br/><br/><h2 >"+respuesta+"</h2><br/><br/>"
+                            + "<button onclick=\"self.location.href = 'panelFuncionario.jsp'\">Regrezar </button></center>");
+                    
             }
+            
         }
     }
 

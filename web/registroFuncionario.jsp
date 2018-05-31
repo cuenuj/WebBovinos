@@ -40,19 +40,12 @@
                     <li><a href="informacion.jsp">Información</a></li>
                     
                   </ul>
-
                   <ul class="nav navbar-nav navbar-right">
                     <li class="dropdown">
                       <a href="login.jsp" >Iniciar sesión </a>
                     </li>
-                    <li class="dropdown">
-                      <a href="#" class="dropdown-toggle" data-toggle="dropdown">Registro usuario <b class="caret"></b></a>
-                      <ul class="dropdown-menu">
-                          <li><a href="registroFuncionario.jsp">Funcionario secretaria fomento y desarrollo</a></li>
-                        <li class="divider"></li>
-                        <li><a href="registroUsuarios.jsp">Propietario Finca, Hato</a></li>
-                      </ul>
-                    </li>
+                    <li><a href="registroFuncionario.jsp">Registro usuario</a></li>
+                    
                   </ul>
                 </div>
               </nav>
