@@ -52,7 +52,8 @@ public class ReporteFinca extends HttpServlet {
                 if (request.getParameter("btn_registro")!= null) {
                     finca.setId_finca(request.getParameter("id_finca"));
                     finca.setNombre_finca(request.getParameter("nombre_finca"));
-                    finca.setExtencion_finca(request.getParameter("extencion_finca"));
+                    finca.setCordenada_latitud(request.getParameter("cordenada_latitud"));
+                    finca.setCordenada_longitud(request.getParameter("cordenada_longitud"));
                     finca.setId_dueno(request.getParameter("cedula"));
                     finca.setId_lugar(request.getParameter("i_lugar"));
                     
@@ -65,7 +66,8 @@ public class ReporteFinca extends HttpServlet {
                 }else if(request.getParameter("btn_modificar")!= null){
                     finca.setId_finca(request.getParameter("id_finca"));
                     finca.setNombre_finca(request.getParameter("nombre_finca"));
-                    finca.setExtencion_finca(request.getParameter("extencion_finca"));
+                    finca.setCordenada_latitud(request.getParameter("cordenada_latitud"));
+                    finca.setCordenada_longitud(request.getParameter("cordenada_longitud"));
                     finca.setId_dueno(request.getParameter("cedula"));
                     finca.setId_lugar(request.getParameter("i_lugar"));
                     
@@ -76,13 +78,13 @@ public class ReporteFinca extends HttpServlet {
                             + "<button onclick=\"self.location.href = 'panelUsuario.jsp'\">Regrezar a Mi Finca</button></center>");
                     
                 }else if(request.getParameter("btn_eliminar")!= null){
-                    finca.setId_finca(request.getParameter("codigo_finca"));
-                    dao.eliminar(finca);
+                    String finc = request.getParameter("codigo_finca");
+                    dao.eliminar(finc);
                     request.setAttribute("respuesta", respuesta);
-                    response.addCookie(new Cookie("mensaje", respuesta));
-                        out.println("<center><br/><br/><br/><h2 >"+respuesta+"</h2><br/><br/>"
-                            + "<button onclick=\"self.location.href = 'panelUsuario.jsp'\">Regrezar a Mi Finca</button></center>");
-                    
+                    out.println("<script>");
+                    out.println("alert('Se elimino la finca "+finca+"!');");
+                    out.println("location.href='http://localhost:8080/WebBovinos/panelFuncionario.jsp';");
+                    out.println("</script>");
                     
                 }else if(request.getParameter("btn_buscar")!= null){
                     criterio = request.getParameter("codigo_finca");
@@ -99,10 +101,13 @@ public class ReporteFinca extends HttpServlet {
                 rd = request.getRequestDispatcher("panelFuncionario.jsp");
             } catch (Exception e) {
                 e.printStackTrace();
+                    out.println("alert('Sin acceso a finca... porfavor intente de nuevo.');");
+                    
             }
             rd.forward(request, response);
             
         } catch (Exception e) {
+            e.printStackTrace();
         }
         
         

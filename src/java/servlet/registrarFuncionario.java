@@ -46,9 +46,13 @@ public class registrarFuncionario extends HttpServlet {
         Consultas co= new Consultas();
         if (co.RegistroUsuario(contrasenaFunci, cedula, nombre, apellido, correo, contrasena, telefono)) {
             
-            response.sendRedirect("login.jsp");
+                out.println("<script>");
+                out.println("alert('Se registro correctamente un nuevo Ganadero o Dueño de finca!');");
+                out.println("location.href='http://localhost:8080/WebBovinos/login.jsp';");
+                out.println("</script>");
+            System.out.println("Guadado exitoso!!");
                 //ventana de guardado-.......
-                System.out.println("Guadado exitoso!!");
+                
                        
         }else{
             //response.sendRedirect("login.jsp");

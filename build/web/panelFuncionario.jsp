@@ -78,14 +78,13 @@
             <a class="h1 col-lg-offset-1">Bienvenido!! </a>
             <a class="h3 col-lg-offset-1">   <% out.println(usuario);%></a>
         </div>
-        <ul class="nav nav-tabs col-xs-10 col-xs-offset-1  text-uppercase bg-info h5 ">
+        <ul class="nav nav-tabs col-xs-9 col-xs-offset-1  text-uppercase bg-info h5 ">
             <li><a href="#tab-fincasTotales" data-toggle="tab"> Fincas de Cómbita</a></li>
             <li><a href="#tab-finca" data-toggle="tab">Nueva Finca</a></li>
             <li><a href="#tab-veterinario" data-toggle="tab">Nuevo Veterinario</a></li>
             <li><a href="#tab-leche" data-toggle="tab">Producción de Leche<i class="fa"></i></a></li>
             <li><a href="#tab-insemina" data-toggle="tab">Inseminaciones<i class="fa"></i></a></li>
             <li><a href="#tab-enfermedades" data-toggle="tab">Enfermedades<i class="fa"></i></a></li>
-            <li><a href="#tab-ubica" data-toggle="tab">Ubicación<i class="fa"></i></a></li>
         </ul>
 
         
@@ -93,15 +92,36 @@
         <div class="form-horizontal">
             <div class="tab-content col-xs-8 col-xs-offset-2"><br/><br/>
                 <div class="tab-pane active " id="tab-fincasTotales">
-                    <form action="ConsultaFinca" method="get" >
-                        <span class=" input-group-addon">Código Finca
-                        <input type="text" class="form-control" placeholder="Buscador" name="codigo_finca">
-                        <button class="btn btn-default" name="btn_buscar" type="submit" >Buscar</button>
-                        <button class="btn btn-default" name="btn_eliminar" type="submit" >Eliminar</button>
-                        <button class="btn btn-default" name="btn_informePDF" type="submit" >Generar Informe PDF</button>
-                        <button class="btn btn-default" name="btn_lista" type="submit" >Ver Lista Completa</button>
-                        </span>
+                    <div>
+                        <pre class="bg-warning text-left h4 ">
+                        Genere un archivo tipo PDF con la informacion de una Finca, en el sigiuente recuadro  
+                        ingrese el nombre de la finca y presione el botón "Generar Informe PDF".</pre>
+                        <form action="infoPdfFuncionario" method="get">
+                            <input type="text" class="form-control" placeholder="Nombre de la finca" name="nombre_finca">
+                            <button class="btn btn-primary" name="btn_informePDF" type="submit" >Generar Informe PDF</button>
+                        </form>
+                    </div>
+                    <form action="UbicacionMapa.jsp" method="post">
+                        <pre class="bg-success text-left h4 ">
+        Vista del mapa de Cómbita con la ubicación de las fincas.</pre>
+                        <button class="btn btn-danger col-xs-8 col-xs-offset-4" name="btn_mapa" type="submit" >Ver mapa de Cómbita</button>
                     </form>
+                    
+                    <div><br/><br/><br/><br/>
+                        <form action="ConsultaFinca" method="get" >
+                            <pre class="bg-warning text-left h4 ">
+                            a continuacion podar ver todas las fincas registradas,  
+                            ingrese el codigo único de la finca y presione el botón  "Buscar Finca",
+                            o en el botón "ver Lista Completa de Fincas" para ver todo el listado de nuevo.
+                            </pre>
+                            <span class=" input-group-addon">Código Finca
+                            <input type="text" class="form-control" placeholder="código Único de Finca" name="codigo_finca">
+                            <button class="btn btn-default" name="btn_buscar" type="submit" >Buscar Finca</button>
+
+                            <button class="btn btn-default" name="btn_lista" type="submit" >Ver Lista Completa de Fincas</button>
+                            </span>
+                        </form>
+                    </div>
                     <br/>
                     <div class="card">
                         <div class="card-header alert-success text-center ">LISTADO TOTAL DE LAS FINCAS DE CÓMBITA </div><br/>
@@ -109,9 +129,10 @@
                                 <tr>
                                     <td>Código de Finca</td>
                                     <td>Nombre de Finca</td>
-                                    <td>Extencion de Finca</td>
+                                    <td>cordenada Latitud</td>
+                                    <td>cordenada Longitud</td>
                                     <td>Cedula del Dueño</td>
-                                    <td>Ubicación</td>
+                                    <td>Ubicación/Vereda</td>
                                 </tr>
                                 <%
                                     if(request.getAttribute("filtro")!= null){
@@ -119,23 +140,27 @@
                                     }else{
                                        datos = co.Consultar(); 
                                     }
-                                    
+                                    int cuentaFinca=0;
                                     for(Finca f :datos){
                                  %>
                                  <tr>
                                      <td> <%= f.getId_finca() %> </td>
                                      <td> <%= f.getNombre_finca()%> </td>
-                                     <td> <%= f.getExtencion_finca()%> </td>
+                                     <td> <%= f.getCordenada_latitud()%> </td>
+                                     <td> <%= f.getCordenada_longitud()%> </td>
                                      <td> <%= f.getId_dueno()%> </td>
                                      <td> <%= f.getId_lugar()%> </td>
                                  </tr>
 
                                  <%
-
+                                     cuentaFinca++;
                                     }
                                 %>
                             </table>
-                    
+                            <div class="form-group">
+                                        <label class="control-label col-sm-7 h3 bg-info" >Número de fincas en Lista:</label>
+                                        <label class="control-label col-sm-5 h3 bg-info" ><%=cuentaFinca%>  en total.</label>
+                                    </div>
                     </div>
                                 
                 </div>
@@ -144,6 +169,10 @@
                     <div class="card">
                             <div class="card-header alert-success text-center ">REGISTRAR NUEVA FINCA</div><br/>
                             <div class="card-body">
+                                <pre class="bg-warning text-left h4 ">
+                        Registre a continuación las fincas Nuevas, pertenecientes al municipio de Cómbita 
+                        ingrese los datos de la Finca seguido del boton "Registrar Finca".
+                                </pre>
                                 <div class="form-group">
                                     <label class="control-label col-sm-5" for="id_finca">Código único de Finca:</label>
                                     <div class="col-sm-7">
@@ -157,9 +186,15 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="control-label col-sm-5" for="extencion_finca">Extencion de la Finca(Mts):</label>
+                                    <label class="control-label col-sm-5" for="cordenada_latitud">cordenada latitud:</label>
                                     <div class="col-sm-7">
-                                        <input type="text" class="form-control" id="extencion_finca" placeholder="Extencion de la Finca" name="extencion_finca">
+                                        <input type="text" class="form-control" id="cordenada_latitud" placeholder="cordenada latitud" name="cordenada_latitud">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-sm-5" for="cordenada_longitud">cordenada longitud:</label>
+                                    <div class="col-sm-7">
+                                        <input type="text" class="form-control" id="cordenada_longitud" placeholder="cordenada longitud" name="cordenada_longitud">
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -169,9 +204,9 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="control-label col-sm-5" for="i_lugar">Lugar de Ubicacion:</label>
+                                    <label class="control-label col-sm-5" for="i_lugar">Vereda donde se Ubicacion:</label>
                                     <div class="col-sm-7">
-                                        <input type="text" class="form-control" id="i_lugar" placeholder="Lugar de ubicación Finca" name="i_lugar">
+                                        <input type="text" class="form-control" id="i_lugar" placeholder="vereda de ubicación de la Finca" name="i_lugar">
                                     </div>
                                 </div>
                                 <div class="form-group"> 
@@ -191,7 +226,10 @@
                         <div class="card">
                             <div class="card-header alert-success text-center ">DATOS DEL MEDICO VETERINARIO</div><br/>
                             <div class="card-body">
-                                
+                                <pre class="bg-warning text-left h4 ">
+                        Registre a continuación Veterinarios Nuevos, ingrese los datos del profesional 
+                        luego la contraseña de usted como funcionario seguido del boton "Registrar Veterinario".
+                                </pre>
                                     <div class="form-group">
                                         <label class="control-label col-sm-5" for="id_animal">Número de Identificación Veterinario:</label>
                                         <div class="col-sm-7">
@@ -246,21 +284,11 @@
                     <div class="card-header alert-success text-center ">PRODUCCIÓN DE LECHE DE LAS FINCAS ENTRE FECHAS  </div><br/>
                     <div class="card-body">
                         <form role="form" method="post" action="infoLeche">
-                            <div class="form-group">
-                                <label class="control-label col-sm-5" for="fecha_inicial">Fecha inicial</label>
-                                <div class="col-sm-7"> 
-                                    <input type="text" id="datepickerj" name="fecha_inicial" placeholder="Fecha inicial">
-                                </div>
-                            </div>
-
-                            <div class="card-body">
-                                <div class="form-group">
-                                    <label class="control-label col-sm-5" for="fecha_final">Fecha Final</label>
-                                    <div class="col-sm-7"> 
-                                        <input type="text" id="datepickerK" name="fecha_final" placeholder="Fecha final">
-                                    </div>
-                                </div>
-                            </div>
+                            <pre class="bg-warning text-left h4 ">
+                        A continuación usted puede obtener un balance de la producción de leche de una finca, 
+                        ingrese el código de la finca en cuestión y oprima el boton "Ver Informe".
+                                </pre>
+                            
                             <div class="form-group">
                                 <label class="control-label col-sm-5" for="id_finca">Código único de Finca:</label>
                                 <div class="col-sm-7">
@@ -278,24 +306,31 @@
                 <div class="tab-pane" id="tab-insemina">
                     <div class="card-header alert-success text-center ">INSEMINACIONES POR FINCAS  </div><br/>
                     <div class="card-body">
+                        <pre class="bg-warning text-left h4 ">
+            A continuación usted puede obtener un balance de las inceminaciones de una finca en especifico, 
+            ingrese el Código Único de la finca seguido del botón "Buscar Finca".
+
+            De igual manera encontrará el balance de Inseminación, junto con otra información en el 
+            archivo PDF que puede generar en la pestaña "Fincas de Cómbita" 
+                        </pre>
                         <form role="form" method="post" action="infoInseminacion">
-                            <span class=" input-group-addon">Busqueda de inseminaciones por Código Finca
-                                <input type="text" class="form-control" placeholder="Código de la Finca" name="codigo_finca">
+                            <span class=" input-group-addon">Busqueda de inseminaciones por el nombre de Finca
+                                <input type="text" class="form-control" placeholder="Nombre de la Finca" name="nombre_finca">
                                 <button class="btn btn-default" name="btn_inseminaciones_finca" type="submit" >Buscar Finca</button>
                             </span>
                         </form>
-                        <form role="form" method="post" action="infoInseminacion">
-                            <span class=" input-group-addon">Busqueda de inseminaciones hechas por veterinarios
-                                <input type="text" class="form-control" placeholder="Cedula del Inseminador" name="cedula_veterinario">
-                                <button class="btn btn-default" name="btn_inseminaciones_veterinario" type="submit" >Buscar Veterinario</button>
-                            </span>
-                        </form>
+                        
                     </div>
                 </div>
                 <div class="tab-pane" id="tab-enfermedades">
-                    <form role="form" method="post" action="infoInseminacion">
+                    <form role="form" method="post" action="infoHistoria">
+                        <pre class="bg-warning text-left h4 ">
+            A continuación usted puede obtener un balance de las Historias clinicas 
+            realizadas en una finca en especifico, ingrese el nombre de la finca 
+            seguido del botón "Buscar Finca Especifica".
+                        </pre>    
                         <span class=" input-group-addon">Busqueda de Enfermedades De Bovinos En Cómbita
-                            <input type="text" class="form-control" placeholder="código de la Finca" name="codigo_finca">
+                            <input type="text" class="form-control" placeholder="Nombre de la Finca" name="nombre_fincaH">
                             <button class="btn btn-default" name="btn_enfermedad_finca" type="submit" >Buscar Finca Especifica</button>
                             <button class="btn btn-default" name="btn_enfermedad_general" type="submit" >Mostrar Lista General</button>
                         </span>
@@ -303,20 +338,7 @@
 
                     
                 </div>
-                <div class="tab-pane" id="tab-ubica">
-                    <div class="input-group">
-                        <input type="text" class="form-control">
-                        <span class="input-group-btn">
-                           <button class="btn btn-default" type="button">Buscar</button>
-                        </span>
-                        
-                    </div>
-                    <div>
-                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d7941.0867917581!2d-73.32764042764963!3d5.634201933662641!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e6a7a602413f5f9%3A0x26fb0124c89bb878!2zQ8OzbWJpdGEsIEJveWFjw6E!5e0!3m2!1ses!2sco!4v1526890067095" width="800" height="600" frameborder="0" style="border:0" allowfullscreen></iframe>
-
-                            
-                    </div>
-                </div>
+                
             </div>
         </div>
         

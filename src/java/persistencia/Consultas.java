@@ -10,6 +10,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -142,7 +143,7 @@ public class Consultas{
         List<Finca> datos = new ArrayList<>();
         PreparedStatement pst;
         ResultSet rs;
-        String sql="SELECT * FROM finca";
+        String sql="SELECT * FROM finca,usuario WHERE finca.cedula= usuario.cedula_usuario";
         System.out.println("Consultar ...");
         try {
             con = new Conexion();
@@ -152,7 +153,10 @@ public class Consultas{
             while (rs.next()) {                
                 datos.add(new Finca(rs.getString("id_finca"),
                         rs.getString("nombre_finca"),
-                        rs.getString("extencion_finca"),
+                        rs.getString("nombre_usuario"),
+                        rs.getString("apellidos_usuario"),
+                        rs.getString("cordenada_latitud"),
+                        rs.getString("cordenada_longitud"),
                         rs.getString("cedula"),
                         rs.getString("i_lugar")));
                 
@@ -160,6 +164,7 @@ public class Consultas{
             System.out.println("lee la BD.. Lista de Fincas de Combita");
             con.getConnection().close();
         } catch (Exception e) {
+            e.printStackTrace();
             System.out.println("NO lee la consulta de BD..");
         }
         return datos;
@@ -177,12 +182,13 @@ public class Consultas{
             System.err.println("Funcionario correcto");
             if (rs.absolute(1)) {
                 try {
+                    con = new Conexion();
                     String Consulta1 = ("INSERT INTO veterinario (cedula_veterinario,nombre_usuario,apellidos_usuario,telefono_usuario) VALUES(?,?,?,?)");
                     pst = con.getConnection().prepareStatement(Consulta1);
                     pst.setString(1, cedula);
                     pst.setString(2, nombre);
                     pst.setString(3, apellidos);
-                    pst.setString(6, telefono);
+                    pst.setString(4, telefono);
                     
                     if (pst.executeUpdate() == 1) {
                         setRespuesta("Registro veterinario Exitoso!!");
@@ -192,10 +198,12 @@ public class Consultas{
                 } catch (Exception e) {
                     System.err.println("error de inserción ");
                     setRespuesta("Error en la Inserción de veterinario.  verifique los datos e intente de nuevo");
+                    e.printStackTrace();
                 }  
             }
         }catch (Exception e) {
                     System.err.println("contraseña de administrador incorrecta ");
+                    e.printStackTrace();
         }finally{
             try {
                 if (con.getConnection()!=null) con.getConnection().close();
@@ -207,12 +215,43 @@ public class Consultas{
         
         return false;
     }
-    public List<Finca> filtrar(String campo) {
-   
-        List<Finca> datos = new ArrayList<>();
+    public List<Finca> filtrarFinca (String nombreFinca){
+        List<Finca> datos = new ArrayList();
         PreparedStatement pst;
         ResultSet rs;
-        String sql="SELECT * FROM finca WHERE id_finca=?";
+        String sql="SELECT * FROM finca,usuario WHERE finca.cedula=usuario.cedula_usuario AND nombre_finca=?";
+        System.out.println("Consultar ...");
+        try {
+            con = new Conexion();
+            pst = con.getConnection().prepareStatement(sql);
+            pst.setString(1, nombreFinca);
+            rs = pst.executeQuery();
+            System.out.println("busqueda en la lista de fincas por nombre...resulset..." +rs);
+            while (rs.next()) {                
+                datos.add(new Finca(rs.getString("id_finca"),
+                        rs.getString("nombre_finca"),
+                        rs.getString("nombre_usuario"),
+                        rs.getString("apellidos_usuario"),
+                        rs.getString("cordenada_latitud"),
+                        rs.getString("cordenada_longitud"),
+                        rs.getString("cedula"),
+                        rs.getString("i_lugar")));
+                
+            }
+            System.out.println("filtra la BD..y busca entre las fincas");
+            con.getConnection().close();
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("NO lee la consulta de BD..");
+        }
+        return datos;
+    }
+    public List<Finca> filtrar(String campo) {
+   
+        List<Finca> datos = new ArrayList();
+        PreparedStatement pst;
+        ResultSet rs;
+        String sql="SELECT * FROM finca,usuario WHERE finca.cedula=usuario.cedula_usuario AND id_finca=?";
         System.out.println("Consultar ...");
         try {
             con = new Conexion();
@@ -223,32 +262,37 @@ public class Consultas{
             while (rs.next()) {                
                 datos.add(new Finca(rs.getString("id_finca"),
                         rs.getString("nombre_finca"),
-                        rs.getString("extencion_finca"),
+                        rs.getString("nombre_usuario"),
+                        rs.getString("apellidos_usuario"),
+                        rs.getString("cordenada_latitud"),
+                        rs.getString("cordenada_longitud"),
                         rs.getString("cedula"),
-                        rs.getString("i_lugar")));
+                        rs.getString("i_lugar")
+                        
+                ));
                 
             }
             System.out.println("filtra la BD..y busca entre las fincas");
             con.getConnection().close();
         } catch (Exception e) {
+            e.printStackTrace();
             System.out.println("NO lee la consulta de BD..");
         }
         return datos;
     }
-    public List<Inseminacion> ListarInseminacionFinca(String campo){
-        List<Inseminacion> datos = new ArrayList<>();
+     public List<Inseminacion> listaInseminacionFuncionario(String nombreFinca){
+        List<Inseminacion> datos = new ArrayList();
         PreparedStatement pst;
         ResultSet rs;
-        String sql="SELECT * FROM inseminacion,animal,finca "
-                + "WHERE inseminacion.id_animal=animal_id_animal "
-                + "AND animal.id_finca=finca.id_finca "
-                + "AND id_finca=?";
-        try {
+        String sql="SELECT * FROM finca,animal,inseminacion "
+                + "WHERE inseminacion.id_animal = animal.id_animal\n" +
+                    "AND animal.id_finca = finca.id_finca\n" +
+                    "AND nombre_finca=?";
+                    try {
             con = new Conexion();
             pst = con.getConnection().prepareStatement(sql);
-            pst.setString(1, campo);
+            pst.setString(1,nombreFinca);
             rs = pst.executeQuery();
-            System.out.println("Consultar ...resulset..." +rs);
             while (rs.next()) {                
                 datos.add(new Inseminacion(rs.getString("id_inseminacion"),
                         rs.getString("fecha_inseminacion"),
@@ -257,18 +301,52 @@ public class Consultas{
                         rs.getString("id_veterinario"),
                         rs.getString("id_animal"),
                         rs.getString("inseminacion_exitosa")));
-                        
-                
             }
             System.out.println("filtra inseminacion de la BD..");
             con.getConnection().close();
         } catch (Exception e) {
-            System.out.println("NO lee la consulta de BD..");
+            e.printStackTrace();
+            System.out.println("NO lee la consulta de BD  cantidad insemincaiones..");
+        }
+        
+        
+        return datos;
+    }
+    public List<Inseminacion> ListarInseminacionFinca(String campo){
+        List<Inseminacion> datos = new ArrayList();
+        PreparedStatement pst;
+        ResultSet rs;
+        String sql="SELECT * \n" +
+                    "FROM inseminacion, animal, finca, usuario\n" +
+                    "WHERE inseminacion.id_animal = animal.id_animal\n" +
+                    "AND animal.id_finca = finca.id_finca\n" +
+                    "AND finca.cedula = usuario.cedula_usuario\n" +
+                    "AND correo_usuario =?";
+        try {
+            con = new Conexion();
+            pst = con.getConnection().prepareStatement(sql);
+            pst.setString(1, campo);
+            rs = pst.executeQuery();
+            while (rs.next()) {                
+                datos.add(new Inseminacion(rs.getString("id_inseminacion"),
+                        rs.getString("fecha_inseminacion"),
+                        rs.getString("raza_pajilla"),
+                        rs.getString("sexada"),
+                        rs.getString("id_veterinario"),
+                        rs.getString("id_animal"),
+                        rs.getString("inseminacion_exitosa")));
+            }
+            System.out.println("filtra inseminacion de la BD..");
+            con.getConnection().close();
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("NO lee la consulta de BD  cantidad insemincaiones..");
         }
         return datos;
     }
+    
  public List<Finca> ListarFincaUsuario(String campo){
-     List<Finca> datos = new ArrayList<>();
+        List<Finca> datos = new ArrayList<>();
         PreparedStatement pst;
         ResultSet rs;
         String sql="SELECT * FROM finca,usuario WHERE finca.cedula=usuario.cedula_usuario AND correo_usuario =?";
@@ -284,6 +362,9 @@ public class Consultas{
                         rs.getString("nombre_finca"),
                         rs.getString("nombre_usuario"),
                         rs.getString("apellidos_usuario"),
+                        rs.getString("cordenada_latitud"),
+                        rs.getString("cordenada_longitud"),
+                        rs.getString("cedula"),
                         rs.getString("i_lugar")));
                         
                 
@@ -295,27 +376,34 @@ public class Consultas{
         }
         return datos;
  }
- public String ConsultaIdFinca(String id_finca){
-     PreparedStatement pst;
+ public List<Animal> filtraAnimalNombre(String nombreFinca){
+     List<Animal> datos = new ArrayList<>();
+        PreparedStatement pst;
         ResultSet rs;
-        String dato="";
-        
-        String sql ="SELECT correo_usuario FROM finca,usuario WHERE finca.cedula=usuario.cedula_usuario "
-                + "AND id_finca=?";
+        String sql="SELECT * FROM animal,finca WHERE animal.id_finca=finca.id_finca AND nombre_finca =?";
+        System.out.println("Consultar ...");
         try {
             con = new Conexion();
             pst = con.getConnection().prepareStatement(sql);
-            pst.setString(1, id_finca);
+            pst.setString(1,nombreFinca);
             rs = pst.executeQuery();
-            dato= rs.getString("correo_usuario") ;
+            System.out.println("Consultar ...resulset..." +rs);
+            while (rs.next()) {                
+                datos.add(new Animal( 
+                        rs.getString("id_animal"), rs.getString("nombre_animal"),
+                        rs.getString("fecha_nacimiento"), rs.getString("raza_animal"),
+                        rs.getString("genero_animal"), rs.getString("metodo_concepcion"),
+                        rs.getString("etapa_animal"), rs.getString("nombre_padre"),
+                        rs.getString("nombre_madre"), rs.getString("foto_animal"),
+                        rs.getString("observaciones"), rs.getString("id_finca")));
+                
+            }
+            System.out.println("filtra animales la BD..");
             con.getConnection().close();
-        }catch(Exception exc){
-            exc.printStackTrace();
+        } catch (Exception e) {
+            System.out.println("NO lee la consulta de BD.. en filtrarAnimal");
         }
-        
-        
-        
-        return dato;
+        return datos;
  }
     public List<Animal> filtrarAnimal(String campo) {
    
@@ -347,26 +435,25 @@ public class Consultas{
         }
         return datos;
     }
-    public int CantidadLitrosLeche(String campo,String f1, String f2){
+    public int CantidadLitrosLeche(String campo){
         int datoFinal=0;
         PreparedStatement pst;
-        ResultSet rs;
-        String sql="SELECT SUM(litros_leche) AS litros "
-                + "FROM leche,animal,finca,usuario "
-                + "WHERE leche.id_animal=animal.id_animal"
-                + "AND animal.id_finca=finca.id_finca "
-                + "AND finca.cedula=usuario.cedula_usuario "
-                + "AND correo_usuario=? AND (fecha_leche BETWEEN ? AND ?)";
+        ResultSet rs ;
+        
         try {
+            String sql="SELECT SUM( litros_leche ) AS litros \n" +
+                    "FROM leche, animal, finca\n" +
+                    "WHERE leche.id_animal = animal.id_animal\n" +
+                    "AND animal.id_finca = finca.id_finca\n" +
+                    "AND nombre_finca =? \n" +
+                    "AND MONTH( fecha_leche ) =01 \n" +
+                    "AND YEAR( fecha_leche ) =2018";
             con = new Conexion();
             pst = con.getConnection().prepareStatement(sql);
             pst.setString(1, campo);
-            pst.setString(2, f1);
-            pst.setString(2, f2);
-            rs = pst.executeQuery();
-            System.out.println("Consultar ...resulset..." +rs.getCursorName()+ "cursor");
+            rs = pst.executeQuery(sql);
             datoFinal= rs.getInt("litros") ;
-            
+            System.out.println("litros:  "+datoFinal);
             con.getConnection().close();
         }catch(Exception e){
             e.printStackTrace();
@@ -375,33 +462,7 @@ public class Consultas{
         
         return datoFinal;
     }
-    public String cantidadAnimalporFinca(String campo){
-        String datoFinal="";
-        PreparedStatement pst;
-        ResultSet rs;
-        String sql="SELECT Count(id_animal) AS conteo "
-                + "FROM animal,finca,usuario "
-                + "WHERE animal.id_finca=finca.id_finca "
-                + "AND finca.cedula=usuario.cedula_usuario "
-                + "AND correo_usuario=?";
-        System.out.println("Consultar ...");
-        try {
-            con = new Conexion();
-            pst = con.getConnection().prepareStatement(sql);
-            pst.setString(1, campo);
-            System.out.println("entra a cantidadAnimalporFinca()");
-            rs = pst.executeQuery();
-            System.out.println("Consultar ...resulset..." +rs.getCursorName()+ "cursor");
-            datoFinal= rs.getString("conteo") ;
-            
-            System.out.println("filtra la BD y cuenta los animales..");
-            con.getConnection().close();
-        } catch (Exception e) {
-            System.out.println("NO lee el numero de animales por Finca, de la BD..");
-        }
-        return datoFinal;
-    }
-    public boolean cambiaEtapaAnimal(String id_animal, String etapa){
+   public boolean cambiaEtapaAnimal(String id_animal, String etapa){
        
         ResultSet rs = null;
         PreparedStatement pst = null;
@@ -427,11 +488,13 @@ public class Consultas{
                 } catch (Exception e) {
                     System.err.println("error de cambio etapa de animal");
                     setRespuesta("Error !!  cambio etapa de animal!!");
+                    e.printStackTrace();
                 }  
             }
-        }catch (Exception e) {
+        }catch (Exception ex) {
                     System.err.println("no existe el codigo de animal ");
                     setRespuesta("Error !!  no existe el código del animal!!");
+                    ex.printStackTrace();
         }finally{
             try {
                 if (con.getConnection()!=null) con.getConnection().close();
@@ -452,10 +515,12 @@ public class Consultas{
             pst = con.getConnection().prepareStatement(Consul);
             pst.setString(1, id_inseminacion);
             rs = pst.executeQuery();
-            System.err.println("Inseminacion existente");
+            
             if (rs.absolute(1)) {
+                System.err.println("Inseminacion existente");
                 try {
-                    String Consulta1 = ("UPDATE inseminacion SET inseminacion_exitosa=?  WHERE  id_inseminacion =?");
+                    con = new Conexion();
+                    String Consulta1 = ("insert into inseminacion (insemincacion_exitosa)values(?)  WHERE  id_inseminacion =?");
                     pst = con.getConnection().prepareStatement(Consulta1);
                     pst.setString(1, exito);
                     pst.setString(2, id_inseminacion);                    
@@ -485,7 +550,7 @@ public class Consultas{
     public boolean registrarHistoriaClinica(HistoriaClinica obj){
         ResultSet rs = null;
         PreparedStatement pst = null;
-        HistoriaClinica historia = new HistoriaClinica();
+        HistoriaClinica historia = (HistoriaClinica)obj;
         try {
             con = new Conexion();
             String Consul = "SELECT * FROM historia_clinica WHERE id_historia=?";
@@ -496,8 +561,7 @@ public class Consultas{
             if (rs.absolute(1)) {
                 return true;
             }else{
-                PreparedStatement pst1;
-                
+                PreparedStatement pst1 = null;
                 try {
                     con = new Conexion();
                     String sql1="INSERT INTO historia_clinica VALUES(?,?)";
@@ -505,7 +569,7 @@ public class Consultas{
                     pst1.setString(1, historia.getId_historia());
                     pst1.setString(2, historia.getId_animal());
                     
-                    if( pst1.executeUpdate()==1){
+                    if(pst1.executeUpdate()==1){
                         return true;
                     }
                     con.getConnection().close();
@@ -518,6 +582,38 @@ public class Consultas{
         }
         
         return false;
+    }
+    public List<DetalleHistorial> listaHistoriaFuncionario(String nombrefinca){
+        List<DetalleHistorial> datos = new ArrayList<>();
+        PreparedStatement pst;
+        ResultSet rs;
+        String sql="SELECT * FROM detalle_historia_clinica,historia_clinica,animal,finca"
+                + " WHERE detalle_historia_clinica.id_historia=historia_clinica.id_historia "
+                + " AND historia_clinica.id_animal=animal.id_animal "
+                + " AND animal.id_finca=finca.id_finca "
+                + " AND nombre_finca =?";
+        System.out.println("Consultar ...");
+        try {
+            con = new Conexion();
+            pst = con.getConnection().prepareStatement(sql);
+            pst.setString(1, nombrefinca);
+            rs = pst.executeQuery();
+            System.out.println("listar historial clinico funcionario..." +rs);
+            while (rs.next()){                
+                datos.add(new DetalleHistorial( 
+                        rs.getString("fecha_historia"), rs.getString("observaciones"),
+                        rs.getString("enfermedad"), rs.getString("diagnosticos"),
+                        rs.getString("tratamiento"), rs.getString("id_historia"),
+                        rs.getString("cedula_veterinario")));
+                
+            }
+            System.out.println("filtra detalle Historial Clinico por fincas Funcionario..");
+            con.getConnection().close();
+        } catch (Exception e) {
+            System.out.println("NO lee la consulta de BD.. listar Historial funcionario");
+            e.printStackTrace();
+        }
+        return datos;
     }
     public List<DetalleHistorial> listaHisto(String campo){
        
@@ -536,7 +632,7 @@ public class Consultas{
             pst = con.getConnection().prepareStatement(sql);
             pst.setString(1, campo);
             rs = pst.executeQuery();
-            System.out.println("Consultar ...resulset..." +rs);
+            System.out.println("listar historia  ...usuario..." +rs);
             while (rs.next()) {                
                 datos.add(new DetalleHistorial( 
                         rs.getString("fecha_historia"), rs.getString("observaciones"),
@@ -548,11 +644,28 @@ public class Consultas{
             System.out.println("filtra la BD..");
             con.getConnection().close();
         } catch (Exception e) {
-            System.out.println("NO lee la consulta de BD.. en filtrarAnimal");
+            System.out.println("NO lee la consulta de BD.. en filtrar Historial usuario");
         }
         return datos;
     }
 
+    public String buscaUsuario (String finca){
+        ResultSet rs ;
+        PreparedStatement pst ;
+        String usu="";
+        try {
+            String sql="SELECT correo_usuario FROM usuario,finca WHERE usuario.cedula_usuario=finca.cedula AND id_finca=?";
+            con = new Conexion();
+            pst = con.getConnection().prepareStatement(sql);
+            pst.setString(1,finca);
+            rs = pst.executeQuery();
+            usu = rs.getString("correo_usuario");
+            System.out.println("correo:"+usu);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return usu;
+    }
     public String getRespuesta() {
         return Respuesta;
     }
@@ -560,7 +673,11 @@ public class Consultas{
     public void setRespuesta(String Respuesta) {
         this.Respuesta = Respuesta;
     }
-
+    public static void main(String[] args) {
+        Consultas c= new Consultas();
+        c.buscaUsuario("F0001");
+    }
+    
     
 }
 

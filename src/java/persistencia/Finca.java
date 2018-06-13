@@ -13,20 +13,45 @@ public class Finca {
     
     String id_finca;
     String nombre_finca;
-    String extencion_finca;
+    String cordenada_latitud;
+    String cordenada_longitud;
     String id_dueno;
     String id_lugar;
+    String nombreDueno;
+    String apellidoDueno;
 
     public Finca(){
         
     }
 
-    public Finca(String id_finca, String nombre_finca, String extencion_finca, String id_dueno, String id_lugar) {
+    public Finca(String id_finca, String nombre_finca, String nombreDueno, String apellidoDueno, String cordenada_latitud, String cordenada_longitud, String id_dueno, String id_lugar) {
         this.id_finca = id_finca;
         this.nombre_finca = nombre_finca;
-        this.extencion_finca = extencion_finca;
+        this.nombreDueno = nombreDueno;
+        this.apellidoDueno = apellidoDueno;
+        this.cordenada_latitud = cordenada_latitud;
+        this.cordenada_longitud = cordenada_longitud;
         this.id_dueno = id_dueno;
         this.id_lugar = id_lugar;
+        
+    }
+
+    
+
+    public String getCordenada_latitud() {
+        return cordenada_latitud;
+    }
+
+    public void setCordenada_latitud(String cordenada_latitud) {
+        this.cordenada_latitud = cordenada_latitud;
+    }
+
+    public String getCordenada_longitud() {
+        return cordenada_longitud;
+    }
+
+    public void setCordenada_longitud(String cordenada_longitud) {
+        this.cordenada_longitud = cordenada_longitud;
     }
 
     
@@ -46,14 +71,6 @@ public class Finca {
         this.nombre_finca = nombre_finca;
     }
 
-    public String getExtencion_finca() {
-        return extencion_finca;
-    }
-
-    public void setExtencion_finca(String extencion_finca) {
-        this.extencion_finca = extencion_finca;
-    }
-
     public String getId_dueno() {
         return id_dueno;
     }
@@ -71,5 +88,20 @@ public class Finca {
     }
     
 
+    public String getNombreDueno() {
+        return nombreDueno;
+    }
+
+    public void setNombreDueno(String nombreDueno) {
+        this.nombreDueno = nombreDueno;
+    }
+
+    public String getApellidoDueno() {
+        return apellidoDueno;
+    }
+
+    public void setApellidoDueno(String apellidoDueno) {
+        this.apellidoDueno = apellidoDueno;
+    }
     
 }

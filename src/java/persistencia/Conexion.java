@@ -19,7 +19,7 @@ import java.util.logging.Logger;
 public class Conexion {
         Connection conn = null;
         Statement st = null;
-        String url = "jdbc:mysql://192.168.0.24:3306/bovinos";
+        String url = "jdbc:mysql://192.168.0.14:3306/bovinos";
         String us = "jp";
         String pass = "jp";
    

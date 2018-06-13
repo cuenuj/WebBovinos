@@ -44,9 +44,10 @@ public class RegistroVeterinario extends HttpServlet {
         Consultas co= new Consultas();
         if (co.RegistroVeterinario(contrasena_funci, cedula_veterinario, nombre_veterinario, apellidos_veterinario, telefono)) {
             response.addCookie(new Cookie("mensaje", co.getRespuesta()));
-                    out.println("<center><br/><br/><br/><h2 >"+co.getRespuesta()+"</h2><br/><br/>"
-                            + "<button onclick=\"self.location.href = 'panelUsuario.jsp'\">Regrezar a Mi Finca</button></center>");
-                    
+                    out.println("<script>");
+                    out.println("alert('Se registró nuevo veterinario exitosamente!');");
+                    out.println("location.href='http://localhost:8080/WebBovinos/panelFuncionario.jsp';");
+                    out.println("</script>");
         }else{
             System.err.println("error en el servlet");
         }

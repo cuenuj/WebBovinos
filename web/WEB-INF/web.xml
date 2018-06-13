@@ -48,6 +48,14 @@
         <servlet-name>InformeInseminacion</servlet-name>
         <servlet-class>servlet.InformeInseminacion</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ReportePdfFuncionario</servlet-name>
+        <servlet-class>servlet.ReportePdfFuncionario</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>InformeHistoriaClinica</servlet-name>
+        <servlet-class>servlet.InformeHistoriaClinica</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>inicioSesion</servlet-name>
         <url-pattern>/iniciar</url-pattern>
@@ -95,6 +103,14 @@
     <servlet-mapping>
         <servlet-name>InformeInseminacion</servlet-name>
         <url-pattern>/infoInseminacion</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ReportePdfFuncionario</servlet-name>
+        <url-pattern>/infoPdfFuncionario</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>InformeHistoriaClinica</servlet-name>
+        <url-pattern>/infoHistoria</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

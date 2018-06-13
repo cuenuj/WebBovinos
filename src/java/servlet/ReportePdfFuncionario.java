@@ -28,7 +28,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import persistencia.Animal;
 import persistencia.Consultas;
-import persistencia.ConsultasDAO;
 import persistencia.DetalleHistorial;
 import persistencia.Finca;
 import persistencia.Inseminacion;
@@ -37,7 +36,7 @@ import persistencia.Inseminacion;
  *
  * @author cuenu
  */
-public class ReportePdfUsuario extends HttpServlet {
+public class ReportePdfFuncionario extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -57,20 +56,19 @@ public class ReportePdfUsuario extends HttpServlet {
             List<Inseminacion> listInsemina = new ArrayList(); 
             String respuesta ="";
             RequestDispatcher rd=null;
-            HttpSession objSesion = request.getSession(false);
-            String usuario = (String) objSesion.getAttribute("usuario");
+            String nomfinca=request.getParameter("nombre_finca");
             
             List<Animal> animal = new ArrayList();
             List<DetalleHistorial> historia = new ArrayList();
             
-            String criterio; 
+            String criterio;
             try {
-                if (request.getParameter("btn_genera_pdf")!= null) {
-                 datos = co.ListarFincaUsuario(usuario);
-                 listInsemina = co.ListarInseminacionFinca(usuario);
+                if (request.getParameter("btn_informePDF")!= null && request.getParameter("nombre_finca")!=null) {
+                 datos = co.filtrarFinca(nomfinca);
+                 listInsemina = co.listaInseminacionFuncionario(nomfinca);
                  //se genera el archivo PDF
                  String Titulo = "SIAG - Sistema de información para la administración Ganadera de Cómbita"+"\n"+"\n"+"\n"+"\n";
-                 String encabezado = "Reporte MI Finca del usuario:  "+usuario+"\n"+"\n";
+                 String encabezado = "Reporte MI Finca del usuario:  "+nomfinca+"\n"+"\n";
                  String parrafo ="a continuación encontrará la infomación de los animales existentes, "
                          + "seguido de las Inseminaciones y los controles  de enfermedades que se han realizado en esta finca "+"\n"+"\n"
                          +"Contenido:"+"\n" 
@@ -97,7 +95,7 @@ public class ReportePdfUsuario extends HttpServlet {
                     tablaInse.setWidthPercentage(100);
                     
                     Document documento = new Document(PageSize.A4);
-                    String file="c:/Reportes_Bovinos/reporte_Mi_FINCA.pdf";
+                    String file="c:/Reportes_Bovinos/Reporte_FINCA_"+nomfinca+".pdf";
                     
                     PdfWriter.getInstance(documento,new FileOutputStream(file));
                     
@@ -156,7 +154,7 @@ public class ReportePdfUsuario extends HttpServlet {
                     tabla.addCell(cel9);
                     tabla.addCell(cel10);
                     
-                    animal = co.filtrarAnimal(usuario);
+                    animal = co.filtraAnimalNombre(nomfinca);
                     int cuentaA=0;
                     for(Animal a :animal){
                         tabla.addCell(a.getId_animal());
@@ -212,7 +210,7 @@ public class ReportePdfUsuario extends HttpServlet {
                     tablaEnfermedad.addCell(cel14);
                     tablaEnfermedad.addCell(cel15);
                     
-                    historia = co.listaHisto(usuario);
+                    historia = co.listaHistoriaFuncionario(nomfinca);
                     for(DetalleHistorial d :historia){
                         tablaEnfermedad.addCell(d.getFecha_historia());
                         tablaEnfermedad.addCell(d.getEnfermedad());
@@ -225,15 +223,24 @@ public class ReportePdfUsuario extends HttpServlet {
                     
                  out.println("<script>");
                  out.println("alert('se generó exitosamente el PDF!');");
-                 out.println("location.href='http://localhost:8080/WebBovinos/panelUsuario.jsp';");
+                 out.println("location.href='http://localhost:8080/WebBovinos/panelFuncionario.jsp';");
                  out.println("</script>");
+                } else{
+                    out.println("<script>");
+                   out.println("alert('no se puede generar el archivo! ...Verifique el nombre de la finca e intente de nuevo');");
+                   out.println("location.href='http://localhost:8080/WebBovinos/panelFuncionario.jsp';");
+                   out.println("</script>");  
                 }
-            }catch(Exception ex){
-                ex.printStackTrace();
+            
+            }catch(Exception e){
+                e.printStackTrace();
+                out.println("<script>");
+                 out.println("alert('Error de conexion');");
+                 out.println("location.href='http://localhost:8080/WebBovinos/panelFuncionario.jsp';");
+                 out.println("</script>");
             }
         }
     }
-
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
@@ -273,4 +280,5 @@ public class ReportePdfUsuario extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
+    
 }

@@ -24,10 +24,10 @@ public class ConsultasDAO implements Operaciones{
     public String insertar(Object obj) {
     
         String respuesta="";
-        Finca f= (Finca)obj;
+        Finca f = (Finca)obj;
         Connection conn = null;
         PreparedStatement pst;
-        String sql="INSERT INTO finca VALUES(?,?,?,?,?)";
+        String sql="INSERT INTO finca VALUES(?,?,?,?,?,?)";
         try {
             Class.forName(db.getDriver());
             conn = DriverManager.getConnection(
@@ -38,9 +38,10 @@ public class ConsultasDAO implements Operaciones{
             
             pst.setString(1, f.getId_finca());
             pst.setString(2, f.getNombre_finca());
-            pst.setString(3, f.getExtencion_finca());
-            pst.setString(4, f.getId_dueno());
-            pst.setString(5, f.getId_lugar());
+            pst.setString(3, f.getCordenada_latitud());
+            pst.setString(4, f.getCordenada_longitud());
+            pst.setString(5, f.getId_dueno());
+            pst.setString(6, f.getId_lugar());
             int filas = pst.executeUpdate();
             respuesta= "se registro "+filas+" nuevos elementos";
             conn.close();
@@ -65,12 +66,12 @@ public class ConsultasDAO implements Operaciones{
                     db.getUs(),
                     db.getPass());
             pst = conn.prepareStatement(sql);
-            
-            pst.setString(1, f.getNombre_finca());
-            pst.setString(2, f.getExtencion_finca());
-            pst.setString(3, f.getId_dueno());
-            pst.setString(4, f.getId_lugar());
-            pst.setString(5, f.getId_finca());
+            pst.setString(1, f.getId_finca());
+            pst.setString(2, f.getNombre_finca());
+            pst.setString(3, f.getCordenada_latitud());
+            pst.setString(4, f.getCordenada_longitud());
+            pst.setString(5, f.getId_dueno());
+            pst.setString(6, f.getId_lugar());
             int filas = pst.executeUpdate();
             respuesta= "se modificó "+filas+" elementos";
             conn.close();
@@ -81,13 +82,14 @@ public class ConsultasDAO implements Operaciones{
     }
 
     @Override
-    public String eliminar(Object obj) {
+    public String eliminar(String obj) {
     
-        Finca f= (Finca)obj;
+        Finca f= new Finca();
         Connection conn = null;
         PreparedStatement pst;
         String sql="DELETE FROM finca WHERE id_finca=?";
         String respuesta="";
+        int filas =0;
         try {
             Class.forName(db.getDriver());
             conn = DriverManager.getConnection(
@@ -95,11 +97,12 @@ public class ConsultasDAO implements Operaciones{
                     db.getUs(),
                     db.getPass());
             pst = conn.prepareStatement(sql);
-            pst.setString(1, f.getId_finca());           
-            int filas = pst.executeUpdate();
+            pst.setString(1, obj);           
+            filas = pst.executeUpdate();
             respuesta= "se eliminó "+filas+" elementos";
             conn.close();
         } catch (Exception e) {
+            e.printStackTrace();
         }
         
         return respuesta;
@@ -185,7 +188,6 @@ public class ConsultasDAO implements Operaciones{
         PreparedStatement pst;
         String sql="INSERT INTO inseminacion VALUES(?,?,?,?,?,?,?)";
         String respuesta="";
-        System.out.println("persistencia......ConsultasDAO.......insertarInseminacion()");
         try {
             Class.forName(db.getDriver());
             conn = DriverManager.getConnection(
@@ -193,7 +195,6 @@ public class ConsultasDAO implements Operaciones{
                     db.getUs(),
                     db.getPass());
             pst = conn.prepareStatement(sql);
-            
             pst.setString(1, in.getId_inseminacion());
             pst.setString(2, in.getFecha_inseminacion());
             pst.setString(3, in.getRaza_pajilla());
@@ -207,6 +208,7 @@ public class ConsultasDAO implements Operaciones{
             conn.close();
         } catch (Exception e) {
             System.out.println("error al insertar Inseminacion..");
+            e.printStackTrace();
             respuesta = "error en el registro!! verifique los datos e intente nuevamente";
         }
         
@@ -241,17 +243,19 @@ public class ConsultasDAO implements Operaciones{
         Leche leche = (Leche)obj;
         Connection conn;
         PreparedStatement pst;
-        String sql="INSERT INTO leche VALUES(?,?,?)";
+        
         String respuesta="";
-        System.out.println("persistencia......ConsultasDAO.......insertarLeche()");
+        
         try {
+            
             Class.forName(db.getDriver());
             conn = DriverManager.getConnection(
                     db.getUrl(),
                     db.getUs(),
                     db.getPass());
+            String sql="INSERT INTO leche VALUES(?,?,?)";
             pst = conn.prepareStatement(sql);
-            
+            System.out.println("persistencia......ConsultasDAO.......insertarLeche()");
             pst.setString(1, leche.getFecha_leche());
             pst.setInt(2, leche.getLitros_leche());
             pst.setString(3, leche.getId_animal());
@@ -263,6 +267,7 @@ public class ConsultasDAO implements Operaciones{
         } catch (Exception e) {
             System.out.println("error al insertar Produccion Leche..");
             respuesta= "error al insertar Produccion Leche";
+            e.printStackTrace();
         }
         
         return respuesta;    

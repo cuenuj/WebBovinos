@@ -4,6 +4,7 @@
     Author     : cuenu
 --%>
 
+<%@page import="persistencia.Inseminacion"%>
 <%@page import="persistencia.DetalleHistorial"%>
 <%@page import="persistencia.Animal"%>
 <%@page import="persistencia.Finca"%>
@@ -40,6 +41,7 @@
         Consultas co= new Consultas();
         List<Finca> datos = new ArrayList();
         List<Animal> animal = new ArrayList();
+        List<Inseminacion> inseminacion = new ArrayList();
         List<DetalleHistorial> historia = new ArrayList();
         
     %>
@@ -75,8 +77,8 @@
                                     <div class="form-group">
                                         <label class="control-label col-sm-6 h4" for="id_finca">Propietario:</label>
                                         <div class="col-sm-5">
-                                            <label class="control-label col-sm-5 text-uppercase h3" ><%= f.getExtencion_finca()%></label>
-                                            <label class="control-label col-sm-4 text-uppercase h3" ><%= f.getId_dueno()%></label>
+                                            <label class="control-label col-sm-5 text-uppercase h3" ><%= f.getNombreDueno()%></label>
+                                            <label class="control-label col-sm-4 text-uppercase h3" ><%= f.getApellidoDueno()%></label>
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -96,35 +98,8 @@
                                     <%
 
                                         }
-                                        String cuentaAnimal = co.cantidadAnimalporFinca(usuario);
                                     %>
-                                    <div class="form-group">
-                                        <label class="control-label col-sm-6 h4" for="id_finca">Cantidad de Bovinos activos:</label>
-                                        <div class="col-sm-5">
-                                            <label class="control-label col-sm-5 h3" ><%=cuentaAnimal%></label>
-                                            
-                                        </div>
-                                    </div>
-                             <!--               -------
-                                    <div class="form-group">
-                                        <label class="control-label col-sm-6 h4" for="id_finca">Cantidad de Inseminaciones:</label>
-                                        <div class="col-sm-5">
-                                            <label class="control-label col-sm-5 h3" >.....</label>
-                                            
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="control-label col-sm-6 h4" for="id_finca">Cantidad de Bovinos activos:</label>
-                                        <div class="col-sm-5">
-                                            <%
-                                            //String cantidadAnimal = co.cantidadAnimalporFinca(usuario);
-                                            
-                                            %>
-                                            <label class="control-label col-sm-5 h3" ><%//=cantidadAnimal%> Cabezas.</label>
-                                            
-                                        </div>
-                                    </div>
-                                            -->
+                                       
                                     <div>
                                         <form role="form" method="post" action="PdfUsuario"> 
                                             <div class="col-sm-offset-8 col-sm-10">
@@ -149,6 +124,7 @@
                                     </tr>
                                     <%
                                             animal = co.filtrarAnimal(usuario);
+                                            int cuenta =0;
                                             for(Animal a :animal){
                                         %>
                                         <tr>
@@ -163,10 +139,27 @@
                                             <td> <%= a.getObservaciones()%> </td>
                                         </tr>
                                      <%
+                                        cuenta++; 
                                         }
-                                     %>
+                                      %>
                                     </table>
-                                </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-sm-7 h3 bg-info" >Número de Bovinos activos:</label>
+                                        <label class="control-label col-sm-5 h3 bg-info" ><%=cuenta%>  en total.</label>
+                                    </div>
+                                    <%
+                                        inseminacion = co.ListarInseminacionFinca(usuario);
+                                        int conta=0;
+                                        for(Inseminacion i :inseminacion){
+                                            i.getId_inseminacion();
+                                            conta++;
+                                        }
+                                    %>
+                                    <div class="form-group">
+                                        <label class="control-label col-sm-7 h3 bg-info" >Número de Inseminaciones en mi finca:</label>
+                                        <label class="control-label col-sm-5 h3 bg-info" ><%=conta%>  en total.</label>
+                                    </div>
+                                </div><br/><br/>
                                   <div class="card-header alert-success text-center "> ENFERMEDADES PADECIDAS EN MI FINCA</div><br/>
                                   <div class="card-body">
                                       <table class="table table-striped" border="2">
@@ -270,8 +263,9 @@
                                             <div class="col-sm-7">
                                                 <select class="form-control col-sm-7" id="sel1" name="etapa_animal">
                                               <option selected value="0"> Elija una opción </option>
-                                                        <option>Ternero(a)/option>
-                                                        <option>Novill0(a)</option>
+                                                        <option>Ternero/option>
+                                                        <option>Novillo</option>
+                                                        <option>Novilla</option>
                                                         <option>Toro</option>
                                                         <option>Preñana</option>
                                                         <option>Produciendo Leche</option>
