@@ -54,9 +54,9 @@
         <ul class="nav nav-tabs col-xs-10 col-xs-offset-1 text-uppercase bg-info h5 ">
             <li><a href="#tab-miFinca" data-toggle="tab">Mi Finca</a></li>
             <li><a href="#tab-animal" data-toggle="tab">Registrar Animal</a></li>
-            <li><a href="#tab-insemina" data-toggle="tab">Registrar inseminación</a></li>
-            <li><a href="#tab-leche" data-toggle="tab">Registrar Produccion de Leche </a></li>
-            <li><a href="#tab-historial" data-toggle="tab">Registrar His. Clinico </a></li>
+            <li><a href="#tab-insemina" data-toggle="tab">Registrar Inseminación</a></li>
+            <li><a href="#tab-leche" data-toggle="tab">Registrar Producción de Leche </a></li>
+            <li><a href="#tab-historial" data-toggle="tab">Registrar His. Clínico </a></li>
             
         </ul>
             <div class="form-horizontal">
@@ -117,8 +117,8 @@
                                         <td>Nombre del animal</td>
                                         <td>Fecha de Nacimiento</td>
                                         <td>Raza</td>
-                                        <td>Genero</td>
-                                        <td>Metodo de concepcion</td>
+                                        <td>Género</td>
+                                        <td>Método de concepción</td>
                                         <td>Etapa del animal</td>
                                         <td>Observaciones</td>
                                     </tr>
@@ -167,9 +167,9 @@
                                         
                                         <td>Fecha aparición enfermedad</td>
                                         <td>Enfermedad </td>
-                                        <td>Diagnostico del veterinario</td>
+                                        <td>Diagnóstico del veterinario</td>
                                         <td>Tratamiento establecido</td>
-                                        <td>veterinario</td>
+                                        <td>Veterinario</td>
                                     </tr>
                                     <%
                                             historia = co.listaHisto(usuario);
@@ -197,11 +197,11 @@
                 <div class="tab-pane" id="tab-animal">
                     <form role="form" method="post" action="creaAnimal">
                         <div class="card">
-                            <div class="card-header alert-success text-center ">DATOS DEL SEMOVIENTE</div><br/>
+                            <div class="card-header alert-success text-center ">DATOS DEL ANIMAL</div><br/>
                             <div class="card-body">
                                 
                                     <div class="form-group">
-                                        <label class="control-label col-sm-5" for="id_animal">código del animal:</label>
+                                        <label class="control-label col-sm-5" for="id_animal">Código del animal:</label>
                                         <div class="col-sm-7">
                                             <input type="text" class="form-control" id="id_animal" placeholder="Código del animal" name="id_animal">
                                         </div>
@@ -235,7 +235,7 @@
                                             
                                         </div>
                                         <div class="form-group">
-                                            <label class="control-label col-sm-5" for="genero_animal">Genero del Animal:</label>
+                                            <label class="control-label col-sm-5" for="genero_animal">Género del Animal:</label>
                                             <div class="col-sm-7">
                                                 <select class="form-control col-sm-7" id="sel1" name="genero_animal">
                                               <option selected value="0"> Elija una opción </option>
@@ -247,7 +247,7 @@
                                             
                                         </div>
                                         <div class="form-group">
-                                            <label class="control-label col-sm-5" for="metodo_concepcion">Metodo de concepción:</label>
+                                            <label class="control-label col-sm-5" for="metodo_concepcion">Método de concepción:</label>
                                             <div class="col-sm-7">
                                                 <select class="form-control col-sm-7" id="sel1" name="metodo_concepcion">
                                               <option selected value="0"> Elija una opción </option>
@@ -303,7 +303,7 @@
                                             <div class="card-header alert-success text-center ">DATOS DE LA FINCA DONDE HABITA</div><br/>
                                                 <div class="card-body">
                                                     <div class="form-group">
-                                                            <label class="control-label col-sm-5" for="id_finca">codigo de la finca donde habita el animal:</label>
+                                                            <label class="control-label col-sm-5" for="id_finca">Código de la finca donde habita el animal:</label>
                                                             <div class="col-sm-7">
                                                                 <input type="text" id="id_finca" class="form-control" placeholder="Codigo de la finca" required name="id_finca">
                                                             </div>
@@ -324,21 +324,21 @@
                     <div>
                         <pre class="bg-info text-left h5 ">
                             NOTA: 
-                            a continuación usted puede cambiar la etapa 
+                            A continuación usted puede cambiar la etapa 
                             o el estado de sus animales (Reses)de acuerdo 
                             a la evolución y/o ciclo de vida de cada uno. 
 
-                            Ingrese el código de la Res seguido a esto 
-                            seleccione la Etapa y presione el Boton 
+                            Ingrese el código del animal seguido a esto 
+                            seleccione la Etapa y presione el Botón 
                             "Cambiar Etapa"
                         </pre>
 
                     </div>
                     <form role="form" method="post" action="creaAnimal">
-                    <div class="card-header alert-success text-center ">DATOS DEL SEMOVIENTE</div><br/>
+                    <div class="card-header alert-success text-center ">DATOS DEL ANIMAL</div><br/>
                             <div class="card-body">
                                 <div class="form-group">
-                                    <label class="control-label col-sm-5" for="id_animal">código del animal:</label>
+                                    <label class="control-label col-sm-5" for="id_animal">Código del animal:</label>
                                     <div class="col-sm-7">
                                         <input type="text" class="form-control" id="id_animal" placeholder="Código del animal" name="id_animal">
                                     </div>
@@ -381,7 +381,7 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="control-label col-sm-5" for="id_animal">código del animal:</label>
+                                    <label class="control-label col-sm-5" for="id_animal">Código del animal:</label>
                                     <div class="col-sm-7">
                                         <input type="text" class="form-control" id="id_animal" placeholder="Código del animal" name="id_animal">
                                     </div>
@@ -441,8 +441,8 @@
                             a continuación encontrará un campo para registrar 
                             la efectividad del procedimiento de Inseminación.
 
-                            transcurridos 20 dias del proceso, es nesesario realizarle un
-                            tacto a la Res inseminada, con el fin de establecer si ha 
+                            Transcurridos 20 dias del proceso, es nesesario realizarle un
+                            tacto al animal inseminado, con el fin de establecer si ha 
                             sido exitosa dicha Inseminación.
                         </pre>
 

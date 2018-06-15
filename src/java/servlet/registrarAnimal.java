@@ -65,8 +65,9 @@ public class registrarAnimal extends HttpServlet {
                     respuesta=dao.insertarAnimal(animal);
                     request.setAttribute("respuesta", respuesta);
                     response.addCookie(new Cookie("mensaje", respuesta));
+                        out.println("<head><link href=\"css/stylos1.css\" rel=\"stylesheet\"></head>");
                         out.println("<center><br/><br/><br/><h2 >"+respuesta+"</h2><br/><br/>"
-                            + "<button onclick=\"self.location.href = 'panelUsuario.jsp'\">Regrezar a Mi Finca</button></center>");
+                            + "<button onclick=\"self.location.href = 'panelUsuario.jsp'\">Regresar a Mi Finca</button></center>");
                     
                     
                 }else if(request.getParameter("btn_buscarAnimal")!= null){

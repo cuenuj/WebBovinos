@@ -67,7 +67,7 @@ public class InformeInseminacion extends HttpServlet {
                             "<td>Raza Pajilla</td>\n" +
                             "<td>Sexada</td>\n" +
                             "<td>Inseminador</td>\n" +
-                            "<td>resultado Inseminación</td>\n" +
+                            "<td>Resultado Inseminación</td>\n" +
                             "</tr>");
                 datos = co.listaInseminacionFuncionario(criterio);
                 for(Inseminacion i : datos){
@@ -84,7 +84,7 @@ public class InformeInseminacion extends HttpServlet {
                 }
                 out.println("</table></center>");
                 out.println("<center><br/>"
-                    + "<button onclick=\"self.location.href = 'panelFuncionario.jsp'\">Regrezar al panel Principal</button></center><br/><br/>");
+                    + "<button onclick=\"self.location.href = 'panelFuncionario.jsp'\">Regresar al panel Principal</button></center><br/><br/>");
                 out.println("</body>");
             }
             

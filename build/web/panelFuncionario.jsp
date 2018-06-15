@@ -110,7 +110,7 @@
                     <div><br/><br/><br/><br/>
                         <form action="ConsultaFinca" method="get" >
                             <pre class="bg-warning text-left h4 ">
-                            a continuacion podar ver todas las fincas registradas,  
+                            A continuación podrá ver todas las fincas registradas,  
                             ingrese el codigo único de la finca y presione el botón  "Buscar Finca",
                             o en el botón "ver Lista Completa de Fincas" para ver todo el listado de nuevo.
                             </pre>
@@ -129,9 +129,9 @@
                                 <tr>
                                     <td>Código de Finca</td>
                                     <td>Nombre de Finca</td>
-                                    <td>cordenada Latitud</td>
-                                    <td>cordenada Longitud</td>
-                                    <td>Cedula del Dueño</td>
+                                    <td>coordenada Latitud</td>
+                                    <td>coordenada Longitud</td>
+                                    <td>Cédula del Dueño</td>
                                     <td>Ubicación/Vereda</td>
                                 </tr>
                                 <%
@@ -158,7 +158,7 @@
                                 %>
                             </table>
                             <div class="form-group">
-                                        <label class="control-label col-sm-7 h3 bg-info" >Número de fincas en Lista:</label>
+                                        <label class="control-label col-sm-7 h3 bg-info" >Número de fincas en lista:</label>
                                         <label class="control-label col-sm-5 h3 bg-info" ><%=cuentaFinca%>  en total.</label>
                                     </div>
                     </div>
@@ -186,13 +186,13 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="control-label col-sm-5" for="cordenada_latitud">cordenada latitud:</label>
+                                    <label class="control-label col-sm-5" for="cordenada_latitud">Coordenada latitud:</label>
                                     <div class="col-sm-7">
                                         <input type="text" class="form-control" id="cordenada_latitud" placeholder="cordenada latitud" name="cordenada_latitud">
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="control-label col-sm-5" for="cordenada_longitud">cordenada longitud:</label>
+                                    <label class="control-label col-sm-5" for="cordenada_longitud">Coordenada longitud:</label>
                                     <div class="col-sm-7">
                                         <input type="text" class="form-control" id="cordenada_longitud" placeholder="cordenada longitud" name="cordenada_longitud">
                                     </div>
@@ -204,7 +204,7 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="control-label col-sm-5" for="i_lugar">Vereda donde se Ubicacion:</label>
+                                    <label class="control-label col-sm-5" for="i_lugar">Vereda donde se Ubica:</label>
                                     <div class="col-sm-7">
                                         <input type="text" class="form-control" id="i_lugar" placeholder="vereda de ubicación de la Finca" name="i_lugar">
                                     </div>
@@ -224,11 +224,11 @@
                  <div class="tab-pane" id="tab-veterinario">
                     <form role="form" method="post" action="regVeterinario">
                         <div class="card">
-                            <div class="card-header alert-success text-center ">DATOS DEL MEDICO VETERINARIO</div><br/>
+                            <div class="card-header alert-success text-center ">DATOS DEL PROFESIONAL VETERINARIO</div><br/>
                             <div class="card-body">
                                 <pre class="bg-warning text-left h4 ">
                         Registre a continuación Veterinarios Nuevos, ingrese los datos del profesional 
-                        luego la contraseña de usted como funcionario seguido del boton "Registrar Veterinario".
+                        luego la contraseña de usted como funcionario seguido del botón "Registrar Veterinario".
                                 </pre>
                                     <div class="form-group">
                                         <label class="control-label col-sm-5" for="id_animal">Número de Identificación Veterinario:</label>
@@ -250,7 +250,7 @@
                                       </div>
                                         
                                         <div class="form-group">
-                                            <label class="control-label col-sm-5" for="telefono">Telefono de contacto:</label>
+                                            <label class="control-label col-sm-5" for="telefono">Teléfono de contacto:</label>
                                             <div class="col-sm-7">
                                                 <input type="text" class="form-control" id="telefono" placeholder="telefono" name="telefono">
                                             </div>
@@ -281,7 +281,7 @@
                 
                 
                 <div class="tab-pane" id="tab-leche">
-                    <div class="card-header alert-success text-center ">PRODUCCIÓN DE LECHE DE LAS FINCAS ENTRE FECHAS  </div><br/>
+                    <div class="card-header alert-success text-center ">PRODUCCIÓN DE LECHE DE LAS FINCAS </div><br/>
                     <div class="card-body">
                         <form role="form" method="post" action="infoLeche">
                             <pre class="bg-warning text-left h4 ">
@@ -297,7 +297,7 @@
                             </div>
                             <div class="form-group"> 
                                 <div class="col-sm-offset-4 col-sm-10">
-                                   <button type="submit" class="btn btn-default btn-primary" name="btn_informeLeche">ver informe</button>
+                                   <button type="submit" class="btn btn-default btn-primary" name="btn_informeLeche">Ver Informe</button>
                                 </div>
                             </div>
                         </form>
@@ -307,11 +307,11 @@
                     <div class="card-header alert-success text-center ">INSEMINACIONES POR FINCAS  </div><br/>
                     <div class="card-body">
                         <pre class="bg-warning text-left h4 ">
-            A continuación usted puede obtener un balance de las inceminaciones de una finca en especifico, 
+            A continuación usted puede obtener un balance de las inseminaciones de una finca en específico, 
             ingrese el Código Único de la finca seguido del botón "Buscar Finca".
 
-            De igual manera encontrará el balance de Inseminación, junto con otra información en el 
-            archivo PDF que puede generar en la pestaña "Fincas de Cómbita" 
+            De igual manera encontrará el reporte de Inseminación, junto a mas información en el 
+            archivo PDF, que puede generar en la pestaña "FINCAS DE CÓMBITA" 
                         </pre>
                         <form role="form" method="post" action="infoInseminacion">
                             <span class=" input-group-addon">Busqueda de inseminaciones por el nombre de Finca
@@ -325,13 +325,13 @@
                 <div class="tab-pane" id="tab-enfermedades">
                     <form role="form" method="post" action="infoHistoria">
                         <pre class="bg-warning text-left h4 ">
-            A continuación usted puede obtener un balance de las Historias clinicas 
-            realizadas en una finca en especifico, ingrese el nombre de la finca 
-            seguido del botón "Buscar Finca Especifica".
+            A continuación usted puede obtener un Reporte de las Historias clinicas 
+            realizadas en una finca especifica, ingrese el nombre de la finca 
+            seguido del botón "Buscar Finca Específica".
                         </pre>    
                         <span class=" input-group-addon">Busqueda de Enfermedades De Bovinos En Cómbita
                             <input type="text" class="form-control" placeholder="Nombre de la Finca" name="nombre_fincaH">
-                            <button class="btn btn-default" name="btn_enfermedad_finca" type="submit" >Buscar Finca Especifica</button>
+                            <button class="btn btn-default" name="btn_enfermedad_finca" type="submit" >Buscar Finca Específica</button>
                             <button class="btn btn-default" name="btn_enfermedad_general" type="submit" >Mostrar Lista General</button>
                         </span>
                     </form>

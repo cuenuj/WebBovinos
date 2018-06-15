@@ -54,11 +54,13 @@
             <center>
                 <div class="container ">
                     <h1>SIAGC</h1>
+                    <h3><a class="text-center h4" >Sistema de Información para la Administración Ganadera de Cómbita </a></h3>
+                    
                     <pre class="lead h1 bg">IDENTIFICACIÓN DE USUARIOS PARA INGRESO AL SISTEMA</pre>
                  
                     <pre class="bg-warning text-left h4 ">
-                        Para ingrezar al sistema es nesesario la autentificacion de usuario, por favor 
-                        ingrese su correo y contraseña luego pulse el boton "Iniciar".</pre>
+                        Para ingresar al sistema es nesesario la autenticación de usuario, por favor 
+                        ingrese su correo y contraseña luego pulse el botón "Iniciar".</pre>
                 </div>
                 
             </center>
@@ -83,25 +85,12 @@
             <div>
                 <pre class="bg-info text-left h4 ">
                     NOTA: 
-                    Si aun no tiene una cuenta con 
-                    nosotros. puede registrarse a 
-                    continuacion pulsando los botones
-                    de registro, tanto para ganaderos 
-                    o dueños de fincas como para 
-                    funcionarios de este sistema.
+                    Si aun no tiene una cuenta con nosotros. puede solicitar el registro 
+                    al funcionario de la alcaldía o el administrador del sistema.
                     </pre>
 
             </div>
-            <div class="form-regist nav ">
-                <form >
-                    <a class="btn btn-lg btn-primary btn-block" href="registroUsuarios.jsp">Registro nuevo usuario</a>
-                    <div class="checkbox">
-
-                        
-                    </div>
-                    <a class="btn btn-lg btn-primary btn-block" href="registroFuncionario.jsp">Registro nuevo funcionario</a>
-                </form>
-            </div>
+            
         <script src="js/jquery.min.js"></script>
         <script src="js/bootstrap.min.js"></script>
         

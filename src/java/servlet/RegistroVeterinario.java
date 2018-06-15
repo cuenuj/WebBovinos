@@ -49,6 +49,10 @@ public class RegistroVeterinario extends HttpServlet {
                     out.println("location.href='http://localhost:8080/WebBovinos/panelFuncionario.jsp';");
                     out.println("</script>");
         }else{
+            out.println("<script>");
+                    out.println("alert('Error al registrar los datos, por favor intente de nuevo');");
+                    out.println("location.href='http://localhost:8080/WebBovinos/panelFuncionario.jsp';");
+                    out.println("</script>");
             System.err.println("error en el servlet");
         }
     }

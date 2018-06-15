@@ -60,8 +60,9 @@ public class ReporteFinca extends HttpServlet {
                     respuesta=dao.insertar(finca);
                     request.setAttribute("respuesta", respuesta);
                     response.addCookie(new Cookie("mensaje", respuesta));
+                        out.println("<head><link href=\"css/stylos1.css\" rel=\"stylesheet\"></head>");
                         out.println("<center><br/><br/><br/><h2 >"+respuesta+"</h2><br/><br/>"
-                            + "<button onclick=\"self.location.href = 'panelUsuario.jsp'\">Regrezar a Mi Finca</button></center>");
+                            + "<button onclick=\"self.location.href = 'panelUsuario.jsp'\">Regresar a Mi Finca</button></center>");
                     
                 }else if(request.getParameter("btn_modificar")!= null){
                     finca.setId_finca(request.getParameter("id_finca"));
@@ -74,6 +75,7 @@ public class ReporteFinca extends HttpServlet {
                     respuesta=dao.modificar(finca);
                     request.setAttribute("respuesta", respuesta);
                     response.addCookie(new Cookie("mensaje", respuesta));
+                        out.println("<head><link href=\"css/stylos1.css\" rel=\"stylesheet\"></head>");
                         out.println("<center><br/><br/><br/><h2 >"+respuesta+"</h2><br/><br/>"
                             + "<button onclick=\"self.location.href = 'panelUsuario.jsp'\">Regrezar a Mi Finca</button></center>");
                     

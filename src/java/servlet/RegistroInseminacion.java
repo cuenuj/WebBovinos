@@ -58,15 +58,16 @@ public class RegistroInseminacion extends HttpServlet {
                     respuesta=dao.insertarInseminacion(inseminacion);
                     request.setAttribute("respuesta", respuesta);
                     response.addCookie(new Cookie("mensaje", respuesta));
+                    out.println("<head><link href=\"css/stylos1.css\" rel=\"stylesheet\"></head>");
                     out.println("<center><br/><br/><br/><h2 >"+respuesta+"</h2><br/><br/>"
-                            + "<button onclick=\"self.location.href = 'panelUsuario.jsp'\">Regrezar a Mi Finca</button></center>");
+                            + "<button onclick=\"self.location.href = 'panelUsuario.jsp'\">Regresar a Mi Finca</button></center>");
                     
                 }else if(request.getParameter("btn_inseminacionExitosa") != null){
                     String id_inseminacion = request.getParameter("id_inseminacion");
                     String exito = request.getParameter("inseminacion_exitosa");
                     if (co.registroInseminacionExitosa(id_inseminacion, exito)) {
                       out.println("<script>");
-                    out.println("alert('Se registro correctamente el exito de la inseminacion!');");
+                    out.println("alert('Se registró correctamente el exito de la inseminación!');");
                     out.println("location.href='http://localhost:8080/WebBovinos/panelUsuario.jsp';");
                     out.println("</script>");
                     }

@@ -67,9 +67,9 @@ public class ReportePdfFuncionario extends HttpServlet {
                  datos = co.filtrarFinca(nomfinca);
                  listInsemina = co.listaInseminacionFuncionario(nomfinca);
                  //se genera el archivo PDF
-                 String Titulo = "SIAG - Sistema de información para la administración Ganadera de Cómbita"+"\n"+"\n"+"\n"+"\n";
+                 String Titulo = "SIAG - Sistema de Información para la Administración Ganadera de Cómbita"+"\n"+"\n"+"\n"+"\n";
                  String encabezado = "Reporte MI Finca del usuario:  "+nomfinca+"\n"+"\n";
-                 String parrafo ="a continuación encontrará la infomación de los animales existentes, "
+                 String parrafo ="A continuación encontrará la infomación de los animales existentes, "
                          + "seguido de las Inseminaciones y los controles  de enfermedades que se han realizado en esta finca "+"\n"+"\n"
                          +"Contenido:"+"\n" 
                          + "1.  Lista de animales existentes en la Finca "+"\n"
@@ -103,16 +103,16 @@ public class ReportePdfFuncionario extends HttpServlet {
                     PdfPCell cel2 = new PdfPCell(new Paragraph("Nombre animal",FontFactory.getFont("arial",10,Font.BOLD,BaseColor.BLUE)));
                     PdfPCell cel3 = new PdfPCell(new Paragraph("Fecha Nacimiento",FontFactory.getFont("arial",10,Font.BOLD,BaseColor.BLUE)));
                     PdfPCell cel4 = new PdfPCell(new Paragraph("Raza",FontFactory.getFont("arial",10,Font.BOLD,BaseColor.BLUE)));
-                    PdfPCell cel5 = new PdfPCell(new Paragraph("Genero",FontFactory.getFont("arial",10,Font.BOLD,BaseColor.BLUE)));
-                    PdfPCell cel6 = new PdfPCell(new Paragraph("Metodo concepción",FontFactory.getFont("arial",10,Font.BOLD,BaseColor.BLUE)));
-                    PdfPCell cel7 = new PdfPCell(new Paragraph("etapa animal",FontFactory.getFont("arial",10,Font.BOLD,BaseColor.BLUE)));
+                    PdfPCell cel5 = new PdfPCell(new Paragraph("Género",FontFactory.getFont("arial",10,Font.BOLD,BaseColor.BLUE)));
+                    PdfPCell cel6 = new PdfPCell(new Paragraph("Método concepción",FontFactory.getFont("arial",10,Font.BOLD,BaseColor.BLUE)));
+                    PdfPCell cel7 = new PdfPCell(new Paragraph("Etapa animal",FontFactory.getFont("arial",10,Font.BOLD,BaseColor.BLUE)));
                     PdfPCell cel8 = new PdfPCell(new Paragraph("Padre",FontFactory.getFont("arial",10,Font.BOLD,BaseColor.BLUE)));
                     PdfPCell cel9 = new PdfPCell(new Paragraph("Madre",FontFactory.getFont("arial",10,Font.BOLD,BaseColor.BLUE)));
                     PdfPCell cel10 = new PdfPCell(new Paragraph("Observaciones",FontFactory.getFont("arial",10,Font.BOLD,BaseColor.BLUE)));
                    
                     PdfPCell cel11 = new PdfPCell(new Paragraph("Fecha aparición enfermedad",FontFactory.getFont("arial",10,Font.BOLD,BaseColor.BLUE)));
                     PdfPCell cel12 = new PdfPCell(new Paragraph("Nombre enfermedad",FontFactory.getFont("arial",10,Font.BOLD,BaseColor.BLUE)));
-                    PdfPCell cel13 = new PdfPCell(new Paragraph("Diagnostico",FontFactory.getFont("arial",10,Font.BOLD,BaseColor.BLUE)));
+                    PdfPCell cel13 = new PdfPCell(new Paragraph("Diagnóstico",FontFactory.getFont("arial",10,Font.BOLD,BaseColor.BLUE)));
                     PdfPCell cel14 = new PdfPCell(new Paragraph("Tratamiento",FontFactory.getFont("arial",10,Font.BOLD,BaseColor.BLUE)));
                     PdfPCell cel15 = new PdfPCell(new Paragraph("Identificación del Veterinario",FontFactory.getFont("arial",10,Font.BOLD,BaseColor.BLUE)));
                     
@@ -122,7 +122,7 @@ public class ReportePdfFuncionario extends HttpServlet {
                     PdfPCell cel19 = new PdfPCell(new Paragraph("Raza Pajilla",FontFactory.getFont("arial",10,Font.BOLD,BaseColor.BLUE)));
                     PdfPCell cel20 = new PdfPCell(new Paragraph("Sexada",FontFactory.getFont("arial",10,Font.BOLD,BaseColor.BLUE)));
                     PdfPCell cel21 = new PdfPCell(new Paragraph("Veterinario",FontFactory.getFont("arial",10,Font.BOLD,BaseColor.BLUE)));
-                    PdfPCell cel22 = new PdfPCell(new Paragraph("insemianción exitosa",FontFactory.getFont("arial",10,Font.BOLD,BaseColor.BLUE)));
+                    PdfPCell cel22 = new PdfPCell(new Paragraph("Insemianción exitosa",FontFactory.getFont("arial",10,Font.BOLD,BaseColor.BLUE)));
                     
                     documento.open();
                     documento.add(p);
@@ -222,12 +222,12 @@ public class ReportePdfFuncionario extends HttpServlet {
                     documento.close();
                     
                  out.println("<script>");
-                 out.println("alert('se generó exitosamente el PDF!');");
+                 out.println("alert('Se generó exitosamente el PDF!');");
                  out.println("location.href='http://localhost:8080/WebBovinos/panelFuncionario.jsp';");
                  out.println("</script>");
                 } else{
                     out.println("<script>");
-                   out.println("alert('no se puede generar el archivo! ...Verifique el nombre de la finca e intente de nuevo');");
+                   out.println("alert('No se puede generar el archivo! ...Verifique el nombre de la finca e intente de nuevo');");
                    out.println("location.href='http://localhost:8080/WebBovinos/panelFuncionario.jsp';");
                    out.println("</script>");  
                 }

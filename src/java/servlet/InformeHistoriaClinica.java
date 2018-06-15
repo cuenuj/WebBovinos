@@ -58,17 +58,17 @@ public class InformeHistoriaClinica extends HttpServlet {
                                 + "Por favor verifique el nombre de la finca e intente de nuevo.</pre></center>");
 
                     }else{
-                        out.println("<center><pre class=\"bg-warning text-left h4 \"> Historias Clinicas Realizadas en la Finca "+criterio+"</pre></center>");
+                        out.println("<center><pre class=\"bg-warning text-left h4 \"> Historias Clinicas Realisadas en la Finca "+criterio+"</pre></center>");
                     }
                 out.println("<center><table border=\"2\" color=\"Blue\">"
                         + "<tr>\n" +
                             "<td>Fecha</td>\n" +
-                            "<td>observacones</td>\n" +
+                            "<td>Observacones</td>\n" +
                             "<td>Enfermedad</td>\n" +
-                            "<td>Diagnostico</td>\n" +
+                            "<td>Diagnóstico</td>\n" +
                             "<td>Tratamiento</td>\n" +
-                            "<td>código historia</td>\n" +
-                            "<td>veterinario</td>\n" +
+                            "<td>Código historia</td>\n" +
+                            "<td>Veterinario</td>\n" +
                             "</tr>");
                 detHist = co.listaHistoriaFuncionario(criterio);
                 for(DetalleHistorial dH : detHist){

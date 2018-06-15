@@ -55,9 +55,8 @@
             <div class="container">
                 <h1><a  class=" h1">SIAGC</a></h1>
                 <pre class="bg-warning text-left h4 ">
-                        A continuacion podrá descargar la aplicacion movil para sistema andorid
-                        la cual le permitirá almacenar los datos propios de su finca y los bovinos
-                        que ella habitan
+                        A continuacion podrá descargar la aplicacion móvil para sistema andorid
+                        la cual le permitirá almacenar los datos propios de la actividad ganadera.
                 </pre>
                 <div class="form-signin navbar-left">
                  <button class="btn btn-lg btn-primary btn-block" type="submit">Descargar APK </button>
