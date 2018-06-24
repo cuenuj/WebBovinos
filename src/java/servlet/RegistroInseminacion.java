@@ -24,7 +24,8 @@ import persistencia.Inseminacion;
  * @author cuenu
  */
 public class RegistroInseminacion extends HttpServlet {
-
+/*Servlet de gestion para los registros de Inseminaciones y el exito de la misma.
+        */
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.

@@ -15,15 +15,19 @@ import java.util.logging.Logger;
 /**
  *
  * @author cuenu
+ * clase conexión, gestiona una conexion con la Base de datos, donde el constructor centra la conexión
  */
 public class Conexion {
         Connection conn = null;
         Statement st = null;
-        String url = "jdbc:mysql://192.168.1.7:3306/bovinos";
+        String url = "jdbc:mysql://192.168.1.6:3306/bovinos";
         String us = "jp";
         String pass = "jp";
    
     public Conexion(){    
+        /*
+        *constructor de la clase Conexion
+        */
         try{
           Class.forName("com.mysql.jdbc.Driver");
           conn = (Connection)DriverManager.getConnection(url,us,pass);

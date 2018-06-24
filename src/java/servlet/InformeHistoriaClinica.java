@@ -24,7 +24,8 @@ import persistencia.Inseminacion;
  * @author cuenu
  */
 public class InformeHistoriaClinica extends HttpServlet {
-
+/*Servlet de gestion para los informes del Historia clínica.
+        */
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.

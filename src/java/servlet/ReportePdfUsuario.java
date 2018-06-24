@@ -38,7 +38,8 @@ import persistencia.Inseminacion;
  * @author cuenu
  */
 public class ReportePdfUsuario extends HttpServlet {
-
+/*Servlet de gestion la creacion del archivo pdf del usuario y/o ganadero.
+        */
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.

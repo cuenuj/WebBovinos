@@ -51,8 +51,48 @@
                 </div>
               </nav>
         </div>
-        
-        
+        <div class="tab-content col-xs-8 col-xs-offset-2">
+            <pre class="bg-warning text-left h4 ">
+                    Este sistema permite la gestión de información resultante de las actividades 
+                    ganaderas en el municipio de Cómbita- Boyacá. El sistema permite el acceso a 
+                    dos tipos de usuarios: funcionarios y dueños de fincas. El funcionario es 
+                    quien tienen acceso a la información y reportes que se generan en cada una de
+                    las fincas. Los dueños de las fincas son quienes ingresan la información de 
+                    los bovinos y de algunas de las actividades más importantes en relación con la
+                    actividad de ganadería. 
+                  </pre>
+            <pre class="bg-warning text-left h4 ">
+                       <a class="text-center" > Secretaría De Innovación, Fomento Agropecuario Y Desarrollo Socioeconómico. </a>
+
+                        <a class="text-center" >Misión</a>
+                        La Secretaría de Innovación, Fomento Agropecuario y Desarrollo Socioeconómico 
+                        tiene como misión lograr el desarrollo social, comunitario, turístico, agropecuario 
+                        y económico del Municipio, mediante la formulación y ejecución de políticas, planes 
+                        y programas sectoriales garantizando la participación ciudadana.
+
+                                                
+                        <a class="text-warning">Información de contacto</a>
+                        Tel. (57) (8) 7310010
+                        innovacionyfagropecuario@combita-boyaca.gov.co
+                        Dirección: calle 3 No. 5-63
+                        Correo electrónico: innovacionyfagropecuario@combita-boyaca.gov.co
+                        Teléfono: (057) (8) 7310010
+
+                        <a class="text-warning " >Nelson Rafael Parra</a>
+                        Secretario de Innovación, Fomento Agropecuario y Desarrollo Socioeconómico
+
+                        
+                        <a class="text-warning  " >Horario de atención al público:</a> 
+                        Lunes a Viernes de 8:00 a.m a 1:00 p.m 
+                        y de 2:00 p.m a 5:00 p.m
+                        
+                        Visitanos en la Página web : 
+                        <a class="text-center" href="http://www.combita-boyaca.gov.co" > http://www.combita-boyaca.gov.co</a>
+                        
+
+                  </pre>
+        </div>
+                
         <script src="js/jquery.min.js"></script>
         <script src="js/bootstrap.min.js"></script>
     </body>

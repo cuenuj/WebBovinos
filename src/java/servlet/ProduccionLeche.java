@@ -25,7 +25,8 @@ import persistencia.Leche;
  * @author cuenu
  */
 public class ProduccionLeche extends HttpServlet {
-
+/*Servlet de gestion para el registro de la producción de leche
+        */
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.

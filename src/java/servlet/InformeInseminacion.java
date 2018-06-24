@@ -23,7 +23,8 @@ import persistencia.Inseminacion;
  * @author cuenu
  */
 public class InformeInseminacion extends HttpServlet {
-
+/*Servlet de gestion para los informes de Inseminación de un semoviente de una finca.
+        */
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.

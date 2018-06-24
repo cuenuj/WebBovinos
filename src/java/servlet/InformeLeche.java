@@ -8,7 +8,9 @@ package servlet;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -22,7 +24,8 @@ import persistencia.Leche;
  * @author cuenu
  */
 public class InformeLeche extends HttpServlet {
-
+/*Servlet de gestion para los informes de la producción de leche.
+        */
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -39,33 +42,33 @@ public class InformeLeche extends HttpServlet {
             /* TODO output your page here. You may use following sample code. */
             Consultas co= new Consultas();
             Leche leche = new Leche();
-            RequestDispatcher rd=null;
-            java.util.Date fechaHoy = new Date();
-            SimpleDateFormat sdf = new SimpleDateFormat("MM/DD/yyyy"); 
+            int valor_leche=0;
+            int sumaLitros=0;
+            int produccion=0;
+            List<Leche> listaLeche = new ArrayList<>();
             try {
                 if(request.getParameter("btn_informeLeche")!=null){
-                                        
-                    Date FechaIni=sdf.parse(request.getParameter("fecha_inicial"));
-                    Date FechaFin=sdf.parse(request.getParameter("fecha_final"));
-                    String id_usuario = request.getParameter("id_finca");
+                    String finca = request.getParameter("nombre_finca");
+                    valor_leche = Integer.parseInt(request.getParameter("valor_leche"));
                     
-                    if (FechaIni.before(fechaHoy) && FechaFin.before(fechaHoy)&& FechaIni.before(FechaFin)) {
-                        
-                        out.println("<script>");
-                        out.println("alert('la finca en ese lapso de tiempo ha producido ... Litros de Leche" 
-                            + "Producción de Leche!');");
-                        out.println("location.href='http://localhost:8080/WebBovinos/panelFuncionario.jsp';");
-                        out.println("</script>");   
-                    }else{
-                        out.println("<script>");
-                        out.println("alert('Error en la fechas..  \n"
-                                + "1. la fecha inicial debe ser menor a la fecha final  \n"
-                                + "2. Ninguna de las fechas debe ser mayor al día de hoy \n" 
-                                + "por favor verifique los datos e intente de nuevo.');");
-                        out.println("location.href='http://localhost:8080/WebBovinos/panelFuncionario.jsp';");
-                        out.println("</script>");
+                    listaLeche = co.CantidadLitrosLeche(finca);
+                    for(Leche l: listaLeche){
+                        sumaLitros = sumaLitros + l.getLitros_leche();
+                              
                     }
+                    produccion= sumaLitros*valor_leche;
                     
+                    out.println("<head><link href=\"css/stylos1.css\" rel=\"stylesheet\">");
+                    out.println("<title>(FUN)Inseminación</title>");            
+                    out.println("</head>");
+                    out.println("<body><br/><br/>");
+                    out.println("<center><h1>Informe Producción de Leche ");
+                    
+                    out.println("<pre>Los litros de leche producidos por la Finca  "+finca+" son "+sumaLitros+" <br/>"
+                            + "los cuales han tenido una producción monetaria de "+produccion+" pesos. </pre>");
+                    out.println("<br/>"
+                    + "<button onclick=\"self.location.href = 'panelFuncionario.jsp'\">Regresar al panel Principal</button></center><br/><br/>");
+                    out.println("</center></body>");
                 }
             } catch (Exception e) {
                 out.println("<script>");

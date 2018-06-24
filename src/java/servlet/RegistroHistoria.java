@@ -25,7 +25,8 @@ import persistencia.HistoriaClinica;
  * @author cuenu
  */
 public class RegistroHistoria extends HttpServlet {
-
+/*Servlet de gestion para los registros de historia clínica.
+        */
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.

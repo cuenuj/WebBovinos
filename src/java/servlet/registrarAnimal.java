@@ -25,7 +25,8 @@ import persistencia.Finca;
  * @author cuenu
  */
 public class registrarAnimal extends HttpServlet {
-
+/*Servlet de gestion del objeto Animal.
+        */
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -58,7 +59,6 @@ public class registrarAnimal extends HttpServlet {
                     animal.setEtapa_vida(request.getParameter("etapa_animal"));
                     animal.setNombrePadre(request.getParameter("nombre_padre"));
                     animal.setNombreMadre(request.getParameter("nombre_madre"));
-                    animal.setFoto_animal(request.getParameter("files[]"));
                     animal.setObservaciones(request.getParameter("observaciones"));
                     animal.setId_finca(request.getParameter("id_finca"));
                     

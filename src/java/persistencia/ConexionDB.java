@@ -8,6 +8,7 @@ package persistencia;
 /**
  *
  * @author cuenu
+ * Clase ConexionDB esta clase realiza una conexion con la base de datos  a traves de get and set de los atributos
  */
 public class ConexionDB {
         String Driver;
@@ -16,8 +17,11 @@ public class ConexionDB {
         String pass;
         
         public ConexionDB(){
+            /*
+            *constructor de la clase ConexionDB
+            */
             this.Driver= "com.mysql.jdbc.Driver";
-            this.url=  "jdbc:mysql://192.168.1.7:3306/bovinos";
+            this.url=  "jdbc:mysql://192.168.1.6:3306/bovinos";
             this.us= "jp";
             this.pass= "jp";
         }

@@ -26,7 +26,8 @@ import persistencia.Finca;
  * @author cuenu
  */
 public class ReporteFinca extends HttpServlet {
-
+/*Servlet de gestion para las fincas y la generacion del archivo pdf.
+        */
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.

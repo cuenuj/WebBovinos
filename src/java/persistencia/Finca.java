@@ -10,7 +10,8 @@ package persistencia;
  * @author cuenu
  */
 public class Finca {
-    
+    /*Clase finca, la cual contiene los datos de una finca según el modelo del negocio.
+        */
     String id_finca;
     String nombre_finca;
     String cordenada_latitud;
@@ -21,10 +22,13 @@ public class Finca {
     String apellidoDueno;
 
     public Finca(){
-        
+       /*Constructor de la clase vacio
+        */ 
     }
 
     public Finca(String id_finca, String nombre_finca, String nombreDueno, String apellidoDueno, String cordenada_latitud, String cordenada_longitud, String id_dueno, String id_lugar) {
+        /*Constructor de la clase con todos los datos propios del objeto finca.
+        */
         this.id_finca = id_finca;
         this.nombre_finca = nombre_finca;
         this.nombreDueno = nombreDueno;
@@ -35,9 +39,6 @@ public class Finca {
         this.id_lugar = id_lugar;
         
     }
-
-    
-
     public String getCordenada_latitud() {
         return cordenada_latitud;
     }

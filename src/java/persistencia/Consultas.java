@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package persistencia;
 
 import java.sql.Connection;
@@ -15,10 +10,10 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- *
- * @author cuenu
- */
-
+* @author cuenu
+* Clase Consultas, contiene algunas de las consultas hechas a la Base de datos, donde sus metodos retorna la información propia de los Bovinos de Cómbita
+* tambien contiene las consultas para la gestion de Usuario y el Super Usuafio. 
+*/
 public class Consultas{
     
     Conexion con = null;
@@ -26,7 +21,8 @@ public class Consultas{
     ConsultasDAO dao = new ConsultasDAO();
     
     public boolean auteticacion(String correo, String contrasena){
-        
+        /**metodo autenticacion de la clase Consultas, realiza la autenticación del usuario consultando a la base de datos los usuarios registrados.
+        */
         PreparedStatement pst = null;
         ResultSet rs = null;
         
@@ -53,6 +49,8 @@ public class Consultas{
         return false;
     }
     public boolean  Funcionario(String correo, String contrasena){
+        /*metodo funcionario de la clase Consultas, evalúa si el usuario ingresado es un Funcionario o un usuario ganadero.
+        */
         PreparedStatement pst = null;
         ResultSet rs = null;
         try {
@@ -80,6 +78,8 @@ public class Consultas{
         return false;
     }
     public boolean RegistroUsuario(String contrasenaFunc, String cedula, String nombre,String apellido,String correo, String contrasena, String telefono ){
+        /*metodo registroUsuario de la clase Consultas, realiza el registro de un usuario ganadero dentro de la base de datos del sistema.
+        */
         ResultSet rs = null;
         PreparedStatement pst = null;
         try {
@@ -122,6 +122,8 @@ public class Consultas{
         return false;
     }
     public boolean RegistroFuncionario(String cargo,String cedula){
+        /*metodo registroFuncionario de la clase Consultas, registra un nuevo funcionario del sistema dentreo de la base de datos.
+        */
         ResultSet rs = null;
         PreparedStatement pst = null;
         try {
@@ -137,9 +139,30 @@ public class Consultas{
         }
         return false;
     }
+  public String nombreUsu(String correo){
+      /*metodo de la clase Consultas, realiza una consulta a la base de datos de los usuarios retornando el nombre del usuario en sesion.
+        */
+      PreparedStatement pst;
+        ResultSet rs;
+        String dato="";
+        String sql="SELECT nombre_usuario FROM usuario WHERE correo_usuario= ?";
+        try {
+            con = new Conexion();
+            pst = con.getConnection().prepareStatement(sql);
+            pst.setString(1, correo);
+            rs = pst.executeQuery();
+            dato = rs.getString("nombre_usuario");
+            
+        }
+        catch(Exception e){
+            e.printStackTrace();
+            
+        }
+      return dato;
+  }
   
    public List<Finca> Consultar() {
-    
+    /*metodo de la clase Consultas, que realiza una lista con los datos de Fincas existentes en la Base de datos*/
         List<Finca> datos = new ArrayList<>();
         PreparedStatement pst;
         ResultSet rs;
@@ -170,7 +193,8 @@ public class Consultas{
         return datos;
     }
     public boolean RegistroVeterinario(String contrasenaFunc, String cedula, String nombre,String apellidos,  String telefono ){
-        
+        /*metodo de la clase Consultas que retorna un valor booleano si se realiza una inserción en la base de datos de un nuevo veterinario   
+        */
         ResultSet rs = null;
         PreparedStatement pst = null;
         try {
@@ -216,6 +240,8 @@ public class Consultas{
         return false;
     }
     public List<Finca> filtrarFinca (String nombreFinca){
+        /*metodo de la clase Consultas el cual realiza una lista de los datos de una finca cuyo nombre ingresa por parametro
+        */
         List<Finca> datos = new ArrayList();
         PreparedStatement pst;
         ResultSet rs;
@@ -247,7 +273,8 @@ public class Consultas{
         return datos;
     }
     public List<Finca> filtrar(String campo) {
-   
+    /*metodo de la clase Consultas el cual realiza una lista de los datos de una finca cuyo código de finca ingresa por parametro
+        */
         List<Finca> datos = new ArrayList();
         PreparedStatement pst;
         ResultSet rs;
@@ -281,6 +308,9 @@ public class Consultas{
         return datos;
     }
      public List<Inseminacion> listaInseminacionFuncionario(String nombreFinca){
+          /*metodo de la clase Consultas el cual realiza una lista con las inseminaciones de una finca cuyo nombre ingresa por parametro,
+            para reporte del funcionario.
+        */
         List<Inseminacion> datos = new ArrayList();
         PreparedStatement pst;
         ResultSet rs;
@@ -313,6 +343,9 @@ public class Consultas{
         return datos;
     }
     public List<Inseminacion> ListarInseminacionFinca(String campo){
+         /*metodo de la clase Consultas el cual realiza una lista de la inseminaciones de una finca donde la busqueda es por el correo de usuario que ingresa por parametro
+            para el usuario.
+        */
         List<Inseminacion> datos = new ArrayList();
         PreparedStatement pst;
         ResultSet rs;
@@ -346,6 +379,9 @@ public class Consultas{
     }
     
  public List<Finca> ListarFincaUsuario(String campo){
+      /*metodo de la clase Consultas el cual realiza una lista de los datos de una finca donde el correo del dueño ingresa por parametro
+        datos para el usuario. 
+     */
         List<Finca> datos = new ArrayList<>();
         PreparedStatement pst;
         ResultSet rs;
@@ -377,6 +413,8 @@ public class Consultas{
         return datos;
  }
  public List<Animal> filtraAnimalNombre(String nombreFinca){
+      /*metodo de la clase Consultas el cual realiza una lista de los datos de los animales de una finca cuyo nombre ingresa por parametro
+        */
      List<Animal> datos = new ArrayList<>();
         PreparedStatement pst;
         ResultSet rs;
@@ -394,7 +432,7 @@ public class Consultas{
                         rs.getString("fecha_nacimiento"), rs.getString("raza_animal"),
                         rs.getString("genero_animal"), rs.getString("metodo_concepcion"),
                         rs.getString("etapa_animal"), rs.getString("nombre_padre"),
-                        rs.getString("nombre_madre"), rs.getString("foto_animal"),
+                        rs.getString("nombre_madre"),
                         rs.getString("observaciones"), rs.getString("id_finca")));
                 
             }
@@ -406,7 +444,8 @@ public class Consultas{
         return datos;
  }
     public List<Animal> filtrarAnimal(String campo) {
-   
+    /*metodo de la clase Consultas el cual realiza una lista de los datos de los animales de una finca cuyo correo de dueño ingresa por parametro
+        */
         List<Animal> datos = new ArrayList<>();
         PreparedStatement pst;
         ResultSet rs;
@@ -424,7 +463,7 @@ public class Consultas{
                         rs.getString("fecha_nacimiento"), rs.getString("raza_animal"),
                         rs.getString("genero_animal"), rs.getString("metodo_concepcion"),
                         rs.getString("etapa_animal"), rs.getString("nombre_padre"),
-                        rs.getString("nombre_madre"), rs.getString("foto_animal"),
+                        rs.getString("nombre_madre"),
                         rs.getString("observaciones"), rs.getString("id_finca")));
                 
             }
@@ -435,35 +474,35 @@ public class Consultas{
         }
         return datos;
     }
-    public int CantidadLitrosLeche(String campo){
-        int datoFinal=0;
+    public List<Leche> CantidadLitrosLeche(String campo){
+         /*metodo de la clase Consultas el cual realiza una lista de los litros de leche producidos en una finca cuyo nombre ingresa por parametro
+        */
+        List<Leche> listaLitros = new ArrayList<>();
         PreparedStatement pst;
         ResultSet rs ;
-        
+        String sql="SELECT * FROM leche,animal,finca WHERE leche.id_animal = animal.id_animal AND animal.id_finca = finca.id_finca AND nombre_finca =? ";
+            
         try {
-            String sql="SELECT SUM( litros_leche ) AS litros \n" +
-                    "FROM leche, animal, finca\n" +
-                    "WHERE leche.id_animal = animal.id_animal\n" +
-                    "AND animal.id_finca = finca.id_finca\n" +
-                    "AND nombre_finca =? \n" +
-                    "AND MONTH( fecha_leche ) =01 \n" +
-                    "AND YEAR( fecha_leche ) =2018";
             con = new Conexion();
             pst = con.getConnection().prepareStatement(sql);
-            pst.setString(1, campo);
-            rs = pst.executeQuery(sql);
-            datoFinal= rs.getInt("litros") ;
-            System.out.println("litros:  "+datoFinal);
+            pst.setString(1,campo);
+            rs = pst.executeQuery();
+            while (rs.next()) {
+                listaLitros.add(new Leche(rs.getString("fecha_leche"),
+                        rs.getInt("litros_leche"),
+                        rs.getString("id_animal")));
+            }
             con.getConnection().close();
         }catch(Exception e){
             e.printStackTrace();
-            System.out.println("error contando litros de leche");
+            System.out.println("error consulta litros de leche");
         }
         
-        return datoFinal;
+        return listaLitros;
     }
    public boolean cambiaEtapaAnimal(String id_animal, String etapa){
-       
+        /*metodo de la clase Consultas el cual realiza un registro  ala base de datos realizando un cambio al estado del animal ingresado por parametro
+        */
         ResultSet rs = null;
         PreparedStatement pst = null;
         try {
@@ -506,7 +545,8 @@ public class Consultas{
         return false; 
     }
     public boolean registroInseminacionExitosa(String id_inseminacion, String exito){
-        
+         /*metodo de la clase Consultas el cual realiza un regitro en la tabla inseminacion del exito de la misma  que ingresan por parametro
+        */
         ResultSet rs = null;
         PreparedStatement pst = null;
         try {
@@ -548,6 +588,8 @@ public class Consultas{
         return false;
     }
     public boolean registrarHistoriaClinica(HistoriaClinica obj){
+         /*metodo de la clase Consultas el cual realiza un registro a la base de datos del Historial clínico de un animal, donde crea el historial o agrega contenido al mismo
+        */
         ResultSet rs = null;
         PreparedStatement pst = null;
         HistoriaClinica historia = (HistoriaClinica)obj;
@@ -584,6 +626,8 @@ public class Consultas{
         return false;
     }
     public List<DetalleHistorial> listaHistoriaFuncionario(String nombrefinca){
+         /*metodo de la clase Consultas el cual realiza una lista de los detalles de historia clínica de un animal.
+        */
         List<DetalleHistorial> datos = new ArrayList<>();
         PreparedStatement pst;
         ResultSet rs;
@@ -616,7 +660,8 @@ public class Consultas{
         return datos;
     }
     public List<DetalleHistorial> listaHisto(String campo){
-       
+        /*metodo de la clase Consultas el cual realiza una lista del historial clinico de los animales de una finca cuyo correo del dueño ingresa por parametro
+        */
         List<DetalleHistorial> datos = new ArrayList<>();
         PreparedStatement pst;
         ResultSet rs;
@@ -650,6 +695,8 @@ public class Consultas{
     }
 
     public String buscaUsuario (String finca){
+         /*metodo de la clase Consultas, el cual realiza una lista de los datos de la finca que ingresa por parametro
+        */
         ResultSet rs ;
         PreparedStatement pst ;
         String usu="";
@@ -673,11 +720,7 @@ public class Consultas{
     public void setRespuesta(String Respuesta) {
         this.Respuesta = Respuesta;
     }
-    public static void main(String[] args) {
-        Consultas c= new Consultas();
-        c.buscaUsuario("F0001");
-    }
-    
+       
     
 }
 

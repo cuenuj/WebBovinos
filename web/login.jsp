@@ -59,7 +59,7 @@
                     <pre class="lead h1 bg">IDENTIFICACIÓN DE USUARIOS PARA INGRESO AL SISTEMA</pre>
                  
                     <pre class="bg-warning text-left h4 ">
-                        Para ingresar al sistema es nesesario la autenticación de usuario, por favor 
+                        Para ingresar al sistema es necesario la autenticación de usuario, por favor 
                         ingrese su correo y contraseña luego pulse el botón "Iniciar".</pre>
                 </div>
                 

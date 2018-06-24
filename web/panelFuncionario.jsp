@@ -75,8 +75,8 @@
               </nav>
             </div>
         <div class="nav nav-tabs col-xs-10 col-xs-offset-1">
-            <a class="h1 col-lg-offset-1">Bienvenido!! </a>
-            <a class="h3 col-lg-offset-1">   <% out.println(usuario);%></a>
+            <a class="h1 col-lg-offset-1">Bienvenido Funcionario!! </a>
+            <a class="h5 col-lg-offset-5">   <% out.println(usuario);%></a>
         </div>
         <ul class="nav nav-tabs col-xs-9 col-xs-offset-1  text-uppercase bg-info h5 ">
             <li><a href="#tab-fincasTotales" data-toggle="tab"> Fincas de Cómbita</a></li>
@@ -97,7 +97,7 @@
                         Genere un archivo tipo PDF con la informacion de una Finca, en el sigiuente recuadro  
                         ingrese el nombre de la finca y presione el botón "Generar Informe PDF".</pre>
                         <form action="infoPdfFuncionario" method="get">
-                            <input type="text" class="form-control" placeholder="Nombre de la finca" name="nombre_finca">
+                            <input type="text" class="col-sm-4 " placeholder="Nombre de la finca" name="nombre_finca">
                             <button class="btn btn-primary" name="btn_informePDF" type="submit" >Generar Informe PDF</button>
                         </form>
                     </div>
@@ -114,8 +114,8 @@
                             ingrese el codigo único de la finca y presione el botón  "Buscar Finca",
                             o en el botón "ver Lista Completa de Fincas" para ver todo el listado de nuevo.
                             </pre>
-                            <span class=" input-group-addon">Código Finca
-                            <input type="text" class="form-control" placeholder="código Único de Finca" name="codigo_finca">
+                            <span class=" input-group-addon">Código Finca <br/><br/>
+                            <input type="text" class="col-sm-5" placeholder="código Único de Finca" name="codigo_finca">
                             <button class="btn btn-default" name="btn_buscar" type="submit" >Buscar Finca</button>
 
                             <button class="btn btn-default" name="btn_lista" type="submit" >Ver Lista Completa de Fincas</button>
@@ -175,37 +175,37 @@
                                 </pre>
                                 <div class="form-group">
                                     <label class="control-label col-sm-5" for="id_finca">Código único de Finca:</label>
-                                    <div class="col-sm-7">
-                                        <input type="text" class="form-control" id="id_finca" placeholder="número identificación Finca" name="id_finca">
+                                    <div class="col-sm-3">
+                                        <input type="text" class="form-control" id="id_finca" placeholder="Código de la Finca" name="id_finca">
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="control-label col-sm-5" for="nombre_finca">Nombre de Finca:</label>
-                                    <div class="col-sm-7">
+                                    <div class="col-sm-4">
                                         <input type="text" class="form-control" id="nombre_finca" placeholder="Nombre de la Finca" name="nombre_finca">
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="control-label col-sm-5" for="cordenada_latitud">Coordenada latitud:</label>
-                                    <div class="col-sm-7">
+                                    <div class="col-sm-4">
                                         <input type="text" class="form-control" id="cordenada_latitud" placeholder="cordenada latitud" name="cordenada_latitud">
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="control-label col-sm-5" for="cordenada_longitud">Coordenada longitud:</label>
-                                    <div class="col-sm-7">
+                                    <div class="col-sm-4">
                                         <input type="text" class="form-control" id="cordenada_longitud" placeholder="cordenada longitud" name="cordenada_longitud">
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="control-label col-sm-5" for="cedula">Número de Cédula del Dueño:</label>
-                                    <div class="col-sm-7">
+                                    <div class="col-sm-4">
                                         <input type="text" class="form-control" id="cedula" placeholder="número cédula del duaño" name="cedula">
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="control-label col-sm-5" for="i_lugar">Vereda donde se Ubica:</label>
-                                    <div class="col-sm-7">
+                                    <div class="col-sm-4">
                                         <input type="text" class="form-control" id="i_lugar" placeholder="vereda de ubicación de la Finca" name="i_lugar">
                                     </div>
                                 </div>
@@ -232,26 +232,26 @@
                                 </pre>
                                     <div class="form-group">
                                         <label class="control-label col-sm-5" for="id_animal">Número de Identificación Veterinario:</label>
-                                        <div class="col-sm-7">
+                                        <div class="col-sm-3">
                                             <input type="text" class="form-control" id="cedula_veterinario" placeholder="número identificación" name="cedula_veterinario">
                                         </div>
                                       </div>
                                       <div class="form-group">
                                         <label class="control-label col-sm-5" for="nombre_animal">Nombre del Veterinario:</label>
-                                        <div class="col-sm-7"> 
+                                        <div class="col-sm-4"> 
                                             <input type="text" class="form-control" id="nombre_veterinario" placeholder="nombre del veterinario" name="nombre_veterinario">
                                         </div>
                                       </div>
                                       <div class="form-group">
                                         <label class="control-label col-sm-5" for="apellidos_animal">Apellidos del Veterinario:</label>
-                                        <div class="col-sm-7"> 
+                                        <div class="col-sm-4"> 
                                             <input type="text" class="form-control" id="apellidos_veterinario" placeholder="Apellidos del veterinario" name="apellidos_veterinario">
                                         </div>
                                       </div>
                                         
                                         <div class="form-group">
                                             <label class="control-label col-sm-5" for="telefono">Teléfono de contacto:</label>
-                                            <div class="col-sm-7">
+                                            <div class="col-sm-3">
                                                 <input type="text" class="form-control" id="telefono" placeholder="telefono" name="telefono">
                                             </div>
                                         </div>
@@ -260,7 +260,7 @@
                                                 <div class="card-body">
                                                     <div class="form-group">
                                                             <label class="control-label col-sm-5" for="telefono">Contraseña del Funcionario:</label>
-                                                            <div class="col-sm-7">
+                                                            <div class="col-sm-3">
                                                                 <input type="password" id="inputPassword" class="form-control" placeholder="contraseña" required name="contrasena_funcionario">
                                                             </div>
                                                         </div>
@@ -285,14 +285,20 @@
                     <div class="card-body">
                         <form role="form" method="post" action="infoLeche">
                             <pre class="bg-warning text-left h4 ">
-                        A continuación usted puede obtener un balance de la producción de leche de una finca, 
-                        ingrese el código de la finca en cuestión y oprima el boton "Ver Informe".
+                        A continuación usted puede obtener un reporte de la producción de leche de una finca, 
+                        ingrese el nombre de la finca en cuestión y oprima el boton "Ver Informe".
                                 </pre>
                             
                             <div class="form-group">
-                                <label class="control-label col-sm-5" for="id_finca">Código único de Finca:</label>
-                                <div class="col-sm-7">
-                                    <input type="text" class="form-control" id="id_finca" placeholder="número identificación Finca" name="id_finca">
+                                <label class="control-label col-sm-5" for="nombre_finca">Nombre de Finca:</label>
+                                <div class="col-sm-4">
+                                    <input type="text" class="form-control" id="id_finca" placeholder="Nombre de la Finca" name="nombre_finca">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-5" for="valor_leche">Precio del Litro de leche sin puntos ni espacios:</label>
+                                <div class="col-sm-4">
+                                    <input type="text" class="form-control" id="valor_leche" placeholder="Precio litro de leche" name="valor_leche">
                                 </div>
                             </div>
                             <div class="form-group"> 
@@ -314,8 +320,8 @@
             archivo PDF, que puede generar en la pestaña "FINCAS DE CÓMBITA" 
                         </pre>
                         <form role="form" method="post" action="infoInseminacion">
-                            <span class=" input-group-addon">Busqueda de inseminaciones por el nombre de Finca
-                                <input type="text" class="form-control" placeholder="Nombre de la Finca" name="nombre_finca">
+                            <span class=" input-group-addon">Busqueda de inseminaciones por el nombre de Finca<br/><br/>
+                                <input type="text" class="col-sm-4" placeholder="Nombre de la Finca" name="nombre_finca">
                                 <button class="btn btn-default" name="btn_inseminaciones_finca" type="submit" >Buscar Finca</button>
                             </span>
                         </form>
@@ -329,8 +335,8 @@
             realizadas en una finca especifica, ingrese el nombre de la finca 
             seguido del botón "Buscar Finca Específica".
                         </pre>    
-                        <span class=" input-group-addon">Busqueda de Enfermedades De Bovinos En Cómbita
-                            <input type="text" class="form-control" placeholder="Nombre de la Finca" name="nombre_fincaH">
+                        <span class=" input-group-addon">Busqueda de Enfermedades De Bovinos En Cómbita <br/><br/>
+                            <input type="text" class="col-sm-4" placeholder="Nombre de la Finca" name="nombre_fincaH">
                             <button class="btn btn-default" name="btn_enfermedad_finca" type="submit" >Buscar Finca Específica</button>
                             <button class="btn btn-default" name="btn_enfermedad_general" type="submit" >Mostrar Lista General</button>
                         </span>

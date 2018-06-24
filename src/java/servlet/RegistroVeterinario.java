@@ -19,7 +19,8 @@ import persistencia.Consultas;
  * @author cuenu
  */
 public class RegistroVeterinario extends HttpServlet {
-
+/*Servlet de gestion para la creación de veterinarios.
+        */
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.

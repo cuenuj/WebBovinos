@@ -10,6 +10,8 @@ package persistencia;
  * @author cuenu
  */
 public class Inseminacion {
+    /*Clase Inseminacion, la cual contiene los atributos propios de este objetos según el modelo de negocio planteado
+        */
     String id_inseminacion;
     String fecha_inseminacion;
     String raza_pajilla;
@@ -19,11 +21,12 @@ public class Inseminacion {
     String inseminacion_exitosa;
 
     public Inseminacion() {
+        /*Constructor de la clase vacio
+        */
     }
-
-    
-   
-    public Inseminacion(String id_inseminacion, String fecha_inseminacion, String raza_pajilla, String sexada, String id_veterinario, String id_animal, String inseminacion_exitosa) {
+     public Inseminacion(String id_inseminacion, String fecha_inseminacion, String raza_pajilla, String sexada, String id_veterinario, String id_animal, String inseminacion_exitosa) {
+        /*Constructor de la clase con los atributos propios de este objeto.
+        */
         this.id_inseminacion = id_inseminacion;
         this.fecha_inseminacion = fecha_inseminacion;
         this.raza_pajilla = raza_pajilla;

@@ -13,8 +13,10 @@
 <%@page import="persistencia.Consultas"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
+    Consultas co= new Consultas();
     HttpSession objSesion = request.getSession(false);
     String usuario = (String) objSesion.getAttribute("usuario");
+    String nombre = co.nombreUsu(usuario);
     if(usuario.equals("")){
         response.sendRedirect("login.jsp");
     }
@@ -38,19 +40,26 @@
         <title>Usuario</title>
     </head>
     <% 
-        Consultas co= new Consultas();
+        
         List<Finca> datos = new ArrayList();
         List<Animal> animal = new ArrayList();
         List<Inseminacion> inseminacion = new ArrayList();
         List<DetalleHistorial> historia = new ArrayList();
+        datos = co.ListarFincaUsuario(usuario);
+        for(Finca f:datos){
+            
+        
         
     %>
     <body>
         <div class="nav nav-tabs col-xs-10 col-xs-offset-1">
-            <a class="h1 col-lg-offset-1">Bienvenido!! </a>
-            <a class="h3 col-lg-offset-1">   <% out.println(usuario);%></a>
-            <a class="btn btn-lg btn-primary col-lg-offset-2 bottom-right" href="login.jsp">Cerrar sesión</a>
+            <a class="h1 col-lg-offset-1">Bienvenido Usuario!! </a>
+            <a class="h4 col-lg-offset-4"><%= f.getNombreDueno()%></a>
+            <a class="btn btn-primary col-xs-2" href="login.jsp">Cerrar sesión</a>
         </div>
+            <%
+            }
+            %>
         <ul class="nav nav-tabs col-xs-10 col-xs-offset-1 text-uppercase bg-info h5 ">
             <li><a href="#tab-miFinca" data-toggle="tab">Mi Finca</a></li>
             <li><a href="#tab-animal" data-toggle="tab">Registrar Animal</a></li>
@@ -112,7 +121,6 @@
                                 <div class="card-body">
                                     <table class="table table-striped" border="2">
                                     <tr>
-                                        <td>Código de la Finca</td>
                                         <td>Código del animal</td>
                                         <td>Nombre del animal</td>
                                         <td>Fecha de Nacimiento</td>
@@ -128,7 +136,6 @@
                                             for(Animal a :animal){
                                         %>
                                         <tr>
-                                            <td> <%= a.getId_finca() %> </td>
                                             <td> <%= a.getId_animal()%> </td>
                                             <td> <%= a.getNombre_animal()%> </td>
                                             <td> <%= a.getFecha_nacimiento()%> </td>
@@ -202,26 +209,26 @@
                                 
                                     <div class="form-group">
                                         <label class="control-label col-sm-5" for="id_animal">Código del animal:</label>
-                                        <div class="col-sm-7">
+                                        <div class="col-sm-3">
                                             <input type="text" class="form-control" id="id_animal" placeholder="Código del animal" name="id_animal">
                                         </div>
                                       </div>
                                       <div class="form-group">
                                         <label class="control-label col-sm-5" for="nombre_animal">Nombre del animal:</label>
-                                        <div class="col-sm-7"> 
+                                        <div class="col-sm-4"> 
                                             <input type="text" class="form-control" id="nombre_animal" placeholder="nombre del Animal" name="nombre_animal">
                                         </div>
                                       </div>
                                       <div class="form-group">
                                         <label class="control-label col-sm-5" for="fecha_nacimiento">Fecha De Nacimiento:</label>
-                                        <div class="col-sm-7"> 
+                                        <div class="col-sm-5"> 
                                             
                                             <input type="text" id="datepickerA" name="fecha_nacimiento" placeholder="Fecha de nacimiento">
                                         </div>
                                       </div>
                                         <div class="form-group">
                                             <label class="control-label col-sm-5" for="raza_animal">Raza del Animal:</label>
-                                            <div class="col-sm-7">
+                                            <div class="col-sm-3">
                                                 <select class="form-control col-sm-7" id="sel1" name="raza_animal">
                                               <option selected value="0"> Elija una opción </option>
                                                         <option>Normando</option>
@@ -236,8 +243,8 @@
                                         </div>
                                         <div class="form-group">
                                             <label class="control-label col-sm-5" for="genero_animal">Género del Animal:</label>
-                                            <div class="col-sm-7">
-                                                <select class="form-control col-sm-7" id="sel1" name="genero_animal">
+                                            <div class="col-sm-3">
+                                                <select class="form-control col-sm-3" id="sel1" name="genero_animal">
                                               <option selected value="0"> Elija una opción </option>
                                                         <option>Macho</option>
                                                         <option>Hembra</option>
@@ -248,7 +255,7 @@
                                         </div>
                                         <div class="form-group">
                                             <label class="control-label col-sm-5" for="metodo_concepcion">Método de concepción:</label>
-                                            <div class="col-sm-7">
+                                            <div class="col-sm-3">
                                                 <select class="form-control col-sm-7" id="sel1" name="metodo_concepcion">
                                               <option selected value="0"> Elija una opción </option>
                                                         <option>Natural</option>
@@ -260,8 +267,8 @@
                                         </div>
                                         <div class="form-group">
                                             <label class="control-label col-sm-5" for="etapa_animal">Etapa de Vida:</label>
-                                            <div class="col-sm-7">
-                                                <select class="form-control col-sm-7" id="sel1" name="etapa_animal">
+                                            <div class="col-sm-3">
+                                                <select class="form-control col-sm-2" id="sel1" name="etapa_animal">
                                               <option selected value="0"> Elija una opción </option>
                                                         <option>Ternero/option>
                                                         <option>Novillo</option>
@@ -277,25 +284,19 @@
                                         </div>
                                         <div class="form-group">
                                         <label class="control-label col-sm-5" for="nombre_padre">Nombre del Padre:</label>
-                                        <div class="col-sm-7"> 
+                                        <div class="col-sm-4"> 
                                             <input type="text" class="form-control" id="nombre_padre" placeholder="nombre del Padre" name="nombre_padre">
                                         </div>
                                       </div>
                                       <div class="form-group">
                                         <label class="control-label col-sm-5" for="nombre_madre">Nombre de la Madre:</label>
-                                        <div class="col-sm-7"> 
+                                        <div class="col-sm-4"> 
                                             <input type="text" class="form-control" id="nombre_madre" placeholder="nombre de la Madre" name="nombre_madre">
                                         </div>
                                       </div>
                                         <div class="form-group">
-                                        <label class="control-label col-sm-5" for="foto_animal">Foto del Animal:</label>
-                                        <div class="col-sm-7"> 
-                                            <input type="file" id="files" name="files[]" />
-                                        </div>
-                                        </div>
-                                        <div class="form-group">
                                             <label class="control-label col-sm-5" for="observaciones">Observaciones:</label>
-                                            <div class="col-sm-7">
+                                            <div class="col-sm-6">
                                                 <input type="text" class="form-control" id="observaciones" placeholder="Observaciones" name="observaciones">
                                             </div>
                                         </div>
@@ -304,7 +305,7 @@
                                                 <div class="card-body">
                                                     <div class="form-group">
                                                             <label class="control-label col-sm-5" for="id_finca">Código de la finca donde habita el animal:</label>
-                                                            <div class="col-sm-7">
+                                                            <div class="col-sm-3">
                                                                 <input type="text" id="id_finca" class="form-control" placeholder="Codigo de la finca" required name="id_finca">
                                                             </div>
                                                         </div>
@@ -339,13 +340,13 @@
                             <div class="card-body">
                                 <div class="form-group">
                                     <label class="control-label col-sm-5" for="id_animal">Código del animal:</label>
-                                    <div class="col-sm-7">
+                                    <div class="col-sm-3">
                                         <input type="text" class="form-control" id="id_animal" placeholder="Código del animal" name="id_animal">
                                     </div>
                                 </div>
                                 <div class="form-group">
                                             <label class="control-label col-sm-5" for="metodo_concepcion">Etapa de Vida:</label>
-                                            <div class="col-sm-7">
+                                            <div class="col-sm-3">
                                                 <select class="form-control col-sm-7" id="sel1" name="metodo_concepcion">
                                               <option selected value="0"> Elija una opción </option>
                                                         <option>Ternero(a)</option>
@@ -376,25 +377,25 @@
                             <div class="card-body">
                                 <div class="form-group">
                                     <label class="control-label col-sm-5" for="id_inseminacion">Código único de Inseminación:</label>
-                                    <div class="col-sm-7">
+                                    <div class="col-sm-3">
                                         <input type="text" class="form-control" id="id_inseminacion" placeholder="Código de inseminación" name="id_inseminacion">
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="control-label col-sm-5" for="id_animal">Código del animal:</label>
-                                    <div class="col-sm-7">
+                                    <div class="col-sm-3">
                                         <input type="text" class="form-control" id="id_animal" placeholder="Código del animal" name="id_animal">
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="control-label col-sm-5" for="cedula_veterinario">Cédula del veterinario:</label>
-                                    <div class="col-sm-7">
+                                    <div class="col-sm-3">
                                         <input type="text" class="form-control" id="cedula_veterinario" placeholder="Cédula del veterinario" name="cedula_veterinario">
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="control-label col-sm-5" for="cedula_veterinario">Fecha de inseminación</label>
-                                    <div class="col-sm-7">
+                                    <div class="col-sm-3">
                                         <input type="text" id="datepicker" name="fecha_inseminacion" placeholder="Fecha de inseminación">
                                     </div>
                                 </div>
@@ -403,7 +404,7 @@
                                       </div>
                                 <div class="form-group">
                                     <label class="control-label col-sm-5" for="raza_pajilla">Raza de la Pajilla:</label>
-                                    <div class="col-sm-7">
+                                    <div class="col-sm-3">
                                         <select class="form-control col-sm-7" id="sel1" name="raza_pajilla">
                                             <option selected value="0"> Elija una opción </option>
                                                 <option>Normando</option>
@@ -417,8 +418,8 @@
                                 </div>
                                 <div class="form-group">
                                     <label class="control-label col-sm-5" for="sexada">Sexada:</label>
-                                    <div class="col-sm-7">
-                                        <select class="form-control col-sm-7" id="sel1" name="sexada">
+                                    <div class="col-sm-2">
+                                        <select class="form-control col-sm-2" id="sel1" name="sexada">
                                             <option selected value="0"> Elija una opción </option>
                                                 <option>Si</option>
                                                 <option>No</option>
@@ -453,13 +454,13 @@
                             <div class="card-body">
                                 <div class="form-group">
                                     <label class="control-label col-sm-5" for="id_inseminacion">Código único de Inseminación:</label>
-                                    <div class="col-sm-7">
+                                    <div class="col-sm-3">
                                         <input type="text" class="form-control" id="id_inseminacion" placeholder="Código de inseminación" name="id_inseminacion">
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="control-label col-sm-5" for="inseminacion_exitosa">Inseminación exitosa:</label>
-                                    <div class="col-sm-7">
+                                    <div class="col-sm-2">
                                         <select class="form-control col-sm-7" id="sel1" name="inseminacion_exitosa">
                                             <option selected value="0"> Elija una opción </option>
                                                 <option>Si</option>
@@ -487,20 +488,20 @@
                             <div class="card-body">
                                 <div class="form-group">
                                     <label class="control-label col-sm-5" for="id_animal">Código único del Animal:</label>
-                                    <div class="col-sm-7">
+                                    <div class="col-sm-3">
                                         <input type="text" class="form-control" id="id_animal" placeholder="Codigo del animal" name="id_animal">
                                     </div>
                                 </div>
                                 <div class="form-group">
                                         <label class="control-label col-sm-5" for="fecha_leche">Fecha del ordeño:</label>
-                                        <div class="col-sm-7"> 
+                                        <div class="col-sm-3"> 
                                             <input type="text" id="datepickerB" name="fecha_leche" placeholder="Fecha del ordeño">
                                         </div>
                                       </div>
                                 <div class="form-group">
                                     <label class="control-label col-sm-5" for="litros_leche">Litros de leche producidos:</label>
-                                    <div class="col-sm-7">
-                                        <select class="form-control col-sm-7" id="sel1" name="litros_leche">
+                                    <div class="col-sm-2">
+                                        <select class="form-control col-sm-2" id="sel1" name="litros_leche">
                                             <option selected value="5"> Elija una opción </option>
                                                 <option>5</option><option>6</option>
                                                 <option>7</option><option>8</option>
@@ -539,7 +540,7 @@
                                 </div>
                                 <div class="form-group"> 
                                         <div class="col-sm-offset-4 col-sm-10">
-                                            <button type="submit" class="btn btn-default btn-primary" name="btn_regLeche" onclick="$('#f_date_b2').val($('#f_date_b').val())">Registrar Producción</button>
+                                            <button type="submit" class="btn btn-default btn-primary" name="btn_regLeche" >Registrar Producción</button>
                                         </div>
                                 </div>
                             </div>
@@ -549,17 +550,17 @@
                 <div class="tab-pane" id="tab-historial">
                     <form role="form" method="post" action="creaHistoria">
                         <div class="card">
-                            <div class="card-header alert-success text-center ">DATOS DEL ANIMAL PASIENTE  </div><br/>
+                            <div class="card-header alert-success text-center ">DATOS DEL ANIMAL PACIENTE  </div><br/>
                             <div class="card-body">
                                 <div class="form-group">
                                     <label class="control-label col-sm-5" for="id_historial">Código unico de Historial clínico:</label>
-                                    <div class="col-sm-7">
+                                    <div class="col-sm-3">
                                         <input type="text" class="form-control" id="id_historial" placeholder="Codigo del hsitorial clínico" name="id_historia">
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="control-label col-sm-5" for="id_animal">Código único del Animal:</label>
-                                    <div class="col-sm-7">
+                                    <div class="col-sm-3">
                                         <input type="text" class="form-control" id="id_animal" placeholder="Codigo del animal" name="id_animal">
                                     </div>
                                 </div>
@@ -567,27 +568,27 @@
                                 
                                 <div class="form-group">
                                         <label class="control-label col-sm-5" for="fecha_historia">Fecha de la sesión Clínica:</label>
-                                        <div class="col-sm-7"> 
+                                        <div class="col-sm-3"> 
                                             <input type="text" id="datepickerC" name="fecha_historia" placeholder="Fecha de la Sesión Clínica">
                                         </div>
                                       </div>
                                 <div class="form-group">
                                     <label class="control-label col-sm-5" for="cedula_veterinario">Cédula del veterinario:</label>
-                                    <div class="col-sm-7">
+                                    <div class="col-sm-3">
                                         <input type="text" class="form-control" id="cedula_veterinario" placeholder="Cédula del veterinario" name="cedula_veterinario">
                                     </div>
                                 </div>
                                 <div class="card-header alert-success text-center ">OBSERVACIONES</div><br/>
                                 <div class="form-group">
                                     <label class="control-label col-sm-5" for="observaciones">Se encontró:</label>
-                                    <div class="col-sm-7">
+                                    <div class="col-sm-3">
                                         <input type="text" class="form-control" id="observaciones" placeholder="Observaciones" name="observaciones">
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="control-label col-sm-5" for="enfermedad">Enfermedad hayada:</label>
-                                    <div class="col-sm-7">
-                                        <select class="form-control col-sm-7" id="sel1" name="enfermedad">
+                                    <div class="col-sm-3">
+                                        <select class="form-control col-sm-3" id="sel1" name="enfermedad">
                                             <option selected value="0"> Ninguna </option>
                                                 <option>Parvo</option><option>Aptosa</option>
                                                 

@@ -20,7 +20,8 @@ import persistencia.Consultas;
  * @author cuenu
  */
 public class registrarFuncionario extends HttpServlet {
-
+/*Servlet de gestion del perfil del funcionario.
+        */
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.

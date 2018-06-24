@@ -18,11 +18,14 @@ import persistencia.ConexionDB;
  * @author cuenu
  */
 public class ConsultasDAO implements Operaciones{
-
+ /*clase ConsultasDAO, la cual contiene otra parte de la consultas y registros a la base de datos 
+    los metodos de esta clase son inicializados en la clase Operaciones del paquete persitencia.
+    */
     ConexionDB db = new ConexionDB();
     @Override
     public String insertar(Object obj) {
-    
+     /*metodo de la clase ConsultasDAO, el cual realiza una inserción a la base de datos de un objeto de tipo finca ingresado por parametro
+        */
         String respuesta="";
         Finca f = (Finca)obj;
         Connection conn = null;
@@ -54,6 +57,8 @@ public class ConsultasDAO implements Operaciones{
 
     @Override
     public String modificar(Object obj) {
+        /*metodo de la clase ConsultasDAO, el cual modifica en la base de datos una finca.
+        */
         Finca f= (Finca)obj;
         Connection conn = null;
         PreparedStatement pst;
@@ -83,7 +88,9 @@ public class ConsultasDAO implements Operaciones{
 
     @Override
     public String eliminar(String obj) {
-    
+    /*metodo de la clase ConsultasDAO, el cual realiza una eliminación de una finca almacenada en la base de datos.
+        actualmente este metodo no es usado puesto que el modelo no permite la desaparición de fincas.
+        */
         Finca f= new Finca();
         Connection conn = null;
         PreparedStatement pst;
@@ -107,23 +114,10 @@ public class ConsultasDAO implements Operaciones{
         
         return respuesta;
     }
-
-    @Override
-    public List<Finca> Consultar() {
-    
-        List<Finca> datos = new ArrayList<>();
-        
-        return datos;
-    }
-
-    @Override
-    public List<?> filtrar(String campo) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
     @Override
     public String insertarAnimal(Object obj) {
-    
+    /*metodo de la clase ConsultasDAO, el cual hace una inserción de un nuevo animal a la base de datos.
+        */
         Animal a= (Animal)obj;
         Connection conn;
         PreparedStatement pst;
@@ -147,7 +141,6 @@ public class ConsultasDAO implements Operaciones{
             pst.setString(7, a.getEtapa_vida());
             pst.setString(8, a.getNombrePadre());
             pst.setString(9, a.getNombreMadre());
-            pst.setString(10, a.getFoto_animal());
             pst.setString(11, a.getObservaciones());
             pst.setString(12, a.getId_finca());
             int filas = pst.executeUpdate();
@@ -162,27 +155,9 @@ public class ConsultasDAO implements Operaciones{
     }
 
     @Override
-    public String modificarAnimal(Object obj) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public String eliminarAnimal(Object obj) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public List<?> ConsultarAnimal() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public List<?> filtrarAnimal(String campo) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
     public String insertarInseminacion(Object obj) {
+        /*metodo de la clase ConsultasDAO, que realiza una inserción de inseminación de un animal.
+        */
         Inseminacion in = (Inseminacion)obj;
         Connection conn;
         PreparedStatement pst;
@@ -216,38 +191,16 @@ public class ConsultasDAO implements Operaciones{
     
     }
     
-
-    @Override
-    public String modificarInseminacion(Object obj) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public String eliminarInseminacion(Object obj) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public List<?> ConsultarInseminacion() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public List<?> filtrarInseminacion(String campo) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
     @Override
     public String insertarLeche(Object obj) {
-    
+    /*metodo de la clase ConsultasDAO, que realiza una inserción a la base de datos de una nueva produccion de leche.
+        */
         Leche leche = (Leche)obj;
         Connection conn;
         PreparedStatement pst;
         
         String respuesta="";
-        
         try {
-            
             Class.forName(db.getDriver());
             conn = DriverManager.getConnection(
                     db.getUrl(),
@@ -275,36 +228,26 @@ public class ConsultasDAO implements Operaciones{
     }
 
     @Override
-    public String modificarLeche(Object obj) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public List<?> ConsultarLeche() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
     public boolean insertarHistoria(Object obj) {
-        
-                HistoriaClinica historia = (HistoriaClinica)obj;
-                Connection conn1;
-                PreparedStatement pst1;
-                String sql1="INSERT INTO historia_clinica VALUES(?,?)";
-                try {
-                    Class.forName(db.getDriver());
-                    conn1 = DriverManager.getConnection(
-                            db.getUrl(),
-                            db.getUs(),
-                            db.getPass());
-                    pst1 = conn1.prepareStatement(sql1);
+        /*metodo de la clase ConsultasDAO, el cual crea un nuevo historial Clínico.
+        */
+        HistoriaClinica historia = (HistoriaClinica)obj;
+        Connection conn1;
+        PreparedStatement pst1;
+        String sql1="INSERT INTO historia_clinica VALUES(?,?)";
+        try {
+            Class.forName(db.getDriver());
+            conn1 = DriverManager.getConnection(
+                db.getUrl(),
+                db.getUs(),
+                db.getPass());
+            pst1 = conn1.prepareStatement(sql1);
 
-                    pst1.setString(1, historia.getId_historia());
-                    pst1.setString(2, historia.getId_animal());
-                    
-                    if( pst1.executeUpdate()==1){
-                        return true;
-                    }
+            pst1.setString(1, historia.getId_historia());
+            pst1.setString(2, historia.getId_animal());
+            if( pst1.executeUpdate()==1){
+                return true;
+            }
                     conn1.close();
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -313,15 +256,10 @@ public class ConsultasDAO implements Operaciones{
             }
            
 
-    
-    @Override
-    public List<?> ConsultarHistoria() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
     @Override
     public String insertarDetalleHistoria(Object obj) {
-    
+    /*metodo de la clase ConsultasDAO, el cual inserta detalle a un historial clínico.
+        */
                 DetalleHistorial detalle = (DetalleHistorial)obj;
                 Connection conn1;
                 PreparedStatement pst1;

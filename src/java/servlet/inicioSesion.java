@@ -19,7 +19,8 @@ import persistencia.Consultas;
  * @author cuenu
  */
 public class inicioSesion extends HttpServlet {
-
+/*Servlet de gestion el inicio de sesión tanto para usuarios como funcionarios.
+        */
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.

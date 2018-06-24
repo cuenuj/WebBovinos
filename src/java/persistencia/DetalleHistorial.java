@@ -10,6 +10,8 @@ package persistencia;
  * @author cuenu
  */
 public class DetalleHistorial {
+    /*clase DetalleHistorial, la cual contiene el cuerpo o datos que detallan el historial clínico de un animal.
+        */
     String fecha_historia;
     String observaciones;
     String enfermedad;
@@ -19,11 +21,15 @@ public class DetalleHistorial {
     String cedula_veterinario;
 
     public DetalleHistorial() {
+        /*Contructor de la clase vacio.
+        */
     }
 
     
     
     public DetalleHistorial(String fecha_historia, String observaciones, String enfermedad, String Diagnostico, String tratamiento, String id_historial, String cedula_veterinario) {
+        /*constructor de la clase con los datos propios del detalle del historial clínico, según el modelo del negocio
+        */
         this.fecha_historia = fecha_historia;
         this.observaciones = observaciones;
         this.enfermedad = enfermedad;

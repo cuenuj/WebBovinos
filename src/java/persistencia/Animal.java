@@ -8,6 +8,7 @@ package persistencia;
 /**
  *
  * @author cuenu
+ * clase Animal, contiene la estructura con los atributos propios de un animal en este caso Vaca, para el sistema desarrollado.
  */
 public class Animal {
     String id_animal;
@@ -19,14 +20,17 @@ public class Animal {
     String etapa_vida;
     String nombrePadre;
     String nombreMadre;
-    String foto_animal;
     String observaciones;
     String id_finca;
 
     public Animal() {
+        /*Constructor vacio de la Clase Animal
+        */
     }
 
-    public Animal(String id_animal, String nombre_animal, String fecha_nacimiento, String raza_animal, String genero_animal, String metodo_concepcion, String etapa_vida, String nombrePadre, String nombreMadre, String foto_animal, String observaciones, String id_finca) {
+    public Animal(String id_animal, String nombre_animal, String fecha_nacimiento, String raza_animal, String genero_animal, String metodo_concepcion, String etapa_vida, String nombrePadre, String nombreMadre, String observaciones, String id_finca) {
+        /*Constructor con los atributos propios de la Clase Animal
+        */
         this.id_animal = id_animal;
         this.nombre_animal = nombre_animal;
         this.fecha_nacimiento = fecha_nacimiento;
@@ -36,7 +40,6 @@ public class Animal {
         this.etapa_vida = etapa_vida;
         this.nombrePadre = nombrePadre;
         this.nombreMadre = nombreMadre;
-        this.foto_animal = foto_animal;
         this.observaciones = observaciones;
         this.id_finca = id_finca;
     }
@@ -116,14 +119,6 @@ public class Animal {
         this.nombreMadre = nombreMadre;
     }
     
-    public String getFoto_animal() {
-        return foto_animal;
-    }
-
-    public void setFoto_animal(String foto_animal) {
-        this.foto_animal = foto_animal;
-    }
-
     public String getObservaciones() {
         return observaciones;
     }

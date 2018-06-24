@@ -10,14 +10,20 @@ package persistencia;
  * @author cuenu
  */
 public class Leche {
+    /*Clase Leche, la cual contiene los atributos propios de este objeto para la finalidad del modelo de negocio.
+        */
     String fecha_leche;
     int litros_leche;
     String id_animal;
 
     public Leche() {
+        /*Constructor de la clase vacio
+        */
     }
 
     public Leche(String fecha_leche, int litros_leche, String id_animal) {
+        /*Constructor de la clase con todos los atributos propios de este objeto.
+        */
         this.fecha_leche = fecha_leche;
         this.litros_leche = litros_leche;
         this.id_animal = id_animal;
